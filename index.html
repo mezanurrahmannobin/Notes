@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Depertment of Mechanical Engineering</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #1e1e1e;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Top Section Styles */
+        .top-section {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: linear-gradient(to right, #ff5757, #ff2d2d);
+            position: relative;
+        }
+
+        .header-image {
+            width: 40px; /* Reduced size */
+            height: 40px; /* Reduced size */
+            margin-right: 10px;
+        }
+
+        .search-container {
+            flex-grow: 1;
+            position: relative;
+        }
+
+        #searchInput {
+            width: calc(100% - 90px); /* Adjust width for button */
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .search-button {
+            background-color: #ff5757;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .contact-button {
+            background-color: #4caf50;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        /* Course pages styles */
+        .page {
+            display: none;
+            opacity: 0;
+            padding: 20px;
+            width: 90%;
+            margin: auto;
+        }
+
+        .page.active {
+            display: block;
+            opacity: 1;
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #888888;
+            text-align: center;
+        }
+
+        /* Main content */
+        .container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        h1 {
+            font-size: 36px;
+            animation: slideIn 1.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            0% { opacity: 0; transform: translateY(-30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .course-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .course-item a {
+            display: block;
+            padding: 15px;
+            background: #ff5757;
+            color: #fff;
+            text-decoration: none;
+            margin: 10px 0;
+            border-radius: 8px;
+            transition: 0.3s;
+            animation: fadeIn 2s ease-out forwards;
+            opacity: 0;
+        }
+
+        .course-item a:hover {
+            background: #ff2d2d;
+            transform: scale(1.1);
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateX(-50px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Course container styles */
+        .course-container {
+            background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white background */
+            border-radius: 10px; /* Rounded corners */
+            padding: 20px; /* Padding inside the box */
+            width: 90%; /* Set width */
+            max-width: 500px; /* Maximum width */
+            margin: 20px auto; /* Center horizontally and add margin on top and bottom */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+            text-align: center; /* Center the text */
+        }
+
+        /* Back button styling */
+        .back-button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: bold; /* Bold text */
+        }
+
+        .back-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body> 
+
+    <!-- Top Section -->
+    <div class="top-section">
+        <img src="ruet.jpg" alt="Header Image" class="header-image">
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search for courses...">
+        </div>
+        <button class="search-button" onclick="searchCourses()">Search</button>
+        <button class="contact-button" onclick="alert('Contact us at: your-facebook-id')">Contact Us</button>
+    </div>
+
+    <!-- Main Page -->
+    <div id="mainPage" class="page active">
+        <div class="course-container">
+            <h2>Depertment of Mechanical Engineering</h2>
+
+            <ul class="course-list">
+                <li class="course-item"><a href="javascript:void(0);" onclick="showPage('course2021')">1-1</a></li>
+                <li class="course-item"><a href="javascript:void(0);" onclick="showPage('course2022')">1-2</a></li>
+            </ul>
+            <a class="back-button" href="javascript:void(0);" onclick="showPage('mainPage')">Back to Home</a>
+        </div>
+    </div>
+
+    <!-- 2021 Courses Page -->
+    <div id="course2021" class="page">
+        <div class="course-container">
+            <h2>Depertment of Mechanical Engineering</h2>
+            <p>Explore the courses offered in 1-1</p>
+            <ul class="course-list">
+                <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1TIdcN4xFonQ4KUSqP6AW0YjnN8i9ylnu" target="_blank">Chem-1121</a></li>
+                <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1JU1YqpD81z37yveRGfpJZQ5bhyIeML-S" target="_blank">Phy-1121</a></li>
+                <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1XdTTC6Tl5WeNQ76v51ct9oHEK0org-Zt" target="_blank">ME-1101</a></li>
+                <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1ZDvnSu0NGWIRUMZ2_qMRlpC0XOlMY0kU" target="_blank">Math-1121</a></li>
+                <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1tNaplnWMOo_7I7LK8mpi79skFOnd5JOP" target="_blank">Hum-1121</a></li>
+                <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1B1GsD3pSj9VEm-NzHxJhFvrtrS_48A1n" target="_blank">Notes by 2202084</a></li>
+                <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1vK0YfmYYxwudoGnXSV4eewe-moPwRYYz" target="_blank">Previous Year Questions</a></li>
+            </ul>
+            <a class="back-button" href="javascript:void(0);" onclick="showPage('mainPage')">Back to Home</a>
+        </div>
+    </div>
+
+    <!-- 2022 Courses Page -->
+    <div id="course2022" class="page">
+        <div class="course-container">
+            <h2>Depertment of Mechanical Engineering</h2>
+            <p>Explore the courses offered in 1-2</p>
+            <ul class="course-list">
+                <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1RGzZV2hLVs91PwkvL9ohCq-DHjhM-MRr" target="_blank">ME-1207</a></li>
+                <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1aXCafkwWG5XheGP4wokjIZ25nlNE1NN3" target="_blank">Math-1221</a></li>
+                <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1oUJnBtmA8FXqHbFbgGAjshssimzN2NUl" target="_blank">CSE-1281</a></li>
+                <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1gyT51xgTOh0qeuVhqM8CY9iAZigtm5a-" target="_blank">EEE-1281</a></li>
+                <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1bLKSHbuHBZgmTKi5Z-8tu2KMsThQ087r" target="_blank">Hum-1221</a></li>
+                <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1ReLqnd1rjuCviFvhOP_F1SjR1Wr9kYQT" target="_blank">CSE Lab</a></li>
+                <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1z1DsLEgbh1fYLCP8AVXgvPv_-zGEwjFC" target="_blank">Previous Year Questions</a></li>
+            </ul>
+            <a class="back-button" href="javascript:void(0);" onclick="showPage('mainPage')">Back to Home</a>
+        </div>
+    </div>
+
+    
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; Md Mezanur Rahman Nobin</p>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        function searchCourses() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const courses = document.querySelectorAll('.course-item a');
+            courses.forEach(course => {
+                if (course.textContent.toLowerCase().includes(input)) {
+                    course.parentElement.style.display = '';
+                } else {
+                    course.parentElement.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
