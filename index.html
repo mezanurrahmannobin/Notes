@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Depertment of Mechanical Engineering</title>
+    <title>Department of Mechanical Engineering</title>
     <style>
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #1e1e1e;
+            background: linear-gradient(to right, #1e1e1e, #4e94f8); /* Dynamic background */
             color: white;
             display: flex;
             flex-direction: column;
@@ -22,7 +22,7 @@
             display: flex;
             align-items: center;
             padding: 10px;
-            background: linear-gradient(to right, #ff5757, #ff2d2d);
+            background: linear-gradient(to right, #6ec6ff, #3a99c8); /* Light blue gradient */
             position: relative;
         }
 
@@ -30,6 +30,8 @@
             width: 40px; /* Reduced size */
             height: 40px; /* Reduced size */
             margin-right: 10px;
+            border-radius: 50%; /* Make the image round */
+            object-fit: cover; /* Ensure the image covers the area */
         }
 
         .search-container {
@@ -38,19 +40,20 @@
         }
 
         #searchInput {
-            width: calc(100% - 90px); /* Adjust width for button */
+            width: calc(100% - 130px); /* Adjust width for button */
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
 
         .search-button {
-            background-color: #ff5757;
+            background-color: #6ec6ff; /* Light blue button */
             color: white;
             padding: 8px 15px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            margin-left: -100px; /* Move search button slightly left */
         }
 
         .contact-button {
@@ -60,7 +63,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin-left: 10px;
+            margin-left: 10px; /* Move contact button slightly left */
         }
 
         /* Course pages styles */
@@ -110,18 +113,19 @@
         .course-item a {
             display: block;
             padding: 15px;
-            background: #ff5757;
-            color: #fff;
+            background: #6ec6ff; /* Light blue for course items */
+            color: #000000;
             text-decoration: none;
             margin: 10px 0;
             border-radius: 8px;
             transition: 0.3s;
             animation: fadeIn 2s ease-out forwards;
             opacity: 0;
+            font-size: 15px; /* Change this value to enlarge the text size */
         }
 
         .course-item a:hover {
-            background: #ff2d2d;
+            background: #3a99c8; /* Darker blue on hover */
             transform: scale(1.1);
         }
 
@@ -158,6 +162,29 @@
         .back-button:hover {
             background-color: #45a049;
         }
+
+        /* Suggestions styling */
+        .suggestions {
+            position: absolute;
+            background-color: white;
+            color: black;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            z-index: 1000;
+            width: calc(100% - 10px);
+            max-height: 150px; /* Limit height */
+            overflow-y: auto; /* Scroll if needed */
+            display: none; /* Hidden by default */
+        }
+
+        .suggestion-item {
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        .suggestion-item:hover {
+            background-color: #f0f0f0; /* Highlight on hover */
+        }
     </style>
 </head>
 <body> 
@@ -166,15 +193,17 @@
     <div class="top-section">
         <img src="ruet.jpg" alt="Header Image" class="header-image">
         <div class="search-container">
-            <input type="text" id="searchInput" placeholder="Search for courses...">
+            <input type="text" id="searchInput" placeholder="Search for courses..." oninput="searchCourses()">
+            <div id="suggestions" class="suggestions"></div> <!-- Suggestions box -->
         </div>
-       <button class="contact-button" onclick="window.open('https://www.facebook.com/mezanur.76?mibextid=LQQJ4d', '_blank')">Contact Us</button>
+        <button class="search-button" onclick="searchCourses()">Search</button>
+        <button class="contact-button" onclick="window.open('https://www.facebook.com/mezanur.76?mibextid=LQQJ4d', '_blank')">Contact Us</button>
     </div>
 
     <!-- Main Page -->
     <div id="mainPage" class="page active">
         <div class="course-container">
-            <h2>Depertment of Mechanical Engineering</h2>
+            <h2>Department of Mechanical Engineering</h2>
 
             <ul class="course-list">
                 <li class="course-item"><a href="javascript:void(0);" onclick="showPage('course2021')">1-1</a></li>
@@ -184,49 +213,45 @@
         </div>
     </div>
 
-    <!-- 2021 Courses Page -->
-    <div id="course2021" class="page">
-        <div class="course-container">
-            <h2>Depertment of Mechanical Engineering</h2>
-            <p>Explore the courses offered in 1-1</p>
-            <ul class="course-list">
-                <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1TIdcN4xFonQ4KUSqP6AW0YjnN8i9ylnu" target="_blank">Chem-1121</a></li>
-                <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1JU1YqpD81z37yveRGfpJZQ5bhyIeML-S" target="_blank">Phy-1121</a></li>
-                <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1XdTTC6Tl5WeNQ76v51ct9oHEK0org-Zt" target="_blank">ME-1101</a></li>
-                <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1ZDvnSu0NGWIRUMZ2_qMRlpC0XOlMY0kU" target="_blank">Math-1121</a></li>
-                <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1tNaplnWMOo_7I7LK8mpi79skFOnd5JOP" target="_blank">Hum-1121</a></li>
-                <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1B1GsD3pSj9VEm-NzHxJhFvrtrS_48A1n" target="_blank">Notes by 2202084</a></li>
-                <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1vK0YfmYYxwudoGnXSV4eewe-moPwRYYz" target="_blank">Previous Year Questions</a></li>
-            </ul>
-            <a class="back-button" href="javascript:void(0);" onclick="showPage('mainPage')">Back to Home</a>
-        </div>
+  <!-- 2021 Courses Page -->
+  <div id="course2021" class="page">
+    <div class="course-container">
+        <h2>Depertment of Mechanical Engineering</h2>
+        <p>Explore the courses offered in 1-1</p>
+        <ul class="course-list">
+            <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1TIdcN4xFonQ4KUSqP6AW0YjnN8i9ylnu" target="_blank">Chem-1121</a></li>
+            <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1JU1YqpD81z37yveRGfpJZQ5bhyIeML-S" target="_blank">Phy-1121</a></li>
+            <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1XdTTC6Tl5WeNQ76v51ct9oHEK0org-Zt" target="_blank">ME-1101</a></li>
+            <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1ZDvnSu0NGWIRUMZ2_qMRlpC0XOlMY0kU" target="_blank">Math-1121</a></li>
+            <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1tNaplnWMOo_7I7LK8mpi79skFOnd5JOP" target="_blank">Hum-1121</a></li>
+            <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1B1GsD3pSj9VEm-NzHxJhFvrtrS_48A1n" target="_blank">Notes by 2202084</a></li>
+            <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1vK0YfmYYxwudoGnXSV4eewe-moPwRYYz" target="_blank">Previous Year Questions</a></li>
+        </ul>
+        <a class="back-button" href="javascript:void(0);" onclick="showPage('mainPage')">Back to Home</a>
     </div>
+</div>
 
-    <!-- 2022 Courses Page -->
-    <div id="course2022" class="page">
-        <div class="course-container">
-            <h2>Depertment of Mechanical Engineering</h2>
-            <p>Explore the courses offered in 1-2</p>
-            <ul class="course-list">
-                <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1RGzZV2hLVs91PwkvL9ohCq-DHjhM-MRr" target="_blank">ME-1207</a></li>
-                <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1aXCafkwWG5XheGP4wokjIZ25nlNE1NN3" target="_blank">Math-1221</a></li>
-                <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1oUJnBtmA8FXqHbFbgGAjshssimzN2NUl" target="_blank">CSE-1281</a></li>
-                <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1gyT51xgTOh0qeuVhqM8CY9iAZigtm5a-" target="_blank">EEE-1281</a></li>
-                <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1bLKSHbuHBZgmTKi5Z-8tu2KMsThQ087r" target="_blank">Hum-1221</a></li>
-                <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1ReLqnd1rjuCviFvhOP_F1SjR1Wr9kYQT" target="_blank">CSE Lab</a></li>
-                <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1z1DsLEgbh1fYLCP8AVXgvPv_-zGEwjFC" target="_blank">Previous Year Questions</a></li>
-            </ul>
-            <a class="back-button" href="javascript:void(0);" onclick="showPage('mainPage')">Back to Home</a>
-        </div>
+<!-- 2022 Courses Page -->
+<div id="course2022" class="page">
+    <div class="course-container">
+        <h2>Depertment of Mechanical Engineering</h2>
+        <p>Explore the courses offered in 1-2</p>
+        <ul class="course-list">
+            <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1RGzZV2hLVs91PwkvL9ohCq-DHjhM-MRr" target="_blank">ME-1207</a></li>
+            <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1aXCafkwWG5XheGP4wokjIZ25nlNE1NN3" target="_blank">Math-1221</a></li>
+            <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1oUJnBtmA8FXqHbFbgGAjshssimzN2NUl" target="_blank">CSE-1281</a></li>
+            <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1gyT51xgTOh0qeuVhqM8CY9iAZigtm5a-" target="_blank">EEE-1281</a></li>
+            <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1bLKSHbuHBZgmTKi5Z-8tu2KMsThQ087r" target="_blank">Hum-1221</a></li>
+            <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1ReLqnd1rjuCviFvhOP_F1SjR1Wr9kYQT" target="_blank">CSE Lab</a></li>
+            <li class="course-item"><a href="https://drive.google.com/drive/u/2/folders/1z1DsLEgbh1fYLCP8AVXgvPv_-zGEwjFC" target="_blank">Previous Year Questions</a></li>
+        </ul>
+        <a class="back-button" href="javascript:void(0);" onclick="showPage('mainPage')">Back to Home</a>
     </div>
+</div>
 
-    
 
-    <!-- Footer -->
-    <div class="footer">
-        <p>&copy; Md Mezanur Rahman Nobin</p>
-    </div>
 
+    <!-- Script -->
     <script>
         function showPage(pageId) {
             const pages = document.querySelectorAll('.page');
@@ -237,16 +262,50 @@
         }
 
         function searchCourses() {
-            const input = document.getElementById('searchInput').value.toLowerCase();
-            const courses = document.querySelectorAll('.course-item a');
-            courses.forEach(course => {
-                if (course.textContent.toLowerCase().includes(input)) {
-                    course.parentElement.style.display = '';
-                } else {
-                    course.parentElement.style.display = 'none';
-                }
+            const input = document.getElementById("searchInput");
+            const filter = input.value.toUpperCase();
+            const suggestionsBox = document.getElementById("suggestions");
+            const courses = [
+                { name: "Chem-1121", link: "https://drive.google.com/drive/u/2/folders/1TIdcN4xFonQ4KUSqP6AW0YjnN8i9ylnu" },
+                { name: "Phy-1121", link: "https://drive.google.com/drive/u/2/folders/1JU1YqpD81z37yveRGfpJZQ5bhyIeML-S" },
+                { name: "ME-1101", link: "https://drive.google.com/drive/u/2/folders/1XdTTC6Tl5WeNQ76v51ct9oHEK0org-Zt" },
+                { name: "Math-1121", link: "https://drive.google.com/drive/u/2/folders/1ZDvnSu0NGWIRUMZ2_qMRlpC0XOlMY0kU" },
+                { name: "Hum-1121", link: "https://drive.google.com/drive/u/2/folders/1tNaplnWMOo_7I7LK8mpi79skFOnd5JOP" },
+                { name: "Notes by 2202084", link: "https://drive.google.com/drive/u/2/folders/1B1GsD3pSj9VEm-NzHxJhFvrtrS_48A1n" },
+                { name: "ME-1207", link: "https://drive.google.com/drive/u/2/folders/1RGzZV2hLVs91PwkvL9ohCq-DHjhM-MRr" },
+                { name: "Math-1221", link: "https://drive.google.com/drive/u/2/folders/1aXCafkwWG5XheGP4wokjIZ25nlNE1NN3" },
+                { name: "CSE-1281", link: "https://drive.google.com/drive/u/2/folders/1oUJnBtmA8FXqHbFbgGAjshssimzN2NUl" },
+                { name: "EEE-1281", link: "https://drive.google.com/drive/u/2/folders/1gyT51xgTOh0qeuVhqM8CY9iAZigtm5a-" },
+                { name: "Hum-1221", link: "https://drive.google.com/drive/u/2/folders/1bLKSHbuHBZgmTKi5Z-8tu2KMsThQ087r" },
+                { name: "CSE Lab", link: "https://drive.google.com/drive/u/2/folders/1ReLqnd1rjuCviFvhOP_F1SjR1Wr9kYQT" },
+                { name: "Previous Year Questions", link: "https://drive.google.com/drive/u/2/folders/1z1DsLEgbh1fYLCP8AVXgvPv_-zGEwjFC" },
+                
+            ];
+
+            suggestionsBox.innerHTML = ''; // Clear previous suggestions
+            if (!filter) {
+                suggestionsBox.style.display = 'none'; // Hide suggestions if input is empty
+                return;
+            }
+
+            const filteredCourses = courses.filter(course => course.name.toUpperCase().includes(filter));
+            filteredCourses.forEach(course => {
+                const suggestionItem = document.createElement('div');
+                suggestionItem.className = 'suggestion-item';
+                suggestionItem.textContent = course.name;
+                suggestionItem.onclick = () => {
+                    window.open(course.link, '_blank'); // Open link on suggestion click
+                    input.value = ''; // Clear input
+                    suggestionsBox.style.display = 'none'; // Hide suggestions
+                };
+                suggestionsBox.appendChild(suggestionItem);
             });
+
+            suggestionsBox.style.display = filteredCourses.length > 0 ? 'block' : 'none'; // Show suggestions if available
         }
+
+        document.getElementById("searchInput").addEventListener("keyup", searchCourses);
     </script>
 </body>
+
 </html>
