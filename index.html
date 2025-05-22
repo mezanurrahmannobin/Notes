@@ -8,7 +8,7 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #1e1e1e, #4e94f8); /* Dynamic background */
+            background: linear-gradient(to right, #1e1e1e, #4e94f8); 
             color: white;
             display: flex;
             flex-direction: column;
@@ -22,16 +22,16 @@
             display: flex;
             align-items: center;
             padding: 10px;
-            background: linear-gradient(to right, #6ec6ff, #3a99c8); /* Light blue gradient */
+            background: linear-gradient(to right, #6ec6ff, #3a99c8);
             position: relative;
         }
 
         .header-image {
-            width: 40px; /* Reduced size */
-            height: 40px; /* Reduced size */
+            width: 40px; 
+            height: 40px; 
             margin-right: 10px;
-            border-radius: 50%; /* Make the image round */
-            object-fit: cover; /* Ensure the image covers the area */
+            border-radius: 50%; 
+            object-fit: cover;
         }
 
         .search-container {
@@ -40,20 +40,20 @@
         }
 
         #searchInput {
-            width: calc(100% - 130px); /* Adjust width for button */
+            width: calc(100% - 130px);
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
 
         .search-button {
-            background-color: #6ec6ff; /* Light blue button */
+            background-color: #6ec6ff; 
             color: white;
             padding: 8px 15px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin-left: -100px; /* Move search button slightly left */
+            margin-left: -100px;
         }
 
         .contact-button {
@@ -63,7 +63,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin-left: 10px; /* Move contact button slightly left */
+            margin-left: 10px; 
         }
 
         /* Course pages styles */
@@ -113,7 +113,7 @@
         .course-item a {
             display: block;
             padding: 15px;
-            background: #6ec6ff; /* Light blue for course items */
+            background: #6ec6ff;
             color: #000000;
             text-decoration: none;
             margin: 10px 0;
@@ -121,11 +121,11 @@
             transition: 0.3s;
             animation: fadeIn 2s ease-out forwards;
             opacity: 0;
-            font-size: 15px; /* Change this value to enlarge the text size */
+            font-size: 15px; 
         }
 
         .course-item a:hover {
-            background: #3a99c8; /* Darker blue on hover */
+            background: #3a99c8; 
             transform: scale(1.1);
         }
         @keyframes fadeIn {
@@ -141,19 +141,19 @@
 
         
 
-        /* Course container styles */
+       
         .course-container {
-            background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white background */
-            border-radius: 10px; /* Rounded corners */
-            padding: 20px; /* Padding inside the box */
-            width: 90%; /* Set width */
-            max-width: 500px; /* Maximum width */
-            margin: 20px auto; /* Center horizontally and add margin on top and bottom */
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Shadow for depth */
-            text-align: center; /* Center the text */
+            background-color: rgba(255, 255, 255, 0.1); 
+            border-radius: 10px; 
+            padding: 20px; 
+            width: 90%; 
+            max-width: 500px; 
+            margin: 20px auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); 
+            text-align: center;
         }
 
-        /* Back button styling */
+      
         .back-button {
             background-color: #4caf50;
             color: white;
@@ -163,14 +163,14 @@
             display: inline-block;
             margin-top: 20px;
             font-size: 16px;
-            font-weight: bold; /* Bold text */
+            font-weight: bold; 
         }
 
         .back-button:hover {
             background-color: #45a049;
         }
 
-        /* Suggestions styling */
+       
         .suggestions {
             position: absolute;
             background-color: white;
@@ -179,9 +179,9 @@
             border-radius: 5px;
             z-index: 1000;
             width: calc(100% - 10px);
-            max-height: 150px; /* Limit height */
-            overflow-y: auto; /* Scroll if needed */
-            display: none; /* Hidden by default */
+            max-height: 150px; 
+            overflow-y: auto; 
+            display: none; /
         }
 
         .suggestion-item {
@@ -190,13 +190,13 @@
         }
 
         .suggestion-item:hover {
-            background-color: #f0f0f0; /* Highlight on hover */
+            background-color: #f0f0f0; 
         }
     </style>
 </head>
 <body> 
 
-    <!-- Top Section -->
+
     <div class="top-section">
         <img src="ruet.jpg" alt="Header Image" class="header-image">
         <div class="search-container">
@@ -204,12 +204,13 @@
             <div id="suggestions" class="suggestions"></div> <!-- Suggestions box -->
         </div>
         <button class="search-button" onclick="searchCourses()">Search</button>
-        <button class="contact-button" onclick="window.open('https://wa.me/8801865648959', '_blank')">Contact Us</button>
+       <button class="contact-button" onclick="window.open('https://www.facebook.com/mezanur.76', '_blank')">Contact Us</button>
+
 
 
     </div>
 
-    <!-- Main Page -->
+   
     <div id="mainPage" class="page active">
         <div class="course-container">
             <h2>Department of Mechanical Engineering</h2>
@@ -223,7 +224,7 @@
         </div>
     </div>
 
-  <!-- 2021 Courses Page -->
+
   <div id="course2021" class="page">
     <div class="course-container">
         <h2>Depertment of Mechanical Engineering</h2>
@@ -241,7 +242,7 @@
     </div>
 </div>
 
-<!-- 2022 Courses Page -->
+
 <div id="course2022" class="page">
     <div class="course-container">
         <h2>Depertment of Mechanical Engineering</h2>
@@ -259,7 +260,7 @@
     </div>
 </div>
 
-<!-- 2023 Courses Page -->
+
 <div id="course2023" class="page">
   <div class="course-container">
       <h2>Depertment of Mechanical Engineering</h2>
@@ -313,30 +314,30 @@
             { name: "Previous Year Questions", link: "https://drive.google.com/drive/u/0/folders/1wLY0UwYbexrImchyyD7rKGUmsy90aLR2" }
         ];
 
-        suggestionsBox.innerHTML = ''; // Clear previous suggestions
+        suggestionsBox.innerHTML = ''; 
         if (!filter) {
-            suggestionsBox.style.display = 'none'; // Hide suggestions if input is empty
+            suggestionsBox.style.display = 'none'; 
             return;
         }
 
-        // Filter courses based on the search input
+        
         const filteredCourses = courses.filter(course => course.name.toUpperCase().includes(filter));
         filteredCourses.forEach(course => {
             const suggestionItem = document.createElement('div');
             suggestionItem.className = 'suggestion-item';
             suggestionItem.textContent = course.name;
             suggestionItem.onclick = () => {
-                window.open(course.link, '_blank'); // Open the link on click
-                input.value = ''; // Clear input
-                suggestionsBox.style.display = 'none'; // Hide suggestions
+                window.open(course.link, '_blank'); 
+                input.value = ''; 
+                suggestionsBox.style.display = 'none'; 
             };
             suggestionsBox.appendChild(suggestionItem);
         });
 
-        suggestionsBox.style.display = filteredCourses.length > 0 ? 'block' : 'none'; // Show suggestions if available
+        suggestionsBox.style.display = filteredCourses.length > 0 ? 'block' : 'none'; 
     }
 
-    // Attach event listener for keyup to search as user types
+
     document.getElementById("searchInput").addEventListener("keyup", searchCourses);
 </script>
 
