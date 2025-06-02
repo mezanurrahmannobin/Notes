@@ -181,6 +181,83 @@
     .suggestion-item:hover {
         background-color: #444; 
     }
+
+    body.dark-mode {
+    background: linear-gradient(to right, #111, #444);
+    color: white;
+}
+
+body.dark-mode .top-section {
+    background: linear-gradient(to right, #333, #555);
+}
+
+body.dark-mode #searchInput,
+body.dark-mode .suggestions {
+    background-color: #222;
+    color: white;
+    border: 1px solid #666;
+}
+
+body.dark-mode .search-button,
+body.dark-mode .contact-button,
+body.dark-mode .back-button {
+    background-color: #555;
+    color: white;
+}
+
+body.dark-mode .course-item a {
+    background: #666;
+    color: #fff;
+}
+
+body.dark-mode .course-item a:hover {
+    background: #888;
+}
+
+body:not(.dark-mode) {
+    background: linear-gradient(to right, #eee, #ccc);
+    color: #111;
+}
+
+body:not(.dark-mode) .top-section {
+    background: linear-gradient(to right, #ddd, #bbb);
+}
+
+body:not(.dark-mode) #searchInput,
+body:not(.dark-mode) .suggestions {
+    background-color: #fff;
+    color: #111;
+    border: 1px solid #aaa;
+}
+
+body:not(.dark-mode) .search-button,
+body:not(.dark-mode) .contact-button,
+body:not(.dark-mode) .back-button {
+    background-color: #bbb;
+    color: black;
+}
+
+body:not(.dark-mode) .course-item a {
+    background: #ccc;
+    color: black;
+}
+
+body:not(.dark-mode) .course-item a:hover {
+    background: #aaa;
+}
+
+
+#themeToggle {
+  position: bottom;
+  top: 20px;
+  right: 20px;
+  padding: 8px 15px;
+  font-size: 1.5rem;
+  border-radius: 8px;
+  z-index: 1000;
+}
+
+
 </style>
 
 </head>
@@ -330,6 +407,32 @@
 
     document.getElementById("searchInput").addEventListener("keyup", searchCourses);
 </script>
+
+<button id="themeToggle" class="contact-button">🌙/☀️</button>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const toggleButton = document.getElementById('themeToggle');
+        const body = document.body;
+
+        
+        if (!localStorage.getItem('theme')) {
+            localStorage.setItem('theme', 'dark');
+        }
+
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-mode');
+        }
+
+        toggleButton.addEventListener('click', function () {
+            body.classList.toggle('dark-mode');
+            const newTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+            localStorage.setItem('theme', newTheme);
+        });
+    });
+</script>
+
+
 
 </body>
 
