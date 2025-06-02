@@ -4,195 +4,185 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Department of Mechanical Engineering</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #1e1e1e, #4e94f8); 
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to right, #111, #444); 
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+    }
 
-        /* Top Section Styles */
-        .top-section {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            background: linear-gradient(to right, #6ec6ff, #3a99c8);
-            position: relative;
-        }
+    /* Top Section Styles */
+    .top-section {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        background: linear-gradient(to right, #333, #555);
+        position: relative;
+    }
 
-        .header-image {
-            width: 40px; 
-            height: 40px; 
-            margin-right: 10px;
-            border-radius: 50%; 
-            object-fit: cover;
-        }
+    .header-image {
+        width: 40px; 
+        height: 40px; 
+        margin-right: 10px;
+        border-radius: 50%; 
+        object-fit: cover;
+    }
 
-        .search-container {
-            flex-grow: 1;
-            position: relative;
-        }
+    .search-container {
+        flex-grow: 1;
+        position: relative;
+    }
 
-        #searchInput {
-            width: calc(100% - 130px);
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+    #searchInput {
+        width: calc(100% - 130px);
+        padding: 8px;
+        border: 1px solid #666;
+        border-radius: 5px;
+        background-color: #222;
+        color: white;
+    }
 
-        .search-button {
-            background-color: #6ec6ff; 
-            color: white;
-            padding: 8px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-left: -100px;
-        }
+    .search-button {
+        background-color: #666; 
+        color: white;
+        padding: 8px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-left: -100px;
+    }
 
-        .contact-button {
-            background-color: #4caf50;
-            color: white;
-            padding: 8px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-left: 10px; 
-        }
+    .contact-button {
+        background-color: #555;
+        color: white;
+        padding: 8px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-left: 10px; 
+    }
 
-        /* Course pages styles */
-        .page {
-            display: none;
-            opacity: 0;
-            padding: 20px;
-            width: 90%;
-            margin: auto;
-        }
+    .page {
+        display: none;
+        opacity: 0;
+        padding: 20px;
+        width: 90%;
+        margin: auto;
+    }
 
-        .page.active {
-            display: block;
-            opacity: 1;
-            animation: fadeIn 1s ease-out;
-        }
+    .page.active {
+        display: block;
+        opacity: 1;
+        animation: fadeIn 1s ease-out;
+    }
 
-        /* Footer */
-        .footer {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #888888;
-            text-align: center;
-        }
+    .footer {
+        margin-top: 20px;
+        font-size: 14px;
+        color: #aaa;
+        text-align: center;
+    }
 
-        /* Main content */
-        .container {
-            text-align: center;
-            margin-top: 20px;
-        }
+    .container {
+        text-align: center;
+        margin-top: 20px;
+    }
 
-        h1 {
-            font-size: 36px;
-            animation: slideIn 1.5s ease-out;
-        }
+    h1 {
+        font-size: 36px;
+        animation: slideIn 1.5s ease-out;
+    }
 
-        @keyframes slideIn {
-            0% { opacity: 0; transform: translateY(-30px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
+    @keyframes slideIn {
+        0% { opacity: 0; transform: translateY(-30px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
 
-        .course-list {
-            list-style: none;
-            padding: 0;
-        }
+    .course-list {
+        list-style: none;
+        padding: 0;
+    }
 
-        .course-item a {
-            display: block;
-            padding: 15px;
-            background: #6ec6ff;
-            color: #000000;
-            text-decoration: none;
-            margin: 10px 0;
-            border-radius: 8px;
-            transition: 0.3s;
-            animation: fadeIn 2s ease-out forwards;
-            opacity: 0;
-            font-size: 15px; 
-        }
+    .course-item a {
+        display: block;
+        padding: 15px;
+        background: #666;
+        color: #fff;
+        text-decoration: none;
+        margin: 10px 0;
+        border-radius: 8px;
+        transition: 0.3s;
+        animation: fadeIn 2s ease-out forwards;
+        opacity: 0;
+        font-size: 15px; 
+    }
 
-        .course-item a:hover {
-            background: #3a99c8; 
-            transform: scale(1.1);
-        }
-        @keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+    .course-item a:hover {
+        background: #888; 
+        transform: scale(1.1);
+    }
 
-}
+    @keyframes fadeIn {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+    }
 
+    .course-container {
+        background-color: rgba(255, 255, 255, 0.05); 
+        border-radius: 10px; 
+        padding: 20px; 
+        width: 90%; 
+        max-width: 500px; 
+        margin: 20px auto;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); 
+        text-align: center;
+    }
 
+    .back-button {
+        background-color: #555;
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        display: inline-block;
+        margin-top: 20px;
+        font-size: 16px;
+        font-weight: bold; 
+    }
 
+    .back-button:hover {
+        background-color: #777;
+    }
 
+    .suggestions {
+        position: absolute;
+        background-color: #222;
+        color: white;
+        border: 1px solid #666;
+        border-radius: 5px;
+        z-index: 1000;
+        width: calc(100% - 10px);
+        max-height: 150px; 
+        overflow-y: auto; 
+        display: none;
+    }
 
+    .suggestion-item {
+        padding: 8px;
+        cursor: pointer;
+    }
 
-        
+    .suggestion-item:hover {
+        background-color: #444; 
+    }
+</style>
 
-       
-        .course-container {
-            background-color: rgba(255, 255, 255, 0.1); 
-            border-radius: 10px; 
-            padding: 20px; 
-            width: 90%; 
-            max-width: 500px; 
-            margin: 20px auto;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); 
-            text-align: center;
-        }
-
-      
-        .back-button {
-            background-color: #4caf50;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            display: inline-block;
-            margin-top: 20px;
-            font-size: 16px;
-            font-weight: bold; 
-        }
-
-        .back-button:hover {
-            background-color: #45a049;
-        }
-
-       
-        .suggestions {
-            position: absolute;
-            background-color: white;
-            color: black;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            z-index: 1000;
-            width: calc(100% - 10px);
-            max-height: 150px; 
-            overflow-y: auto; 
-            display: none; /
-        }
-
-        .suggestion-item {
-            padding: 8px;
-            cursor: pointer;
-        }
-
-        .suggestion-item:hover {
-            background-color: #f0f0f0; 
-        }
-    </style>
 </head>
 <body> 
 
