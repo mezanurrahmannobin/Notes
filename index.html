@@ -16,7 +16,7 @@
         min-height: 100vh;
     }
 
-    /* Top Section Styles */
+
     .top-section {
         width: 100%;
         display: flex;
@@ -289,6 +289,7 @@ body:not(.dark-mode) .course-item a:hover {
                 <li class="course-item"><a href="javascript:void(0);" onclick="showPage('course2021')">1-1</a></li>
                 <li class="course-item"><a href="javascript:void(0);" onclick="showPage('course2022')">1-2</a></li>
                 <li class="course-item"><a href="javascript:void(0);" onclick="showPage('course2023')">2-1</a></li>
+                <li class="course-item"><a href="javascript:void(0);" onclick="showPage('course2024')">2-2</a></li>
             </ul>
             <a class="back-button" href="javascript:void(0);" onclick="showPage('mainPage')">Back to Home</a>
         </div>
@@ -348,6 +349,25 @@ body:not(.dark-mode) .course-item a:hover {
   </div>
 </div>
 
+
+<div id="course2024" class="page">
+  <div class="course-container">
+      <h2>Depertment of Mechanical Engineering</h2>
+      <p>Explore the courses offered in 2-2</p>
+      <ul class="course-list">
+          <li class="course-item"><a href="https://drive.google.com/drive/u/0/folders/1PWeZy4qvsnw0MWkDxchM0rCsYRy6KJV2" target="_blank">Mechanics of Solids</a></li>
+          <li class="course-item"><a href="https://drive.google.com/drive/u/0/folders/1O5dWcLrSj8Z4NN808vGb_Nw2WIojUVdy" target="_blank">Measurement, Quality Control and Materials Handling</a></li>
+          <li class="course-item"><a href="https://drive.google.com/drive/u/0/folders/1SRDzgh8JshaP6qkc2CX6Cl8YVf-l2KRw" target="_blank">Engineering Mechanics-II </a></li>
+          <li class="course-item"><a href="https://drive.google.com/drive/u/0/folders/13bAVx0tTBGUQ48LTZRDWw2pOFbGr_gVN" target="_blank">Electrical Machines and Electronics  </a></li>
+          <li class="course-item"><a href="https://drive.google.com/drive/u/0/folders/1RUxoNuQPGIhZn_RsO5Reic5Tmj6dVfXY" target="_blank">Numerical Analysis and statistics </a></li>
+          <li class="course-item"><a href="https://drive.google.com/drive/u/0/folders/1gxMVlbO5-ZKiR-J0lNlmpc8PYqeXezm4" target="_blank">Sessionals</a></li>
+          <li class="course-item"><a href="https://drive.google.com/drive/u/0/folders/17U4gImjVHFsydsDzOi1Ejg8Jo0rSlZ-y" target="_blank">Previous Year Questions</a></li>
+      </ul>
+      <a class="back-button" href="javascript:void(0);" onclick="showPage('mainPage')">Back to Home</a>
+  </div>
+</div>
+
+
 <script>
     function showPage(pageId) {
         const pages = document.querySelectorAll('.page');
@@ -382,6 +402,13 @@ body:not(.dark-mode) .course-item a:hover {
             { name: "Hum-2121", link: "https://drive.google.com/drive/u/0/folders/1jsPcfRjh1OIqMl--0-QAeRGuqZBHZYAI" },
             { name: "Sessionals", link: "https://drive.google.com/drive/u/0/folders/1eNhnh2a84ki-sDwdlJ_4ELbNVKVMwdso" },
             { name: "Previous Year Questions", link: "https://drive.google.com/drive/u/0/folders/1wLY0UwYbexrImchyyD7rKGUmsy90aLR2" }
+             { name: "Mechanics of Solids", link: "https://drive.google.com/drive/u/0/folders/1PWeZy4qvsnw0MWkDxchM0rCsYRy6KJV2" },
+  { name: "Measurement, Quality Control and Materials Handling", link: "https://drive.google.com/drive/u/0/folders/1O5dWcLrSj8Z4NN808vGb_Nw2WIojUVdy" },
+  { name: "Engineering Mechanics-II", link: "https://drive.google.com/drive/u/0/folders/1SRDzgh8JshaP6qkc2CX6Cl8YVf-l2KRw" },
+  { name: "Electrical Machines and Electronics", link: "https://drive.google.com/drive/u/0/folders/13bAVx0tTBGUQ48LTZRDWw2pOFbGr_gVN" },
+  { name: "Numerical Analysis and Statistics", link: "https://drive.google.com/drive/u/0/folders/1RUxoNuQPGIhZn_RsO5Reic5Tmj6dVfXY" },
+  { name: "Sessionals", link: "https://drive.google.com/drive/u/0/folders/1gxMVlbO5-ZKiR-J0lNlmpc8PYqeXezm4" },
+  { name: "Previous Year Questions", link: "https://drive.google.com/drive/u/0/folders/17U4gImjVHFsydsDzOi1Ejg8Jo0rSlZ-y" }
         ];
 
         suggestionsBox.innerHTML = ''; 
