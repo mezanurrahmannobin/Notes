@@ -41,6 +41,22 @@
     display: flex;
     flex-direction: column;
     transition: background 0.6s ease;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  #matrix {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: all;
+    opacity: 0.22;
+    mix-blend-mode: screen;
+  }
+
+  body.light #matrix {
+    opacity: 0.10;
+    mix-blend-mode: multiply;
   }
 
   #particles-js {
@@ -127,6 +143,8 @@
     max-width: 460px;
     width: 100%;
     margin: 0 auto;
+    position: relative;
+    z-index: 2;
   }
 
   h1 { font-size: 2rem; text-align: center; margin-bottom: 1.6rem; }
@@ -141,19 +159,19 @@
   #themeToggle {
     padding: 6px 16px;
     font-size: 0.92rem;
-    background: transparent;                /* fully transparent base */
+    background: transparent;
     border: 1px solid var(--accent);
     border-radius: 10px;
-    color: var(--text);                   /* always white text */
+    color: var(--text);
     cursor: pointer;
     transition: all 0.25s;
     font-weight: 600;
     letter-spacing: 0.3px;
-    backdrop-filter: blur(4px);             /* subtle glass effect */
+    backdrop-filter: blur(4px);
   }
 
   #themeToggle:hover {
-    background: rgba(0, 140, 114, 0.18);    /* light accent tint on hover */
+    background: rgba(0, 140, 114, 0.18);
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(0,140,114,0.25);
   }
@@ -283,6 +301,7 @@
     backdrop-filter: blur(10px);
     display: flex;
     border-top: 1px solid var(--border);
+    z-index: 99;
   }
 
   #bottom-nav button {
@@ -303,7 +322,6 @@
     background: rgba(0,140,114,0.12);
   }
 
-  /* Search Suggestions */
   #suggestions {
     position: absolute;
     top: 100%;
@@ -350,6 +368,7 @@
 </head>
 <body>
 
+<canvas id="matrix"></canvas>
 <div id="particles-js"></div>
 
 <div class="top-bar" style="position:relative;">
@@ -540,6 +559,144 @@
 
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script>
+// ────────────────────────────────────────────────
+// MOUSE-REACTIVE MATRIX RAIN + SMOOTH CLICK RIPPLE
+// ────────────────────────────────────────────────
+const canvas = document.getElementById('matrix');
+const ctx = canvas.getContext('2d');
+
+let w, h, drops = [];
+const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ$+-*/=%"#&@'.split('');
+const font = 14;
+let mouse = { x: -9999, y: -9999, active: false };
+
+function setupMatrix() {
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
+  const columns = Math.floor(w / font) + 1;
+  drops = Array(columns).fill(1).map(() => Math.floor(Math.random() * -80));
+}
+
+function drawRain() {
+  ctx.fillStyle = 'rgba(0,0,0,0.04)';
+  ctx.fillRect(0, 0, w, h);
+
+  ctx.font = font + 'px monospace';
+  ctx.textAlign = 'center';
+
+  for (let i = 0; i < drops.length; i++) {
+    const text = chars[Math.floor(Math.random() * chars.length)];
+    const x = i * font + font / 2;
+    let y = drops[i] * font;
+
+    const dx = x - mouse.x;
+    const dy = y - mouse.y;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+
+    let speed = 1;
+    let alpha = Math.min(1, (drops[i] % 16) / 10 + 0.35);
+
+    if (dist < 140 && mouse.active) {
+      speed = 2.8 + (140 - dist) / 35;
+      alpha = Math.min(1, alpha + 0.35);
+    }
+
+    ctx.fillStyle = `rgba(0, 255, 130, ${alpha})`;
+
+    ctx.fillText(text, x, y);
+
+    if (y > h && Math.random() > 0.975) {
+      drops[i] = -Math.floor(Math.random() * 60);
+    }
+    drops[i] += speed;
+  }
+}
+
+function onMouseMove(e) {
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
+  mouse.active = true;
+}
+
+function onMouseLeave() {
+  mouse.active = false;
+  mouse.x = -9999;
+  mouse.y = -9999;
+}
+
+// ────────────────────────────────────────────────
+// Very smooth ripple with advanced easing
+// ────────────────────────────────────────────────
+function onClick(e) {
+  const clickX = e.clientX;
+  const clickY = e.clientY;
+
+  const ripple = document.createElement('div');
+  Object.assign(ripple.style, {
+    position: 'fixed',
+    left: `${clickX}px`,
+    top: `${clickY}px`,
+    width: '120px',
+    height: '120px',
+    borderRadius: '50%',
+    border: '2px solid rgba(0, 255, 140, 0.65)',
+    boxShadow: '0 0 0 0 rgba(0, 255, 140, 0.4)',
+    pointerEvents: 'none',
+    zIndex: '9998',
+    transform: 'translate(-50%, -50%) scale(0.35)',
+    opacity: '0.88',
+    willChange: 'transform, opacity, filter, box-shadow',
+    filter: 'blur(1.5px)',
+    background: 'radial-gradient(circle, rgba(0,255,140,0.08) 0%, transparent 70%)'
+  });
+
+  document.body.appendChild(ripple);
+
+  ripple.animate([
+    {
+      transform: 'translate(-50%, -50%) scale(0.35)',
+      opacity: 0.88,
+      filter: 'blur(1.5px)',
+      boxShadow: '0 0 0 8px rgba(0, 255, 140, 0.25)'
+    },
+    {
+      transform: 'translate(-50%, -50%) scale(10.5)',
+      opacity: 0,
+      filter: 'blur(8px)',
+      boxShadow: '0 0 100px 50px rgba(0, 255, 140, 0)'
+    }
+  ], {
+    duration: 1450,
+    easing: 'cubic-bezier(0.19, 1, 0.22, 1)',   // very fluid, strong ease-out
+    fill: 'forwards'
+  }).onfinish = () => ripple.remove();
+
+  // Disturb rain drops near click
+  for (let i = 0; i < drops.length; i++) {
+    const x = i * font + font / 2;
+    const y = drops[i] * font;
+    const dx = x - clickX;
+    const dy = y - clickY;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+
+    if (dist < 220) {
+      drops[i] += 8 + (220 - dist) / 15;
+    }
+  }
+}
+
+canvas.addEventListener('mousemove', onMouseMove);
+canvas.addEventListener('mouseleave', onMouseLeave);
+canvas.addEventListener('click', onClick);
+window.addEventListener('resize', setupMatrix);
+
+setupMatrix();
+setInterval(drawRain, 35);
+
+// ────────────────────────────────────────────────
+// Your original particles + theme + search logic
+// ────────────────────────────────────────────────
+
 function showPage(pageId) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById(pageId).classList.add('active');
@@ -695,7 +852,7 @@ function loadParticles(isLight) {
   }, function(pJSDom) { particlesInstance = pJSDom[0]; });
 }
 
-loadParticles(false); // start in dark mode
+loadParticles(false);
 
 document.getElementById("themeToggle").onclick = () => {
   const isLight = document.body.classList.toggle("light");
