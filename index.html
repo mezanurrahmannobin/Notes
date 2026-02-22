@@ -103,7 +103,6 @@
   .btn-search { background: var(--accent); color: white; }
   .btn-search:hover { filter: brightness(1.1); }
   .btn-contact { background: rgba(0,0,0,0.1); color: var(--text); }
-  .btn-toggle  { background: rgba(0,0,0,0.1); color: var(--accent); }
 
   main {
     flex: 1;
@@ -131,8 +130,41 @@
   }
 
   h1 { font-size: 2rem; text-align: center; margin-bottom: 1.6rem; }
-  h2 { font-size: 1.7rem; text-align: center; margin-bottom: 1.4rem; }
+  h2 { font-size: 2rem; text-align: center; margin-bottom: 1.8rem; }
   h3 { font-size: 1.35rem; text-align: center; margin: 1.8rem 0 1rem; color: var(--accent); }
+
+  .theme-section {
+    text-align: center;
+    margin: 1.4rem 0 2.2rem;
+  }
+
+  #themeToggle {
+    padding: 6px 16px;
+    font-size: 0.92rem;
+    background: transparent;                /* fully transparent base */
+    border: 1px solid var(--accent);
+    border-radius: 10px;
+    color: var(--text);                   /* always white text */
+    cursor: pointer;
+    transition: all 0.25s;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    backdrop-filter: blur(4px);             /* subtle glass effect */
+  }
+
+  #themeToggle:hover {
+    background: rgba(0, 140, 114, 0.18);    /* light accent tint on hover */
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,140,114,0.25);
+  }
+
+  body.light #themeToggle {
+    border-color: var(--accent);
+  }
+
+  body.light #themeToggle:hover {
+    background: rgba(0, 140, 114, 0.14);
+  }
 
   .futuristic-filter {
     margin: 1.6rem 0 2rem;
@@ -223,13 +255,6 @@
   body.light .course-list li a { background: rgba(240,255,250,0.85); }
   .course-list li a:hover { background: rgba(30,60,45,0.85); transform: translateX(4px); }
 
-  .video-note {
-    text-align: center;
-    font-size: 0.95rem;
-    opacity: 0.9;
-    margin-bottom: 1rem;
-  }
-
   .back-button {
     display: block;
     margin: 2.2rem auto 0;
@@ -248,13 +273,6 @@
   .back-button:hover {
     background: rgba(0,140,114,0.35);
     transform: translateY(-1px);
-  }
-
-  .countdown {
-    text-align: center;
-    font-size: 1.05rem;
-    color: var(--accent);
-    margin-top: 1.6rem;
   }
 
   #bottom-nav {
@@ -318,12 +336,6 @@
       margin: 0 8px;
       padding: 24px 20px;
       border-radius: 16px;
-      max-width: 100%;
-    }
-    .semester-item a {
-      font-size: 1.02rem;
-      padding: 9px 14px;
-      min-height: 40px;
     }
   }
 
@@ -345,11 +357,7 @@
   <input type="text" id="searchInput" placeholder="Search courses (thermo, math, 2101, chem...)" autocomplete="off">
   <button class="btn btn-search">Search</button>
   <div id="suggestions"></div>
-  <button class="btn btn-contact" 
-  onclick="window.open('https://wa.me/8801865648959','_blank')">
-    Contact
-  </button>
-  <button class="btn btn-toggle" id="themeToggle">☀️</button>
+  <button class="btn btn-contact" onclick="window.open('https://wa.me/8801865648959','_blank')">Contact</button>
 </div>
 
 <main>
@@ -378,10 +386,12 @@
         <li class="semester-item"><a href="javascript:void(0);" onclick="showPage('course2023')">2-1</a></li>
         <li class="semester-item"><a href="javascript:void(0);" onclick="showPage('course2024')">2-2</a></li>
         <li class="semester-item"><a href="javascript:void(0);" onclick="showPage('course2025')">3-1</a></li>
-      </ul>
+      </ul>  
 
-      <div class="countdown">Next term starts in — calculating...</div>
-    </div>
+      <div class="theme-section">
+        <button id="themeToggle">☀️ Light Mode</button>
+      </div>
+    </div>  
   </div>
 
   <!-- 1-1 -->
@@ -401,10 +411,9 @@
 
       <div class="video-section">
         <h3>Recommended YouTube Playlists</h3>
-       
         <ul class="course-list">
-          <li><a href="https://www.youtube.com/playlist?list=PL5LtX94RB2_UtYLw5u6BRa-4YI_N9a4NX" target="_blank">Thermodynamics (Bangla) - Dhananjoy Banik Joy (Engineers Cafe) [Intro concepts useful for later semesters]</a></li>
-          <li><a href="https://www.youtube.com/playlist?list=PL242066E80621CC10" target="_blank">Heat Transfer Basics (English) - LearnChemE [Good foundation]</a></li>
+          <li><a href="https://www.youtube.com/playlist?list=PL5LtX94RB2_UtYLw5u6BRa-4YI_N9a4NX" target="_blank">Thermodynamics (Bangla) - Dhananjoy Banik Joy (Engineers Cafe)</a></li>
+          <li><a href="https://www.youtube.com/playlist?list=PL242066E80621CC10" target="_blank">Heat Transfer Basics (English) - LearnChemE</a></li>
         </ul>
       </div>
 
@@ -429,9 +438,8 @@
 
       <div class="video-section">
         <h3>Recommended YouTube Playlists</h3>
-       
         <ul class="course-list">
-          <li><a href="https://www.youtube.com/playlist?list=PL5LtX94RB2_UtYLw5u6BRa-4YI_N9a4NX" target="_blank">Thermodynamics Intro (Bangla) - Engineers Cafe [Helpful for ME courses]</a></li>
+          <li><a href="https://www.youtube.com/playlist?list=PL5LtX94RB2_UtYLw5u6BRa-4YI_N9a4NX" target="_blank">Thermodynamics Intro (Bangla) - Engineers Cafe</a></li>
         </ul>
       </div>
 
@@ -442,7 +450,7 @@
   <!-- 2-1 -->
   <div id="course2023" class="page">
     <div class="course-container">
-       <h3>Department of Mechanical Engineering</h3>
+      <h3>Department of Mechanical Engineering</h3>
       <p style="text-align: center;">Explore the courses offered in 2-1</p>
       <ul class="course-list">
         <li><a href="https://drive.google.com/drive/u/0/folders/1fY2_VH2XTeFO1kqgwi_WM7Mtx9fO7VCa" target="_blank">Math-2121</a></li>
@@ -456,11 +464,10 @@
 
       <div class="video-section">
         <h3>Recommended YouTube Playlists</h3>
-       
         <ul class="course-list">
-          <li><a href="https://www.youtube.com/playlist?list=PL5LtX94RB2_UtYLw5u6BRa-4YI_N9a4NX" target="_blank">Thermodynamics (Bangla) - Dhananjoy Banik Joy (Engineers Cafe) [Perfect for ME-2101]</a></li>
-          <li><a href="https://www.youtube.com/playlist?list=PL5LtX94RB2_Xr6SSY3NwCsb2Qu7j2urPN" target="_blank">Fluid Mechanics in Bangla - Engineers Cafe [Great for ME-2105]</a></li>
-          <li><a href="https://www.youtube.com/playlist?list=PLdBhHAW7Un2LJdPkzR71_rREYY519I1lo" target="_blank">Fluid Mechanics (Bangla) - Another solid series</a></li>
+          <li><a href="https://www.youtube.com/playlist?list=PL5LtX94RB2_UtYLw5u6BRa-4YI_N9a4NX" target="_blank">Thermodynamics (Bangla) - Dhananjoy Banik Joy</a></li>
+          <li><a href="https://www.youtube.com/playlist?list=PL5LtX94RB2_Xr6SSY3NwCsb2Qu7j2urPN" target="_blank">Fluid Mechanics in Bangla - Engineers Cafe</a></li>
+          <li><a href="https://www.youtube.com/playlist?list=PLdBhHAW7Un2LJdPkzR71_rREYY519I1lo" target="_blank">Fluid Mechanics (Bangla) - Another series</a></li>
         </ul>
       </div>
 
@@ -485,10 +492,9 @@
 
       <div class="video-section">
         <h3>Recommended YouTube Playlists</h3>
-      
         <ul class="course-list">
-          <li><a href="https://www.youtube.com/playlist?list=PL5LtX94RB2_XqSho4Ip6wNZcUu2k8gFB1" target="_blank">Strength of Materials (Bangla) - Engineers Cafe [Ideal for Mechanics of Solids]</a></li>
-          <li><a href="https://www.youtube.com/playlist?list=PL9RcWoqXmzaLlfmNg2Ku1SdZtvXnYrLbc" target="_blank">Strength of Materials (English/Structured) - Engineers ki Pathshala</a></li>
+          <li><a href="https://www.youtube.com/playlist?list=PL5LtX94RB2_XqSho4Ip6wNZcUu2k8gFB1" target="_blank">Strength of Materials (Bangla) - Engineers Cafe</a></li>
+          <li><a href="https://www.youtube.com/playlist?list=PL9RcWoqXmzaLlfmNg2Ku1SdZtvXnYrLbc" target="_blank">Strength of Materials (English) - Engineers ki Pathshala</a></li>
         </ul>
       </div>
 
@@ -513,13 +519,11 @@
 
       <div class="video-section">
         <h3>Recommended YouTube Playlists</h3>
-       
         <ul class="course-list">
-          <li><a href="https://www.youtube.com/playlist?list=PL242066E80621CC10" target="_blank">Heat Transfer (English) - LearnChemE [Excellent short videos for Heat Transfer-1]</a></li>
+          <li><a href="https://www.youtube.com/playlist?list=PL242066E80621CC10" target="_blank">Heat Transfer (English) - LearnChemE</a></li>
           <li><a href="https://www.youtube.com/playlist?list=PLQRGWv901sjhsZS0Qd9RFfSqmtOSFqNTI" target="_blank">Worked Heat Transfer Examples - Mike Schertzer</a></li>
-          <li><a href="https://www.youtube.com/playlist?list=PL3D4EECEFAA99D9BE" target="_blank">Design of Machine Elements (NPTEL) - Comprehensive lectures</a></li>
+          <li><a href="https://www.youtube.com/playlist?list=PL3D4EECEFAA99D9BE" target="_blank">Design of Machine Elements (NPTEL)</a></li>
           <li><a href="https://www.youtube.com/playlist?list=PLtj-yB-zGzyvmzY764fMkb2tUuAZ7WOkA" target="_blank">Design of Machine Elements - Detailed series</a></li>
-          <li><a href="https://www.youtube.com/playlist?list=PL5LtX94RB2_Xr6SSY3NwCsb2Qu7j2urPN" target="_blank">Fluid Mechanics in Bangla [Useful for Fluid Mechanics-2 review]</a></li>
         </ul>
       </div>
 
@@ -646,9 +650,8 @@ function searchCourses(openFirst = false) {
   }
 }
 
-const searchInput = document.getElementById('searchInput');
-searchInput.addEventListener('input', () => searchCourses(false));
-searchInput.addEventListener('keypress', e => {
+document.getElementById('searchInput').addEventListener('input', () => searchCourses(false));
+document.getElementById('searchInput').addEventListener('keypress', e => {
   if (e.key === 'Enter') {
     e.preventDefault();
     searchCourses(true);
@@ -658,8 +661,9 @@ searchInput.addEventListener('keypress', e => {
 document.querySelector('.btn-search').onclick = () => searchCourses(true);
 
 document.addEventListener('click', e => {
-  if (!searchInput.contains(e.target) && !document.getElementById('suggestions').contains(e.target)) {
-    document.getElementById('suggestions').style.display = 'none';
+  const suggestions = document.getElementById('suggestions');
+  if (!document.getElementById('searchInput').contains(e.target) && !suggestions.contains(e.target)) {
+    suggestions.style.display = 'none';
   }
 });
 
@@ -691,11 +695,11 @@ function loadParticles(isLight) {
   }, function(pJSDom) { particlesInstance = pJSDom[0]; });
 }
 
-loadParticles(false);
+loadParticles(false); // start in dark mode
 
 document.getElementById("themeToggle").onclick = () => {
   const isLight = document.body.classList.toggle("light");
-  document.getElementById("themeToggle").textContent = isLight ? "🌙" : "☀️";
+  document.getElementById("themeToggle").textContent = isLight ? "🌙 Dark Mode" : "☀️ Light Mode";
   loadParticles(isLight);
 };
 </script>
