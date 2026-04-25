@@ -55,6 +55,11 @@ overflow-x: hidden;
 transition: background 0.5s, color 0.5s;
 }
 
+/* Force background color to propagate on theme switch */
+body.light {
+background: #faf4ec;
+}
+
 body::before {
 content: ‘’;
 position: fixed;
@@ -65,6 +70,14 @@ radial-gradient(ellipse 80% 60% at 50% 100%, rgba(255,80,0,0.07) 0%, transparent
 radial-gradient(ellipse 40% 30% at 20% 80%, rgba(255,140,0,0.05) 0%, transparent 60%),
 radial-gradient(ellipse 50% 40% at 80% 20%, rgba(255,60,0,0.04) 0%, transparent 60%);
 pointer-events: none;
+transition: opacity 0.5s;
+}
+
+body.light::before {
+background:
+radial-gradient(ellipse 80% 60% at 50% 100%, rgba(204,68,0,0.05) 0%, transparent 70%),
+radial-gradient(ellipse 40% 30% at 20% 80%, rgba(224,144,0,0.04) 0%, transparent 60%),
+radial-gradient(ellipse 50% 40% at 80% 20%, rgba(204,68,0,0.03) 0%, transparent 60%);
 }
 
 body::after {
@@ -72,6 +85,7 @@ content: ‘’;
 position: fixed;
 inset: 0;
 z-index: -2;
+background-color: var(–bg);
 background-image:
 repeating-linear-gradient(
 -45deg,
@@ -81,9 +95,11 @@ rgba(255,107,0,0.025) 14px,
 rgba(255,107,0,0.025) 15px
 );
 pointer-events: none;
+transition: background-color 0.5s, background-image 0.5s;
 }
 
 body.light::after {
+background-color: #faf4ec;
 background-image: repeating-linear-gradient(
 -45deg,
 transparent 0px,
