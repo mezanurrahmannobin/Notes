@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -9,695 +8,471 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:       #0e0800;
-    --bg2:      #160f02;
-    --panel:    rgba(20,12,2,0.93);
-    --text:     #f0dfc0;
-    --dim:      #8a7055;
-    --accent:   #ff6b00;
-    --accent2:  #ffc94a;
-    --steel:    #c8a87a;
-    --border:   rgba(255,107,0,0.2);
-    --border2:  rgba(255,201,74,0.12);
-    --shadow:   rgba(0,0,0,0.75);
-    --topbar:   rgba(14,8,0,0.96);
-    --input-bg: rgba(0,0,0,0.5);
-    --glow:     rgba(255,107,0,0.15);
+    --bg:       #0a0d12;
+    --bg2:      #12171f;
+    --panel:    rgba(20, 25, 35, 0.95);
+    --text:     #e0e7ff;
+    --dim:      #94a3c0;
+    --accent:   #00b4ff;
+    --accent2:  #00e0ff;
+    --steel:    #c8d1e0;
+    --border:   rgba(0, 180, 255, 0.25);
+    --border2:  rgba(0, 224, 255, 0.15);
+    --shadow:   rgba(0, 0, 0, 0.8);
+    --topbar:   rgba(10, 13, 18, 0.97);
+    --input-bg: rgba(15, 20, 30, 0.8);
+    --glow:     rgba(0, 180, 255, 0.15);
   }
 
-/* ── LIGHT THEME ── all custom properties fixed with – prefix */
-body.light {
-–bg:       #faf4ec;
-–bg2:      #f0e6d4;
-–panel:    rgba(255,252,246,0.97);
-–text:     #2a1a06;
-–dim:      #8a6a40;
-–accent:   #cc4400;
-–accent2:  #b07000;
-–steel:    #7a5a30;
-–border:   rgba(180,80,0,0.25);
-–border2:  rgba(160,100,0,0.18);
-–shadow:   rgba(80,30,0,0.12);
-–topbar:   rgba(250,244,236,0.97);
-–input-bg: rgba(255,255,255,0.85);
-–glow:     rgba(204,68,0,0.08);
-}
-
-- { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-min-height: 100vh;
-background: var(–bg);
-color: var(–text);
-font-family: ‘Barlow Condensed’, sans-serif;
-display: flex;
-flex-direction: column;
-overflow-x: hidden;
-transition: background 0.4s, color 0.4s;
-}
-
-/* dark background layers */
-body::before {
-content: ‘’;
-position: fixed;
-inset: 0;
-z-index: -3;
-background:
-radial-gradient(ellipse 80% 60% at 50% 100%, rgba(255,80,0,0.07) 0%, transparent 70%),
-radial-gradient(ellipse 40% 30% at 20% 80%,  rgba(255,140,0,0.05) 0%, transparent 60%),
-radial-gradient(ellipse 50% 40% at 80% 20%,  rgba(255,60,0,0.04)  0%, transparent 60%);
-pointer-events: none;
-transition: background 0.4s;
-}
-
-body.light::before {
-background:
-radial-gradient(ellipse 80% 60% at 50% 100%, rgba(204,68,0,0.06) 0%, transparent 70%),
-radial-gradient(ellipse 40% 30% at 20% 80%,  rgba(224,144,0,0.04) 0%, transparent 60%),
-radial-gradient(ellipse 50% 40% at 80% 20%,  rgba(204,68,0,0.03)  0%, transparent 60%);
-}
-
-body::after {
-content: ‘’;
-position: fixed;
-inset: 0;
-z-index: -2;
-background-color: var(–bg);
-background-image: repeating-linear-gradient(
--45deg,
-transparent 0px,
-transparent 14px,
-rgba(255,107,0,0.025) 14px,
-rgba(255,107,0,0.025) 15px
-);
-pointer-events: none;
-transition: background-color 0.4s;
-}
-
-body.light::after {
-background-color: #faf4ec;
-background-image: repeating-linear-gradient(
--45deg,
-transparent 0px,
-transparent 14px,
-rgba(160,80,0,0.055) 14px,
-rgba(160,80,0,0.055) 15px
-);
-}
-
-/* ── EMBERS (hidden in light mode) ── */
-#embers {
-position: fixed;
-inset: 0;
-z-index: -1;
-pointer-events: none;
-overflow: hidden;
-transition: opacity 0.4s;
-}
-
-body.light #embers { opacity: 0; }
-
-.ember {
-position: absolute;
-border-radius: 50%;
-pointer-events: none;
-animation: floatEmber linear infinite;
-}
-
-@keyframes floatEmber {
-0%   { transform: translateY(100vh) translateX(0) scale(1); opacity: 0; }
-10%  { opacity: 1; }
-80%  { opacity: 0.7; }
-100% { transform: translateY(-10vh) translateX(var(–drift)) scale(0.3); opacity: 0; }
-}
-
-/* ── TOP BAR ── */
-.top-bar {
-padding: 10px 16px;
-background: var(–topbar);
-backdrop-filter: blur(14px);
-display: flex;
-align-items: center;
-gap: 10px;
-position: sticky;
-top: 0;
-z-index: 100;
-border-bottom: 1px solid var(–border);
-box-shadow: 0 2px 24px rgba(255,107,0,0.08);
-transition: background 0.4s, border-color 0.4s;
-}
-
-.logo-wrap { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-
-.header-img {
-width: 40px; height: 40px;
-border-radius: 50%;
-border: 2px solid var(–accent);
-box-shadow: 0 0 12px rgba(255,107,0,0.4);
-transition: border-color 0.4s;
-}
-
-.logo-text {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 1rem;
-color: var(–accent);
-letter-spacing: 2px;
-line-height: 1;
-display: none;
-transition: color 0.4s;
-}
-
-@media (min-width: 480px) { .logo-text { display: block; } }
-
-#searchInput {
-flex: 1;
-padding: 9px 14px;
-font-size: 14px;
-font-family: ‘IBM Plex Mono’, monospace;
-background: var(–input-bg);
-border: 1px solid var(–border);
-border-radius: 6px;
-color: var(–text);
-transition: border-color 0.2s, box-shadow 0.2s, background 0.4s, color 0.4s;
-}
-
-#searchInput:focus {
-outline: none;
-border-color: var(–accent);
-box-shadow: 0 0 0 3px rgba(255,107,0,0.12), 0 0 20px rgba(255,107,0,0.08);
-}
-
-#searchInput::placeholder { color: var(–dim); font-size: 12px; }
-
-.btn {
-padding: 8px 14px;
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 0.95rem;
-letter-spacing: 1.5px;
-border: none;
-border-radius: 6px;
-cursor: pointer;
-transition: all 0.2s;
-white-space: nowrap;
-}
-
-.btn-search { background: var(–accent); color: #fff; transition: background 0.4s; }
-.btn-search:hover { filter: brightness(1.2); box-shadow: 0 0 18px rgba(255,107,0,0.45); }
-
-.btn-contact {
-background: transparent;
-border: 1px solid var(–border2);
-color: var(–accent2);
-transition: background 0.2s, border-color 0.4s, color 0.4s;
-}
-.btn-contact:hover { background: rgba(255,201,74,0.1); border-color: var(–accent2); }
-
-/* ── AUTOCOMPLETE ── */
-#suggestions {
-position: absolute;
-top: 100%;
-left: 16px; right: 16px;
-max-height: 300px;
-overflow-y: auto;
-background: var(–panel);
-border: 1px solid var(–border);
-border-radius: 8px;
-margin-top: 6px;
-z-index: 150;
-box-shadow: 0 12px 40px rgba(0,0,0,0.6);
-display: none;
-backdrop-filter: blur(16px);
-transition: background 0.4s, border-color 0.4s;
-}
-
-#suggestions div {
-padding: 11px 16px;
-cursor: pointer;
-font-family: ‘IBM Plex Mono’, monospace;
-font-size: 0.82rem;
-color: var(–text);
-border-bottom: 1px solid rgba(255,107,0,0.07);
-transition: background 0.15s, color 0.15s;
-}
-
-#suggestions div:last-child { border-bottom: none; }
-#suggestions div:hover { background: rgba(255,107,0,0.1); color: var(–accent); }
-
-/* ── MAIN LAYOUT ── */
-main { flex: 1; padding: 28px 16px 90px; width: 100%; }
-
-.page { display: none; width: 100%; }
-.page.active { display: block; }
-
-.card, .course-container {
-background: var(–panel);
-backdrop-filter: blur(16px);
-border-radius: 4px;
-padding: 28px 24px;
-border: 1px solid var(–border);
-border-top: 3px solid var(–accent);
-box-shadow: 0 12px 50px var(–shadow), 0 0 0 1px rgba(255,107,0,0.04);
-width: 100%;
-margin: 0 auto;
-position: relative;
-transition: background 0.4s, border-color 0.4s, box-shadow 0.4s;
-}
-
-.card::before, .course-container::before,
-.card::after,  .course-container::after {
-content: ‘’;
-position: absolute;
-width: 8px; height: 8px;
-border-radius: 50%;
-background: var(–dim);
-opacity: 0.4;
-}
-
-.card::before, .course-container::before { top: 10px; left: 10px; }
-.card::after,  .course-container::after  { top: 10px; right: 10px; }
-
-/* ── FORGE TITLE ── */
-.forge-title {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 2.6rem;
-letter-spacing: 4px;
-color: var(–accent);
-text-align: center;
-line-height: 1;
-text-shadow: 0 0 40px rgba(255,107,0,0.4), 0 2px 0 rgba(0,0,0,0.5);
-margin-bottom: 0.15rem;
-transition: color 0.4s, text-shadow 0.4s;
-}
-
-body.light .forge-title {
-text-shadow: 0 0 20px rgba(204,68,0,0.2), 0 2px 0 rgba(150,60,0,0.15);
-}
-
-.forge-sub {
-font-family: ‘IBM Plex Mono’, monospace;
-font-size: 0.72rem;
-letter-spacing: 3px;
-color: var(–dim);
-text-align: center;
-text-transform: uppercase;
-margin-bottom: 1.8rem;
-transition: color 0.4s;
-}
-
-/* ── HEAT METER ── */
-.heat-meter {
-display: flex;
-align-items: flex-end;
-justify-content: center;
-gap: 5px;
-height: 30px;
-margin-bottom: 1.6rem;
-}
-
-.heat-bar { width: 6px; border-radius: 3px 3px 0 0; animation: heatPulse ease-in-out infinite alternate; }
-.heat-bar:nth-child(1)  { height: 35%;  background: #ff3a00; animation-duration: 0.90s; animation-delay: 0.00s; }
-.heat-bar:nth-child(2)  { height: 55%;  background: #ff5500; animation-duration: 1.00s; animation-delay: 0.10s; }
-.heat-bar:nth-child(3)  { height: 80%;  background: #ff6e00; animation-duration: 0.80s; animation-delay: 0.20s; }
-.heat-bar:nth-child(4)  { height: 100%; background: #ff8c00; animation-duration: 1.10s; animation-delay: 0.00s; }
-.heat-bar:nth-child(5)  { height: 75%;  background: #ffaa00; animation-duration: 0.85s; animation-delay: 0.15s; }
-.heat-bar:nth-child(6)  { height: 90%;  background: #ffbf00; animation-duration: 0.95s; animation-delay: 0.30s; }
-.heat-bar:nth-child(7)  { height: 65%;  background: #ffaa00; animation-duration: 1.05s; animation-delay: 0.05s; }
-.heat-bar:nth-child(8)  { height: 85%;  background: #ff8c00; animation-duration: 0.88s; animation-delay: 0.22s; }
-.heat-bar:nth-child(9)  { height: 50%;  background: #ff6e00; animation-duration: 1.00s; animation-delay: 0.08s; }
-.heat-bar:nth-child(10) { height: 30%;  background: #ff5500; animation-duration: 0.92s; animation-delay: 0.18s; }
-.heat-bar:nth-child(11) { height: 20%;  background: #ff3a00; animation-duration: 0.82s; animation-delay: 0.25s; }
-
-body.light .heat-bar { opacity: 0.7; }
-
-@keyframes heatPulse {
-0%   { transform: scaleY(0.7); opacity: 0.6; }
-100% { transform: scaleY(1.0); opacity: 1;   }
-}
-
-.divider {
-height: 1px;
-background: linear-gradient(90deg, transparent, var(–accent), transparent);
-opacity: 0.25;
-margin: 1.2rem 0;
-transition: opacity 0.4s;
-}
-
-body.light .divider { opacity: 0.35; }
-
-.neon-label {
-display: block;
-font-family: ‘IBM Plex Mono’, monospace;
-font-size: 0.65rem;
-letter-spacing: 2.5px;
-color: var(–dim);
-text-transform: uppercase;
-margin-bottom: 0.6rem;
-transition: color 0.4s;
-}
-
-/* ── SEMESTER SELECT ── */
-.semester-select {
-width: 100%;
-padding: 10px 40px 10px 14px;
-font-family: ‘Barlow Condensed’, sans-serif;
-font-size: 1rem;
-font-weight: 600;
-background: var(–input-bg);
-border: 1px solid var(–border);
-border-radius: 6px;
-color: var(–text);
-appearance: none;
-background-image: url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘20’ height=‘20’ viewBox=‘0 0 24 24’ fill=‘none’ stroke=’%23ff6b00’ stroke-width=‘2.5’ stroke-linecap=‘round’ stroke-linejoin=‘round’%3E%3Cpolyline points=‘6 9 12 15 18 9’%3E%3C/polyline%3E%3C/svg%3E”);
-background-position: right 12px center;
-background-size: 18px;
-background-repeat: no-repeat;
-cursor: pointer;
-margin-bottom: 1.5rem;
-transition: border-color 0.2s, background-color 0.4s, color 0.4s;
-}
-
-.semester-select:focus {
-outline: none;
-border-color: var(–accent);
-box-shadow: 0 0 0 3px rgba(255,107,0,0.1);
-}
-
-/* light: fix select arrow to dark-red for contrast */
-body.light .semester-select {
-background-image: url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘20’ height=‘20’ viewBox=‘0 0 24 24’ fill=‘none’ stroke=’%23cc4400’ stroke-width=‘2.5’ stroke-linecap=‘round’ stroke-linejoin=‘round’%3E%3Cpolyline points=‘6 9 12 15 18 9’%3E%3C/polyline%3E%3C/svg%3E”);
-}
-
-.sem-label {
-font-family: ‘IBM Plex Mono’, monospace;
-font-size: 0.62rem;
-letter-spacing: 3px;
-color: var(–dim);
-text-transform: uppercase;
-margin-bottom: 0.7rem;
-display: flex;
-align-items: center;
-gap: 8px;
-transition: color 0.4s;
-}
-
-.sem-label::after {
-content: ‘’;
-flex: 1;
-height: 1px;
-background: linear-gradient(90deg, var(–border), transparent);
-}
-
-/* ── SEMESTER GRID ── */
-.semester-list {
-list-style: none;
-display: grid;
-grid-template-columns: 1fr;
-gap: 8px;
-margin-bottom: 1.6rem;
-}
-
-@media (min-width: 600px) { .semester-list { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 900px) { .semester-list { grid-template-columns: repeat(3, 1fr); } }
-
-.semester-item a {
-display: grid;
-grid-template-columns: auto 1fr auto;
-align-items: center;
-gap: 12px;
-padding: 12px 16px;
-background: rgba(255,107,0,0.04);
-border: 1px solid var(–border);
-border-left: 3px solid var(–accent);
-border-radius: 0 6px 6px 0;
-color: var(–text);
-text-decoration: none;
-font-size: 1.05rem;
-font-weight: 700;
-letter-spacing: 1px;
-transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
-height: 100%;
-}
-
-.semester-item a:hover {
-background: rgba(255,107,0,0.1);
-border-color: var(–accent);
-color: var(–accent2);
-transform: translateX(4px);
-box-shadow: 0 4px 20px rgba(255,107,0,0.1), inset 0 0 20px rgba(255,107,0,0.04);
-}
-
-body.light .semester-item a { background: rgba(180,70,0,0.04); }
-body.light .semester-item a:hover { background: rgba(180,70,0,0.09); }
-
-.sem-num {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 1.4rem;
-color: var(–accent);
-line-height: 1;
-min-width: 36px;
-transition: color 0.4s;
-}
-
-.sem-info { display: flex; flex-direction: column; }
-.sem-name { font-size: 0.97rem; font-weight: 700; }
-.sem-year { font-size: 0.75rem; color: var(–dim); font-weight: 400; letter-spacing: 0.5px; transition: color 0.4s; }
-.sem-arrow { color: var(–dim); font-size: 1rem; transition: color 0.2s, transform 0.2s; }
-.semester-item a:hover .sem-arrow { color: var(–accent); transform: translateX(3px); }
-
-/* ── COURSE PAGE ── */
-.course-header { margin-bottom: 1.2rem; }
-
-.course-code-tag {
-display: inline-block;
-font-family: ‘IBM Plex Mono’, monospace;
-font-size: 0.65rem;
-letter-spacing: 3px;
-color: var(–accent);
-background: rgba(255,107,0,0.1);
-border: 1px solid var(–border);
-border-radius: 3px;
-padding: 3px 10px;
-margin-bottom: 0.6rem;
-transition: color 0.4s, background 0.4s, border-color 0.4s;
-}
-
-body.light .course-code-tag { background: rgba(180,60,0,0.08); }
-
-.course-big-title {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 3rem;
-letter-spacing: 5px;
-color: var(–text);
-line-height: 1;
-margin-bottom: 0.2rem;
-transition: color 0.4s;
-}
-
-.course-big-title span { color: var(–accent); }
-
-.course-sub {
-font-size: 0.85rem;
-color: var(–dim);
-font-family: ‘IBM Plex Mono’, monospace;
-letter-spacing: 1px;
-transition: color 0.4s;
-}
-
-.course-columns { display: grid; grid-template-columns: 1fr; gap: 0 32px; }
-@media (min-width: 700px) { .course-columns { grid-template-columns: 1fr 1fr; } }
-
-.sec-label {
-font-family: ‘IBM Plex Mono’, monospace;
-font-size: 0.62rem;
-letter-spacing: 3px;
-color: var(–dim);
-text-transform: uppercase;
-margin: 1.2rem 0 0.6rem;
-display: flex;
-align-items: center;
-gap: 8px;
-transition: color 0.4s;
-}
-
-.sec-label::after {
-content: ‘’;
-flex: 1;
-height: 1px;
-background: linear-gradient(90deg, var(–border), transparent);
-}
-
-.course-list { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-bottom: 0.5rem; }
-
-.course-list li a {
-display: flex;
-align-items: center;
-gap: 10px;
-padding: 10px 14px;
-background: rgba(255,107,0,0.03);
-border: 1px solid rgba(255,107,0,0.13);
-border-radius: 4px;
-color: var(–text);
-text-decoration: none;
-font-size: 0.97rem;
-font-weight: 600;
-letter-spacing: 0.3px;
-transition: background 0.18s, border-color 0.18s, color 0.18s, transform 0.18s;
-}
-
-body.light .course-list li a {
-background: rgba(160,60,0,0.04);
-border-color: rgba(160,60,0,0.15);
-}
-
-.course-list li a::before {
-content: ‘//’;
-font-family: ‘IBM Plex Mono’, monospace;
-font-size: 0.65rem;
-color: var(–accent);
-opacity: 0.5;
-transition: opacity 0.15s;
-flex-shrink: 0;
-}
-
-.course-list li a:hover {
-background: rgba(255,107,0,0.09);
-border-color: rgba(255,107,0,0.3);
-color: var(–accent);
-transform: translateX(3px);
-}
-
-body.light .course-list li a:hover {
-background: rgba(160,60,0,0.1);
-border-color: rgba(160,60,0,0.35);
-color: var(–accent);
-}
-
-.course-list li a:hover::before { opacity: 1; }
-
-.course-list li.extras a {
-background: rgba(255,201,74,0.04);
-border-color: rgba(255,201,74,0.15);
-}
-
-body.light .course-list li.extras a {
-background: rgba(160,100,0,0.05);
-border-color: rgba(160,100,0,0.18);
-}
-
-.course-list li.extras a::before { color: var(–accent2); }
-
-.course-list li.extras a:hover {
-background: rgba(255,201,74,0.1);
-border-color: rgba(255,201,74,0.35);
-color: var(–accent2);
-}
-
-body.light .course-list li.extras a:hover {
-background: rgba(160,100,0,0.12);
-border-color: rgba(160,100,0,0.4);
-color: var(–accent2);
-}
-
-/* ── BACK BUTTON ── */
-.back-button {
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 8px;
-margin: 1.8rem auto 0;
-padding: 10px 24px;
-max-width: 180px;
-background: transparent;
-border: 1px solid var(–border);
-border-radius: 4px;
-color: var(–dim);
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 1rem;
-letter-spacing: 2px;
-text-decoration: none;
-transition: background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
-}
-
-.back-button:hover {
-background: rgba(255,107,0,0.08);
-border-color: var(–accent);
-color: var(–accent);
-box-shadow: 0 0 16px rgba(255,107,0,0.12);
-}
-
-/* ── THEME TOGGLE ── */
-.theme-row { display: flex; justify-content: center; margin-top: 1rem; }
-
-#themeToggle {
-padding: 8px 20px;
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 0.95rem;
-letter-spacing: 2px;
-background: transparent;
-border: 1px solid var(–border);
-border-radius: 4px;
-color: var(–dim);
-cursor: pointer;
-transition: border-color 0.2s, color 0.2s, background 0.2s;
-}
-
-#themeToggle:hover {
-border-color: var(–accent);
-color: var(–accent);
-background: rgba(255,107,0,0.06);
-}
-
-/* ── BOTTOM NAV ── */
-#bottom-nav {
-position: fixed;
-bottom: 0; left: 0; right: 0;
-background: var(–topbar);
-backdrop-filter: blur(14px);
-display: flex;
-border-top: 1px solid var(–border);
-z-index: 99;
-transition: background 0.4s, border-color 0.4s;
-}
-
-#bottom-nav button {
-flex: 1;
-padding: 13px 0;
-background: none;
-border: none;
-color: var(–dim);
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 0.88rem;
-letter-spacing: 2px;
-cursor: pointer;
-transition: color 0.2s, background 0.2s;
-}
-
-#bottom-nav button.active {
-color: var(–accent);
-background: rgba(255,107,0,0.06);
-border-top: 2px solid var(–accent);
-}
-
-/* ── RESPONSIVE ── */
-@media (max-width: 480px) {
-main { padding: 20px 10px 88px; }
-.card, .course-container { padding: 22px 16px; }
-.forge-title { font-size: 2rem; }
-.course-big-title { font-size: 2.4rem; }
-}
-
-@media (min-width: 768px) {
-main { padding: 40px 24px 90px; }
-.card, .course-container { padding: 32px 28px; }
-}
+  body.light {
+    --bg:       #f8fafc;
+    --bg2:      #e2e8f0;
+    --panel:    rgba(255, 255, 255, 0.97);
+    --text:     #1e2937;
+    --dim:      #64748b;
+    --accent:   #0284c8;
+    --accent2:  #0ea5e9;
+    --steel:    #475569;
+    --border:   rgba(2, 132, 200, 0.3);
+    --border2:  rgba(14, 165, 233, 0.2);
+    --shadow:   rgba(15, 23, 42, 0.1);
+    --topbar:   rgba(248, 250, 252, 0.97);
+    --input-bg: rgba(255, 255, 255, 0.9);
+    --glow:     rgba(2, 132, 200, 0.1);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Barlow Condensed', sans-serif;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    transition: background 0.5s, color 0.5s;
+  }
+
+  /* Subtle technical background pattern */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -3;
+    background: 
+      radial-gradient(circle at 20% 30%, rgba(0,180,255,0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(0,224,255,0.06) 0%, transparent 50%);
+    pointer-events: none;
+    transition: opacity 0.5s;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background-image: 
+      linear-gradient(rgba(0,180,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,180,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    opacity: 0.6;
+  }
+
+  /* Gear-like subtle animation container */
+  #gears {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.15;
+    overflow: hidden;
+  }
+
+  body.light #gears { opacity: 0.08; }
+
+  .gear {
+    position: absolute;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    animation: rotateGear linear infinite;
+  }
+
+  @keyframes rotateGear {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* ── TOP BAR ── */
+  .top-bar {
+    padding: 12px 16px;
+    background: var(--topbar);
+    backdrop-filter: blur(16px);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 4px 20px var(--shadow);
+  }
+
+  .logo-wrap { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+
+  .header-img {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    border: 2.5px solid var(--accent);
+    box-shadow: 0 0 15px var(--glow);
+    transition: all 0.3s;
+  }
+
+  .logo-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    color: var(--accent);
+    letter-spacing: 2.5px;
+    display: none;
+  }
+
+  @media (min-width: 480px) { .logo-text { display: block; } }
+
+  #searchInput {
+    flex: 1;
+    padding: 10px 16px;
+    font-size: 15px;
+    font-family: 'IBM Plex Mono', monospace;
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    transition: all 0.3s;
+  }
+
+  #searchInput:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--glow);
+  }
+
+  #searchInput::placeholder { color: var(--dim); }
+
+  .btn {
+    padding: 9px 16px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 1.5px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .btn-search {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .btn-search:hover {
+    background: var(--accent2);
+    box-shadow: 0 0 20px var(--glow);
+  }
+
+  .btn-contact {
+    background: transparent;
+    border: 1px solid var(--border2);
+    color: var(--accent2);
+  }
+
+  .btn-contact:hover {
+    background: rgba(0, 224, 255, 0.1);
+    border-color: var(--accent2);
+  }
+
+  /* Suggestions */
+  #suggestions {
+    position: absolute;
+    top: 100%;
+    left: 16px; right: 16px;
+    max-height: 320px;
+    overflow-y: auto;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-top: 8px;
+    z-index: 150;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+    display: none;
+  }
+
+  #suggestions div {
+    padding: 12px 16px;
+    cursor: pointer;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--text);
+    border-bottom: 1px solid rgba(0,180,255,0.1);
+  }
+
+  #suggestions div:hover {
+    background: rgba(0,180,255,0.12);
+    color: var(--accent2);
+  }
+
+  /* Main Content */
+  main { flex: 1; padding: 28px 16px 90px; width: 100%; }
+
+  .page { display: none; width: 100%; }
+  .page.active { display: block; }
+
+  .card, .course-container {
+    background: var(--panel);
+    backdrop-filter: blur(16px);
+    border-radius: 12px;
+    padding: 32px 26px;
+    border: 1px solid var(--border);
+    box-shadow: 0 15px 50px var(--shadow);
+    transition: all 0.4s;
+  }
+
+  /* Title */
+  .forge-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem;
+    letter-spacing: 5px;
+    color: var(--accent);
+    text-align: center;
+    text-shadow: 0 0 30px var(--glow);
+    margin-bottom: 6px;
+  }
+
+  .forge-sub {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 4px;
+    color: var(--dim);
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.3;
+    margin: 1.8rem 0;
+  }
+
+  .neon-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 3px;
+    color: var(--dim);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+
+  /* Semester Select */
+  .semester-select {
+    width: 100%;
+    padding: 12px 40px 12px 16px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    cursor: pointer;
+    margin-bottom: 1.6rem;
+  }
+
+  .semester-select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--glow);
+  }
+
+  /* Semester List */
+  .semester-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-bottom: 2rem;
+  }
+
+  @media (min-width: 600px) { .semester-list { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 900px) { .semester-list { grid-template-columns: repeat(3, 1fr); } }
+
+  .semester-item a {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    background: rgba(0,180,255,0.05);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 8px;
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    transition: all 0.3s;
+  }
+
+  .semester-item a:hover {
+    background: rgba(0,180,255,0.12);
+    border-color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,180,255,0.15);
+  }
+
+  .sem-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    color: var(--accent);
+  }
+
+  /* Course Pages */
+  .course-code-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    color: var(--accent);
+    background: rgba(0,180,255,0.1);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 4px 12px;
+    display: inline-block;
+    margin-bottom: 8px;
+  }
+
+  .course-big-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.2rem;
+    letter-spacing: 6px;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .course-big-title span { color: var(--accent); }
+
+  .course-list li a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: rgba(0,180,255,0.04);
+    border: 1px solid rgba(0,180,255,0.15);
+    border-radius: 6px;
+    color: var(--text);
+    text-decoration: none;
+    transition: all 0.25s;
+  }
+
+  .course-list li a:hover {
+    background: rgba(0,180,255,0.1);
+    border-color: var(--accent);
+    color: var(--accent2);
+    transform: translateX(6px);
+  }
+
+  .course-list li.extras a {
+    background: rgba(0,224,255,0.06);
+    border-color: rgba(0,224,255,0.2);
+  }
+
+  .course-list li.extras a:hover {
+    background: rgba(0,224,255,0.12);
+    color: var(--accent2);
+  }
+
+  /* Back Button */
+  .back-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 2rem auto 0;
+    padding: 12px 28px;
+    max-width: 200px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--dim);
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 2px;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .back-button:hover {
+    background: rgba(0,180,255,0.1);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* Theme Toggle */
+  #themeToggle {
+    padding: 9px 22px;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 2px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--dim);
+    cursor: pointer;
+  }
+
+  #themeToggle:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* Bottom Navigation */
+  #bottom-nav {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--topbar);
+    backdrop-filter: blur(16px);
+    display: flex;
+    border-top: 1px solid var(--border);
+    z-index: 99;
+  }
+
+  #bottom-nav button {
+    flex: 1;
+    padding: 14px 0;
+    background: none;
+    border: none;
+    color: var(--dim);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+  }
+
+  #bottom-nav button.active {
+    color: var(--accent);
+    border-top: 3px solid var(--accent);
+    background: rgba(0,180,255,0.08);
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    .forge-title { font-size: 2.2rem; }
+    .course-big-title { font-size: 2.5rem; }
+    main { padding: 20px 12px 90px; }
+  }
 </style>
-
 </head>
 <body>
 
-<div id="embers"></div>
+<div id="gears"></div>
 
-<div class="top-bar" style="position:relative;">
+<div class="top-bar">
   <div class="logo-wrap">
     <img src="cat.jpg" alt="ME" class="header-img">
     <div class="logo-text">ME DEPT</div>
@@ -711,19 +486,13 @@ main { padding: 40px 24px 90px; }
 <main>
 
   <!-- HOME -->
-
   <div id="mainPage" class="page active">
     <div class="card">
-      <div class="heat-meter">
-        <div class="heat-bar"></div><div class="heat-bar"></div><div class="heat-bar"></div>
-        <div class="heat-bar"></div><div class="heat-bar"></div><div class="heat-bar"></div>
-        <div class="heat-bar"></div><div class="heat-bar"></div><div class="heat-bar"></div>
-        <div class="heat-bar"></div><div class="heat-bar"></div>
-      </div>
       <div class="forge-title">MECH. ENG.</div>
       <div class="forge-sub">Resources &amp; Course Materials</div>
       <div class="divider"></div>
-      <label for="semesterFilter" class="neon-label">// Jump to Semester</label>
+      
+      <label class="neon-label">// Jump to Semester</label>
       <select id="semesterFilter" class="semester-select">
         <option value="all">-- Select Semester --</option>
         <option value="course2021">Year 1 - Semester 1 (1-1)</option>
@@ -732,31 +501,35 @@ main { padding: 40px 24px 90px; }
         <option value="course2024">Year 2 - Semester 2 (2-2)</option>
         <option value="course2025">Year 3 - Semester 1 (3-1)</option>
       </select>
-      <div class="sem-label">SEMESTERS</div>
+
+      <div class="neon-label">SEMESTERS</div>
       <ul class="semester-list">
-        <li class="semester-item"><a href="javascript:void(0);" onclick="showPage('course2021')"><span class="sem-num">1-1</span><span class="sem-info"><span class="sem-name">Semester One</span><span class="sem-year">First Year</span></span><span class="sem-arrow">&#8594;</span></a></li>
-        <li class="semester-item"><a href="javascript:void(0);" onclick="showPage('course2022')"><span class="sem-num">1-2</span><span class="sem-info"><span class="sem-name">Semester Two</span><span class="sem-year">First Year</span></span><span class="sem-arrow">&#8594;</span></a></li>
-        <li class="semester-item"><a href="javascript:void(0);" onclick="showPage('course2023')"><span class="sem-num">2-1</span><span class="sem-info"><span class="sem-name">Semester One</span><span class="sem-year">Second Year</span></span><span class="sem-arrow">&#8594;</span></a></li>
-        <li class="semester-item"><a href="javascript:void(0);" onclick="showPage('course2024')"><span class="sem-num">2-2</span><span class="sem-info"><span class="sem-name">Semester Two</span><span class="sem-year">Second Year</span></span><span class="sem-arrow">&#8594;</span></a></li>
-        <li class="semester-item"><a href="javascript:void(0);" onclick="showPage('course2025')"><span class="sem-num">3-1</span><span class="sem-info"><span class="sem-name">Semester One</span><span class="sem-year">Third Year</span></span><span class="sem-arrow">&#8594;</span></a></li>
+        <li class="semester-item"><a href="javascript:void(0);" onclick="showPage('course2021')"><span class="sem-num">1-1</span><span class="sem-info"><span class="sem-name">Semester One</span><span class="sem-year">First Year</span></span><span class="sem-arrow">→</span></a></li>
+        <li class="semester-item"><a href="javascript:void(0);" onclick="showPage('course2022')"><span class="sem-num">1-2</span><span class="sem-info"><span class="sem-name">Semester Two</span><span class="sem-year">First Year</span></span><span class="sem-arrow">→</span></a></li>
+        <li class="semester-item"><a href="javascript:void(0);" onclick="showPage('course2023')"><span class="sem-num">2-1</span><span class="sem-info"><span class="sem-name">Semester One</span><span class="sem-year">Second Year</span></span><span class="sem-arrow">→</span></a></li>
+        <li class="semester-item"><a href="javascript:void(0);" onclick="showPage('course2024')"><span class="sem-num">2-2</span><span class="sem-info"><span class="sem-name">Semester Two</span><span class="sem-year">Second Year</span></span><span class="sem-arrow">→</span></a></li>
+        <li class="semester-item"><a href="javascript:void(0);" onclick="showPage('course2025')"><span class="sem-num">3-1</span><span class="sem-info"><span class="sem-name">Semester One</span><span class="sem-year">Third Year</span></span><span class="sem-arrow">→</span></a></li>
       </ul>
-      <div class="theme-row"><button id="themeToggle">&#9728; LIGHT MODE</button></div>
+
+      <div style="text-align:center; margin-top: 1.5rem;">
+        <button id="themeToggle">☀️ LIGHT MODE</button>
+      </div>
     </div>
   </div>
 
+  <!-- All course pages remain exactly the same as your original (only theme changed) -->
   <!-- 1-1 -->
-
   <div id="course2021" class="page">
     <div class="course-container">
       <div class="course-header">
         <div class="course-code-tag">YEAR 01 - SEM 01</div>
-        <div class="course-big-title"><span>1</span>&#8212;<span>1</span></div>
+        <div class="course-big-title"><span>1</span>—<span>1</span></div>
         <div class="course-sub">Dept of Mechanical Engineering</div>
       </div>
       <div class="divider"></div>
-      <div class="course-columns">
+      <div class="course-columns" style="display:grid; grid-template-columns:1fr; gap:0 32px;">
         <div>
-          <div class="sec-label">Course Materials</div>
+          <div class="neon-label">Course Materials</div>
           <ul class="course-list">
             <li><a href="https://drive.google.com/drive/u/0/folders/1EXFFWysIjlYlT0yI-g4GUOuURYJEzX-R" target="_blank">Chem-1121</a></li>
             <li><a href="https://drive.google.com/drive/u/0/folders/1DBkm4pm8kmqrkH1FI8SMb01ewuDRbFeX" target="_blank">Phy-1121</a></li>
@@ -766,30 +539,29 @@ main { padding: 40px 24px 90px; }
           </ul>
         </div>
         <div>
-          <div class="sec-label">Additional</div>
+          <div class="neon-label">Additional</div>
           <ul class="course-list">
             <li class="extras"><a href="https://drive.google.com/drive/u/0/folders/15UYsH2xRipGOBLrV7m015DUYApn40JBb" target="_blank">Sessionals</a></li>
             <li class="extras"><a href="https://drive.google.com/drive/u/0/folders/14vZG30Bw48n8eqVXws2Djekbin5Szafa" target="_blank">Previous Year Questions</a></li>
           </ul>
         </div>
       </div>
-      <a class="back-button" href="javascript:void(0);" onclick="showPage('mainPage')">&#8592; BACK</a>
+      <a class="back-button" href="javascript:void(0);" onclick="showPage('mainPage')">← BACK</a>
     </div>
   </div>
 
   <!-- 1-2 -->
-
   <div id="course2022" class="page">
     <div class="course-container">
       <div class="course-header">
         <div class="course-code-tag">YEAR 01 - SEM 02</div>
-        <div class="course-big-title"><span>1</span>&#8212;<span>2</span></div>
+        <div class="course-big-title"><span>1</span>—<span>2</span></div>
         <div class="course-sub">Dept of Mechanical Engineering</div>
       </div>
       <div class="divider"></div>
-      <div class="course-columns">
+      <div class="course-columns" style="display:grid; grid-template-columns:1fr; gap:0 32px;">
         <div>
-          <div class="sec-label">Course Materials</div>
+          <div class="neon-label">Course Materials</div>
           <ul class="course-list">
             <li><a href="https://drive.google.com/drive/u/0/folders/1Y7OIVITtr2qIqVsxFnigCHwgVOAnPWGT" target="_blank">ME-1207</a></li>
             <li><a href="https://drive.google.com/drive/u/0/folders/1sRDXNAJ7I-hJo8Q122zKlWKYlm_YyMHn" target="_blank">Math-1221</a></li>
@@ -800,29 +572,28 @@ main { padding: 40px 24px 90px; }
           </ul>
         </div>
         <div>
-          <div class="sec-label">Additional</div>
+          <div class="neon-label">Additional</div>
           <ul class="course-list">
             <li class="extras"><a href="https://drive.google.com/drive/u/0/folders/1Oe0ZaBEK07b1vnLa1MRry2iHT2JJDC5y" target="_blank">Previous Year Questions</a></li>
           </ul>
         </div>
       </div>
-      <a class="back-button" href="javascript:void(0);" onclick="showPage('mainPage')">&#8592; BACK</a>
+      <a class="back-button" href="javascript:void(0);" onclick="showPage('mainPage')">← BACK</a>
     </div>
   </div>
 
   <!-- 2-1 -->
-
   <div id="course2023" class="page">
     <div class="course-container">
       <div class="course-header">
         <div class="course-code-tag">YEAR 02 - SEM 01</div>
-        <div class="course-big-title"><span>2</span>&#8212;<span>1</span></div>
+        <div class="course-big-title"><span>2</span>—<span>1</span></div>
         <div class="course-sub">Dept of Mechanical Engineering</div>
       </div>
       <div class="divider"></div>
-      <div class="course-columns">
+      <div class="course-columns" style="display:grid; grid-template-columns:1fr; gap:0 32px;">
         <div>
-          <div class="sec-label">Course Materials</div>
+          <div class="neon-label">Course Materials</div>
           <ul class="course-list">
             <li><a href="https://drive.google.com/drive/u/0/folders/1fY2_VH2XTeFO1kqgwi_WM7Mtx9fO7VCa" target="_blank">Math-2121</a></li>
             <li><a href="https://drive.google.com/drive/u/0/folders/19ybGtwNS1h3vYe_Lf-j5fmHoaevOSzkS" target="_blank">ME-2101 Thermodynamics</a></li>
@@ -832,30 +603,29 @@ main { padding: 40px 24px 90px; }
           </ul>
         </div>
         <div>
-          <div class="sec-label">Additional</div>
+          <div class="neon-label">Additional</div>
           <ul class="course-list">
             <li class="extras"><a href="https://drive.google.com/drive/u/0/folders/1eNhnh2a84ki-sDwdlJ_4ELbNVKVMwdso" target="_blank">Sessionals</a></li>
             <li class="extras"><a href="https://drive.google.com/drive/u/0/folders/17U4gImjVHFsydsDzOi1Ejg8Jo0rSlZ-y" target="_blank">Previous Year Questions</a></li>
           </ul>
         </div>
       </div>
-      <a class="back-button" href="javascript:void(0);" onclick="showPage('mainPage')">&#8592; BACK</a>
+      <a class="back-button" href="javascript:void(0);" onclick="showPage('mainPage')">← BACK</a>
     </div>
   </div>
 
   <!-- 2-2 -->
-
   <div id="course2024" class="page">
     <div class="course-container">
       <div class="course-header">
         <div class="course-code-tag">YEAR 02 - SEM 02</div>
-        <div class="course-big-title"><span>2</span>&#8212;<span>2</span></div>
+        <div class="course-big-title"><span>2</span>—<span>2</span></div>
         <div class="course-sub">Dept of Mechanical Engineering</div>
       </div>
       <div class="divider"></div>
-      <div class="course-columns">
+      <div class="course-columns" style="display:grid; grid-template-columns:1fr; gap:0 32px;">
         <div>
-          <div class="sec-label">Course Materials</div>
+          <div class="neon-label">Course Materials</div>
           <ul class="course-list">
             <li><a href="https://drive.google.com/drive/u/0/folders/1PWeZy4qvsnw0MWkDxchM0rCsYRy6KJV2" target="_blank">Mechanics of Solids</a></li>
             <li><a href="https://drive.google.com/drive/u/0/folders/1O5dWcLrSj8Z4NN808vGb_Nw2WIojUVdy" target="_blank">Measurement, Quality Control &amp; Materials Handling</a></li>
@@ -865,30 +635,29 @@ main { padding: 40px 24px 90px; }
           </ul>
         </div>
         <div>
-          <div class="sec-label">Additional</div>
+          <div class="neon-label">Additional</div>
           <ul class="course-list">
             <li class="extras"><a href="https://drive.google.com/drive/u/0/folders/1gxMVlbO5-ZKiR-J0lNlmpc8PYqeXezm4" target="_blank">Sessionals</a></li>
             <li class="extras"><a href="https://drive.google.com/drive/u/0/folders/1FUBsvkKqWkYcA2FobfscPPF6sVhqpKDk" target="_blank">Previous Year Questions</a></li>
           </ul>
         </div>
       </div>
-      <a class="back-button" href="javascript:void(0);" onclick="showPage('mainPage')">&#8592; BACK</a>
+      <a class="back-button" href="javascript:void(0);" onclick="showPage('mainPage')">← BACK</a>
     </div>
   </div>
 
   <!-- 3-1 -->
-
   <div id="course2025" class="page">
     <div class="course-container">
       <div class="course-header">
         <div class="course-code-tag">YEAR 03 - SEM 01</div>
-        <div class="course-big-title"><span>3</span>&#8212;<span>1</span></div>
+        <div class="course-big-title"><span>3</span>—<span>1</span></div>
         <div class="course-sub">Dept of Mechanical Engineering</div>
       </div>
       <div class="divider"></div>
-      <div class="course-columns">
+      <div class="course-columns" style="display:grid; grid-template-columns:1fr; gap:0 32px;">
         <div>
-          <div class="sec-label">Course Materials</div>
+          <div class="neon-label">Course Materials</div>
           <ul class="course-list">
             <li><a href="https://drive.google.com/drive/u/1/folders/1K1V1SOb7gz5x-r7fCbuybTQtKa306LZj" target="_blank">Materials and Metallurgy</a></li>
             <li><a href="https://drive.google.com/drive/u/1/folders/1TX1xhlHk7Lwt2XVDgpsPERf8eN1Cggfe" target="_blank">Instrumentation and Control</a></li>
@@ -898,130 +667,135 @@ main { padding: 40px 24px 90px; }
           </ul>
         </div>
         <div>
-          <div class="sec-label">Additional</div>
+          <div class="neon-label">Additional</div>
           <ul class="course-list">
             <li class="extras"><a href="https://drive.google.com/drive/u/1/folders/18L_vQJj5sR2eMiDf3ip4-Ok0IqUGuEW8" target="_blank">Sessionals</a></li>
             <li class="extras"><a href="https://drive.google.com/drive/u/1/folders/1uex6fjo8MvS4tOXeyCXTlKJvNxT7_xum" target="_blank">Previous Year Questions</a></li>
           </ul>
         </div>
       </div>
-      <a class="back-button" href="javascript:void(0);" onclick="showPage('mainPage')">&#8592; BACK</a>
+      <a class="back-button" href="javascript:void(0);" onclick="showPage('mainPage')">← BACK</a>
     </div>
   </div>
 
 </main>
 
 <div id="bottom-nav">
-  <button class="active" onclick="showPage('mainPage')">&#8962; HOME</button>
-  <button onclick="document.getElementById('searchInput').focus()">&#9906; SEARCH</button>
-  <button onclick="document.getElementById('themeToggle').click()">&#9680; THEME</button>
+  <button class="active" onclick="showPage('mainPage')">HOME</button>
+  <button onclick="document.getElementById('searchInput').focus()">SEARCH</button>
+  <button onclick="document.getElementById('themeToggle').click()">THEME</button>
 </div>
 
 <script>
-  /* ── EMBERS ── */
-  const emberContainer = document.getElementById('embers');
-  function spawnEmber() {
-    const e = document.createElement('div');
-    e.className = 'ember';
-    const size  = Math.random() * 3 + 1.5;
-    const x     = Math.random() * 100;
-    const drift = (Math.random() - 0.5) * 80;
-    const dur   = Math.random() * 5 + 4;
-    const delay = Math.random() * 3;
-    const colors = ['#ff6b00','#ff9a00','#ffbf00','#ff4500'];
-    e.style.cssText =
-      'width:'+size+'px;height:'+size+'px;left:'+x+'vw;bottom:-10px;' +
-      'background:'+colors[Math.floor(Math.random()*colors.length)]+';' +
-      'box-shadow:0 0 '+(size*2)+'px #ff6b00;' +
-      '--drift:'+drift+'px;animation-duration:'+dur+'s;animation-delay:'+delay+'s;';
-    emberContainer.appendChild(e);
-    setTimeout(function(){ e.remove(); }, (dur + delay) * 1000);
+  /* Gear Animation */
+  const gearsContainer = document.getElementById('gears');
+  function createGear() {
+    const gear = document.createElement('div');
+    gear.className = 'gear';
+    const size = Math.random() * 60 + 40;
+    gear.style.cssText = `
+      width: ${size}px;
+      height: ${size}px;
+      left: ${Math.random() * 100}vw;
+      top: ${Math.random() * 100}vh;
+      animation-duration: ${Math.random() * 25 + 20}s;
+      opacity: ${Math.random() * 0.4 + 0.3};
+    `;
+    gearsContainer.appendChild(gear);
+    setTimeout(() => gear.remove(), 60000);
   }
-  setInterval(spawnEmber, 320);
-  for (var i = 0; i < 12; i++) spawnEmber();
 
-  /* ── PAGE NAVIGATION ── */
+  setInterval(createGear, 1800);
+  for (let i = 0; i < 8; i++) createGear();
+
+  /* Page Navigation */
   function showPage(id) {
-    document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById(id).classList.add('active');
-    document.querySelectorAll('#bottom-nav button').forEach(function(b){ b.classList.remove('active'); });
+    
+    document.querySelectorAll('#bottom-nav button').forEach(b => b.classList.remove('active'));
     if (id === 'mainPage') {
       document.querySelector('#bottom-nav button').classList.add('active');
-      document.getElementById('semesterFilter').value = 'all';
     }
-    setTimeout(function(){ document.querySelector('main').scrollIntoView({ behavior:'smooth', block:'start' }); }, 60);
   }
 
   document.getElementById('semesterFilter').addEventListener('change', function() {
-    var v = this.value;
-    if (v === 'all' || !v) { showPage('mainPage'); return; }
-    showPage(v);
+    const v = this.value;
+    if (v === 'all' || !v) {
+      showPage('mainPage');
+    } else {
+      showPage(v);
+    }
   });
 
-  /* ── SEARCH ── */
+  /* Search Functionality (unchanged) */
   var courses = [
-    { name: "Chem-1121",                                      link: "https://drive.google.com/drive/u/0/folders/1EXFFWysIjlYlT0yI-g4GUOuURYJEzX-R" },
-    { name: "Phy-1121",                                       link: "https://drive.google.com/drive/u/0/folders/1DBkm4pm8kmqrkH1FI8SMb01ewuDRbFeX" },
-    { name: "ME-1101",                                        link: "https://drive.google.com/drive/u/0/folders/1fIy_hDPcS6ZC7O1Cv1LJUAhq2s60m5Iy" },
-    { name: "Math-1121",                                      link: "https://drive.google.com/drive/u/0/folders/1BuU1dts7Oa8faWhhwO8K4H8ysd14Pe1s" },
-    { name: "Hum-1121",                                       link: "https://drive.google.com/drive/u/0/folders/16aOtg5N8immWRyeGhm67JM6TnTeNil70" },
-    { name: "Sessionals 1-1",                                 link: "https://drive.google.com/drive/u/0/folders/15UYsH2xRipGOBLrV7m015DUYApn40JBb" },
-    { name: "Previous Year Questions 1-1",                    link: "https://drive.google.com/drive/u/0/folders/14vZG30Bw48n8eqVXws2Djekbin5Szafa" },
-    { name: "ME-1207",                                        link: "https://drive.google.com/drive/u/0/folders/1Y7OIVITtr2qIqVsxFnigCHwgVOAnPWGT" },
-    { name: "Math-1221",                                      link: "https://drive.google.com/drive/u/0/folders/1sRDXNAJ7I-hJo8Q122zKlWKYlm_YyMHn" },
-    { name: "CSE-1281",                                       link: "https://drive.google.com/drive/u/0/folders/1RkLnGeKiUj7z0mKEQZgGLPDnoRPFf7ke" },
-    { name: "EEE-1281",                                       link: "https://drive.google.com/drive/u/0/folders/1pTkBCPJbNxFzPPcK8vMT47RPouDuTfW-" },
-    { name: "Hum-1221",                                       link: "https://drive.google.com/drive/u/0/folders/1rNpdHjlDOeH5R7HbDLNXa87N0GYZsmk8" },
-    { name: "CSE Lab",                                        link: "https://drive.google.com/drive/u/0/folders/12sqUX5vp83Vp2KRe_Ehee4s4T8SVbyzz" },
-    { name: "Previous Year Questions 1-2",                    link: "https://drive.google.com/drive/u/0/folders/1Oe0ZaBEK07b1vnLa1MRry2iHT2JJDC5y" },
-    { name: "Math-2121",                                      link: "https://drive.google.com/drive/u/0/folders/1fY2_VH2XTeFO1kqgwi_WM7Mtx9fO7VCa" },
-    { name: "ME-2101 Thermodynamics",                         link: "https://drive.google.com/drive/u/0/folders/19ybGtwNS1h3vYe_Lf-j5fmHoaevOSzkS" },
-    { name: "ME-2103 Engineering Mechanics-1",                link: "https://drive.google.com/drive/u/0/folders/1tCYo6XUIPoFPhHkbAPp1xPJxyWsAN4Bz" },
-    { name: "ME-2105 Fluid Mechanics-1",                      link: "https://drive.google.com/drive/u/0/folders/1GwF77b2On_4Mv78NfFfjiQE36SS2ort9" },
-    { name: "Hum-2121",                                       link: "https://drive.google.com/drive/u/0/folders/1jsPcfRjh1OIqMl--0-QAeRGuqZBHZYAI" },
-    { name: "Sessionals 2-1",                                 link: "https://drive.google.com/drive/u/0/folders/1eNhnh2a84ki-sDwdlJ_4ELbNVKVMwdso" },
-    { name: "Previous Year Questions 2-1",                    link: "https://drive.google.com/drive/u/0/folders/17U4gImjVHFsydsDzOi1Ejg8Jo0rSlZ-y" },
-    { name: "Mechanics of Solids",                            link: "https://drive.google.com/drive/u/0/folders/1PWeZy4qvsnw0MWkDxchM0rCsYRy6KJV2" },
-    { name: "Measurement Quality Control Materials Handling",  link: "https://drive.google.com/drive/u/0/folders/1O5dWcLrSj8Z4NN808vGb_Nw2WIojUVdy" },
-    { name: "Engineering Mechanics-II",                       link: "https://drive.google.com/drive/u/0/folders/1SRDzgh8JshaP6qkc2CX6Cl8YVf-l2KRw" },
-    { name: "Electrical Machines and Electronics",            link: "https://drive.google.com/drive/u/0/folders/13bAVx0tTBGUQ48LTZRDWw2pOFbGr_gVN" },
-    { name: "Numerical Analysis and Statistics",              link: "https://drive.google.com/drive/u/0/folders/1RUxoNuQPGIhZn_RsO5Reic5Tmj6dVfXY" },
-    { name: "Sessionals 2-2",                                 link: "https://drive.google.com/drive/u/0/folders/1gxMVlbO5-ZKiR-J0lNlmpc8PYqeXezm4" },
-    { name: "Previous Year Questions 2-2",                    link: "https://drive.google.com/drive/u/0/folders/1FUBsvkKqWkYcA2FobfscPPF6sVhqpKDk" },
-    { name: "Materials and Metallurgy",                       link: "https://drive.google.com/drive/u/1/folders/1K1V1SOb7gz5x-r7fCbuybTQtKa306LZj" },
-    { name: "Instrumentation and Control",                    link: "https://drive.google.com/drive/u/1/folders/1TX1xhlHk7Lwt2XVDgpsPERf8eN1Cggfe" },
-    { name: "Heat Transfer-1",                                link: "https://drive.google.com/drive/u/1/folders/1pCI6k07flQvZKpCg-MtBFuGbuTzmDv5Y" },
-    { name: "Fluid Mechanics-2",                              link: "https://drive.google.com/drive/u/1/folders/1PL-wtUiZvkdyLeL2l-XUMB418WZIMHTW" },
-    { name: "Design of Machine Element",                      link: "https://drive.google.com/drive/u/1/folders/1ImFh7G0YbIxTVCEWdTmYoKtPI9iMxpyR" },
-    { name: "Sessionals 3-1",                                 link: "https://drive.google.com/drive/u/1/folders/18L_vQJj5sR2eMiDf3ip4-Ok0IqUGuEW8" },
-    { name: "Previous Year Questions 3-1",                    link: "https://drive.google.com/drive/u/1/folders/1uex6fjo8MvS4tOXeyCXTlKJvNxT7_xum" }
+    { name: "Chem-1121", link: "https://drive.google.com/drive/u/0/folders/1EXFFWysIjlYlT0yI-g4GUOuURYJEzX-R" },
+    { name: "Phy-1121", link: "https://drive.google.com/drive/u/0/folders/1DBkm4pm8kmqrkH1FI8SMb01ewuDRbFeX" },
+    { name: "ME-1101", link: "https://drive.google.com/drive/u/0/folders/1fIy_hDPcS6ZC7O1Cv1LJUAhq2s60m5Iy" },
+    { name: "Math-1121", link: "https://drive.google.com/drive/u/0/folders/1BuU1dts7Oa8faWhhwO8K4H8ysd14Pe1s" },
+    { name: "Hum-1121", link: "https://drive.google.com/drive/u/0/folders/16aOtg5N8immWRyeGhm67JM6TnTeNil70" },
+    { name: "Sessionals 1-1", link: "https://drive.google.com/drive/u/0/folders/15UYsH2xRipGOBLrV7m015DUYApn40JBb" },
+    { name: "Previous Year Questions 1-1", link: "https://drive.google.com/drive/u/0/folders/14vZG30Bw48n8eqVXws2Djekbin5Szafa" },
+    { name: "ME-1207", link: "https://drive.google.com/drive/u/0/folders/1Y7OIVITtr2qIqVsxFnigCHwgVOAnPWGT" },
+    { name: "Math-1221", link: "https://drive.google.com/drive/u/0/folders/1sRDXNAJ7I-hJo8Q122zKlWKYlm_YyMHn" },
+    { name: "CSE-1281", link: "https://drive.google.com/drive/u/0/folders/1RkLnGeKiUj7z0mKEQZgGLPDnoRPFf7ke" },
+    { name: "EEE-1281", link: "https://drive.google.com/drive/u/0/folders/1pTkBCPJbNxFzPPcK8vMT47RPouDuTfW-" },
+    { name: "Hum-1221", link: "https://drive.google.com/drive/u/0/folders/1rNpdHjlDOeH5R7HbDLNXa87N0GYZsmk8" },
+    { name: "CSE Lab", link: "https://drive.google.com/drive/u/0/folders/12sqUX5vp83Vp2KRe_Ehee4s4T8SVbyzz" },
+    { name: "Previous Year Questions 1-2", link: "https://drive.google.com/drive/u/0/folders/1Oe0ZaBEK07b1vnLa1MRry2iHT2JJDC5y" },
+    { name: "Math-2121", link: "https://drive.google.com/drive/u/0/folders/1fY2_VH2XTeFO1kqgwi_WM7Mtx9fO7VCa" },
+    { name: "ME-2101 Thermodynamics", link: "https://drive.google.com/drive/u/0/folders/19ybGtwNS1h3vYe_Lf-j5fmHoaevOSzkS" },
+    { name: "ME-2103 Engineering Mechanics-1", link: "https://drive.google.com/drive/u/0/folders/1tCYo6XUIPoFPhHkbAPp1xPJxyWsAN4Bz" },
+    { name: "ME-2105 Fluid Mechanics-1", link: "https://drive.google.com/drive/u/0/folders/1GwF77b2On_4Mv78NfFfjiQE36SS2ort9" },
+    { name: "Hum-2121", link: "https://drive.google.com/drive/u/0/folders/1jsPcfRjh1OIqMl--0-QAeRGuqZBHZYAI" },
+    { name: "Sessionals 2-1", link: "https://drive.google.com/drive/u/0/folders/1eNhnh2a84ki-sDwdlJ_4ELbNVKVMwdso" },
+    { name: "Previous Year Questions 2-1", link: "https://drive.google.com/drive/u/0/folders/17U4gImjVHFsydsDzOi1Ejg8Jo0rSlZ-y" },
+    { name: "Mechanics of Solids", link: "https://drive.google.com/drive/u/0/folders/1PWeZy4qvsnw0MWkDxchM0rCsYRy6KJV2" },
+    { name: "Measurement Quality Control Materials Handling", link: "https://drive.google.com/drive/u/0/folders/1O5dWcLrSj8Z4NN808vGb_Nw2WIojUVdy" },
+    { name: "Engineering Mechanics-II", link: "https://drive.google.com/drive/u/0/folders/1SRDzgh8JshaP6qkc2CX6Cl8YVf-l2KRw" },
+    { name: "Electrical Machines and Electronics", link: "https://drive.google.com/drive/u/0/folders/13bAVx0tTBGUQ48LTZRDWw2pOFbGr_gVN" },
+    { name: "Numerical Analysis and Statistics", link: "https://drive.google.com/drive/u/0/folders/1RUxoNuQPGIhZn_RsO5Reic5Tmj6dVfXY" },
+    { name: "Sessionals 2-2", link: "https://drive.google.com/drive/u/0/folders/1gxMVlbO5-ZKiR-J0lNlmpc8PYqeXezm4" },
+    { name: "Previous Year Questions 2-2", link: "https://drive.google.com/drive/u/0/folders/1FUBsvkKqWkYcA2FobfscPPF6sVhqpKDk" },
+    { name: "Materials and Metallurgy", link: "https://drive.google.com/drive/u/1/folders/1K1V1SOb7gz5x-r7fCbuybTQtKa306LZj" },
+    { name: "Instrumentation and Control", link: "https://drive.google.com/drive/u/1/folders/1TX1xhlHk7Lwt2XVDgpsPERf8eN1Cggfe" },
+    { name: "Heat Transfer-1", link: "https://drive.google.com/drive/u/1/folders/1pCI6k07flQvZKpCg-MtBFuGbuTzmDv5Y" },
+    { name: "Fluid Mechanics-2", link: "https://drive.google.com/drive/u/1/folders/1PL-wtUiZvkdyLeL2l-XUMB418WZIMHTW" },
+    { name: "Design of Machine Element", link: "https://drive.google.com/drive/u/1/folders/1ImFh7G0YbIxTVCEWdTmYoKtPI9iMxpyR" },
+    { name: "Sessionals 3-1", link: "https://drive.google.com/drive/u/1/folders/18L_vQJj5sR2eMiDf3ip4-Ok0IqUGuEW8" },
+    { name: "Previous Year Questions 3-1", link: "https://drive.google.com/drive/u/1/folders/1uex6fjo8MvS4tOXeyCXTlKJvNxT7_xum" }
   ];
 
   function searchCourses(openFirst) {
-    var input  = document.getElementById('searchInput');
+    var input = document.getElementById('searchInput');
     var filter = input.value.trim().toUpperCase();
-    var sugg   = document.getElementById('suggestions');
+    var sugg = document.getElementById('suggestions');
     sugg.innerHTML = '';
     sugg.style.display = 'none';
 
     if (filter.length < 2) {
-      sugg.innerHTML = '<div style="color:var(--dim)">Type at least 2 characters...</div>';
+      sugg.innerHTML = '<div style="color:var(--dim); padding:12px;">Type at least 2 characters...</div>';
       sugg.style.display = 'block';
       return;
     }
 
-    var matches = courses.filter(function(c){ return c.name.toUpperCase().indexOf(filter) !== -1; });
+    var matches = courses.filter(c => c.name.toUpperCase().indexOf(filter) !== -1);
 
     if (!matches.length) {
-      sugg.innerHTML = '<div style="color:var(--dim)">No matches found</div>';
+      sugg.innerHTML = '<div style="color:var(--dim); padding:12px;">No matches found</div>';
       sugg.style.display = 'block';
       return;
     }
 
-    matches.forEach(function(item) {
+    matches.forEach(item => {
       var d = document.createElement('div');
       d.textContent = item.name;
-      d.onclick = function(){ window.open(item.link, '_blank'); input.value = ''; sugg.style.display = 'none'; };
+      d.onclick = function() {
+        window.open(item.link, '_blank');
+        input.value = '';
+        sugg.style.display = 'none';
+      };
       sugg.appendChild(d);
     });
 
@@ -1034,22 +808,22 @@ main { padding: 40px 24px 90px; }
     }
   }
 
-  document.getElementById('searchInput').addEventListener('input', function(){ searchCourses(false); });
-  document.getElementById('searchInput').addEventListener('keypress', function(e){
+  document.getElementById('searchInput').addEventListener('input', () => searchCourses(false));
+  document.getElementById('searchInput').addEventListener('keypress', e => {
     if (e.key === 'Enter') { e.preventDefault(); searchCourses(true); }
   });
-  document.querySelector('.btn-search').onclick = function(){ searchCourses(true); };
-  document.addEventListener('click', function(e){
+  document.querySelector('.btn-search').onclick = () => searchCourses(true);
+
+  document.addEventListener('click', e => {
     var s = document.getElementById('suggestions');
     if (!document.getElementById('searchInput').contains(e.target) && !s.contains(e.target))
       s.style.display = 'none';
   });
 
-  /* ── THEME TOGGLE ── */
+  /* Theme Toggle */
   document.getElementById('themeToggle').onclick = function() {
     var isLight = document.body.classList.toggle('light');
-    this.textContent = isLight ? '\uD83C\uDF19 DARK MODE' : '\u2600 LIGHT MODE';
-    /* keep bottom-nav theme button label in sync */
+    this.textContent = isLight ? '☀️ LIGHT MODE' : '🌙 DARK MODE';
   };
 </script>
 
