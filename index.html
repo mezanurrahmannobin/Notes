@@ -25,6 +25,7 @@
     --glow:     rgba(255,107,0,0.15);
   }
 
+/* ── LIGHT THEME ── all custom properties fixed with – prefix */
 body.light {
 –bg:       #faf4ec;
 –bg2:      #f0e6d4;
@@ -32,13 +33,13 @@ body.light {
 –text:     #2a1a06;
 –dim:      #8a6a40;
 –accent:   #cc4400;
-–accent2:  #e09000;
+–accent2:  #b07000;
 –steel:    #7a5a30;
-–border:   rgba(204,68,0,0.22);
-–border2:  rgba(224,144,0,0.15);
-–shadow:   rgba(0,0,0,0.1);
+–border:   rgba(180,80,0,0.25);
+–border2:  rgba(160,100,0,0.18);
+–shadow:   rgba(80,30,0,0.12);
 –topbar:   rgba(250,244,236,0.97);
-–input-bg: rgba(255,255,255,0.9);
+–input-bg: rgba(255,255,255,0.85);
 –glow:     rgba(204,68,0,0.08);
 }
 
@@ -52,9 +53,10 @@ font-family: ‘Barlow Condensed’, sans-serif;
 display: flex;
 flex-direction: column;
 overflow-x: hidden;
-transition: background 0.5s, color 0.5s;
+transition: background 0.4s, color 0.4s;
 }
 
+/* dark background layers */
 body::before {
 content: ‘’;
 position: fixed;
@@ -65,12 +67,12 @@ radial-gradient(ellipse 80% 60% at 50% 100%, rgba(255,80,0,0.07) 0%, transparent
 radial-gradient(ellipse 40% 30% at 20% 80%,  rgba(255,140,0,0.05) 0%, transparent 60%),
 radial-gradient(ellipse 50% 40% at 80% 20%,  rgba(255,60,0,0.04)  0%, transparent 60%);
 pointer-events: none;
-transition: background 0.5s;
+transition: background 0.4s;
 }
 
 body.light::before {
 background:
-radial-gradient(ellipse 80% 60% at 50% 100%, rgba(204,68,0,0.05) 0%, transparent 70%),
+radial-gradient(ellipse 80% 60% at 50% 100%, rgba(204,68,0,0.06) 0%, transparent 70%),
 radial-gradient(ellipse 40% 30% at 20% 80%,  rgba(224,144,0,0.04) 0%, transparent 60%),
 radial-gradient(ellipse 50% 40% at 80% 20%,  rgba(204,68,0,0.03)  0%, transparent 60%);
 }
@@ -89,7 +91,7 @@ rgba(255,107,0,0.025) 14px,
 rgba(255,107,0,0.025) 15px
 );
 pointer-events: none;
-transition: background-color 0.5s;
+transition: background-color 0.4s;
 }
 
 body.light::after {
@@ -98,18 +100,22 @@ background-image: repeating-linear-gradient(
 -45deg,
 transparent 0px,
 transparent 14px,
-rgba(204,68,0,0.04) 14px,
-rgba(204,68,0,0.04) 15px
+rgba(160,80,0,0.055) 14px,
+rgba(160,80,0,0.055) 15px
 );
 }
 
+/* ── EMBERS (hidden in light mode) ── */
 #embers {
 position: fixed;
 inset: 0;
 z-index: -1;
 pointer-events: none;
 overflow: hidden;
+transition: opacity 0.4s;
 }
+
+body.light #embers { opacity: 0; }
 
 .ember {
 position: absolute;
@@ -125,6 +131,7 @@ animation: floatEmber linear infinite;
 100% { transform: translateY(-10vh) translateX(var(–drift)) scale(0.3); opacity: 0; }
 }
 
+/* ── TOP BAR ── */
 .top-bar {
 padding: 10px 16px;
 background: var(–topbar);
@@ -137,6 +144,7 @@ top: 0;
 z-index: 100;
 border-bottom: 1px solid var(–border);
 box-shadow: 0 2px 24px rgba(255,107,0,0.08);
+transition: background 0.4s, border-color 0.4s;
 }
 
 .logo-wrap { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
@@ -146,6 +154,7 @@ width: 40px; height: 40px;
 border-radius: 50%;
 border: 2px solid var(–accent);
 box-shadow: 0 0 12px rgba(255,107,0,0.4);
+transition: border-color 0.4s;
 }
 
 .logo-text {
@@ -155,6 +164,7 @@ color: var(–accent);
 letter-spacing: 2px;
 line-height: 1;
 display: none;
+transition: color 0.4s;
 }
 
 @media (min-width: 480px) { .logo-text { display: block; } }
@@ -168,7 +178,7 @@ background: var(–input-bg);
 border: 1px solid var(–border);
 border-radius: 6px;
 color: var(–text);
-transition: border-color 0.2s, box-shadow 0.2s;
+transition: border-color 0.2s, box-shadow 0.2s, background 0.4s, color 0.4s;
 }
 
 #searchInput:focus {
@@ -191,12 +201,18 @@ transition: all 0.2s;
 white-space: nowrap;
 }
 
-.btn-search { background: var(–accent); color: #fff; }
-.btn-search:hover { background: #ff8a30; box-shadow: 0 0 18px rgba(255,107,0,0.45); }
+.btn-search { background: var(–accent); color: #fff; transition: background 0.4s; }
+.btn-search:hover { filter: brightness(1.2); box-shadow: 0 0 18px rgba(255,107,0,0.45); }
 
-.btn-contact { background: transparent; border: 1px solid var(–border2); color: var(–accent2); }
+.btn-contact {
+background: transparent;
+border: 1px solid var(–border2);
+color: var(–accent2);
+transition: background 0.2s, border-color 0.4s, color 0.4s;
+}
 .btn-contact:hover { background: rgba(255,201,74,0.1); border-color: var(–accent2); }
 
+/* ── AUTOCOMPLETE ── */
 #suggestions {
 position: absolute;
 top: 100%;
@@ -211,6 +227,7 @@ z-index: 150;
 box-shadow: 0 12px 40px rgba(0,0,0,0.6);
 display: none;
 backdrop-filter: blur(16px);
+transition: background 0.4s, border-color 0.4s;
 }
 
 #suggestions div {
@@ -226,6 +243,7 @@ transition: background 0.15s, color 0.15s;
 #suggestions div:last-child { border-bottom: none; }
 #suggestions div:hover { background: rgba(255,107,0,0.1); color: var(–accent); }
 
+/* ── MAIN LAYOUT ── */
 main { flex: 1; padding: 28px 16px 90px; width: 100%; }
 
 .page { display: none; width: 100%; }
@@ -242,6 +260,7 @@ box-shadow: 0 12px 50px var(–shadow), 0 0 0 1px rgba(255,107,0,0.04);
 width: 100%;
 margin: 0 auto;
 position: relative;
+transition: background 0.4s, border-color 0.4s, box-shadow 0.4s;
 }
 
 .card::before, .course-container::before,
@@ -257,6 +276,7 @@ opacity: 0.4;
 .card::before, .course-container::before { top: 10px; left: 10px; }
 .card::after,  .course-container::after  { top: 10px; right: 10px; }
 
+/* ── FORGE TITLE ── */
 .forge-title {
 font-family: ‘Bebas Neue’, sans-serif;
 font-size: 2.6rem;
@@ -266,6 +286,11 @@ text-align: center;
 line-height: 1;
 text-shadow: 0 0 40px rgba(255,107,0,0.4), 0 2px 0 rgba(0,0,0,0.5);
 margin-bottom: 0.15rem;
+transition: color 0.4s, text-shadow 0.4s;
+}
+
+body.light .forge-title {
+text-shadow: 0 0 20px rgba(204,68,0,0.2), 0 2px 0 rgba(150,60,0,0.15);
 }
 
 .forge-sub {
@@ -276,8 +301,10 @@ color: var(–dim);
 text-align: center;
 text-transform: uppercase;
 margin-bottom: 1.8rem;
+transition: color 0.4s;
 }
 
+/* ── HEAT METER ── */
 .heat-meter {
 display: flex;
 align-items: flex-end;
@@ -300,6 +327,8 @@ margin-bottom: 1.6rem;
 .heat-bar:nth-child(10) { height: 30%;  background: #ff5500; animation-duration: 0.92s; animation-delay: 0.18s; }
 .heat-bar:nth-child(11) { height: 20%;  background: #ff3a00; animation-duration: 0.82s; animation-delay: 0.25s; }
 
+body.light .heat-bar { opacity: 0.7; }
+
 @keyframes heatPulse {
 0%   { transform: scaleY(0.7); opacity: 0.6; }
 100% { transform: scaleY(1.0); opacity: 1;   }
@@ -310,7 +339,10 @@ height: 1px;
 background: linear-gradient(90deg, transparent, var(–accent), transparent);
 opacity: 0.25;
 margin: 1.2rem 0;
+transition: opacity 0.4s;
 }
+
+body.light .divider { opacity: 0.35; }
 
 .neon-label {
 display: block;
@@ -320,8 +352,10 @@ letter-spacing: 2.5px;
 color: var(–dim);
 text-transform: uppercase;
 margin-bottom: 0.6rem;
+transition: color 0.4s;
 }
 
+/* ── SEMESTER SELECT ── */
 .semester-select {
 width: 100%;
 padding: 10px 40px 10px 14px;
@@ -339,13 +373,18 @@ background-size: 18px;
 background-repeat: no-repeat;
 cursor: pointer;
 margin-bottom: 1.5rem;
-transition: border-color 0.2s;
+transition: border-color 0.2s, background-color 0.4s, color 0.4s;
 }
 
 .semester-select:focus {
 outline: none;
 border-color: var(–accent);
 box-shadow: 0 0 0 3px rgba(255,107,0,0.1);
+}
+
+/* light: fix select arrow to dark-red for contrast */
+body.light .semester-select {
+background-image: url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘20’ height=‘20’ viewBox=‘0 0 24 24’ fill=‘none’ stroke=’%23cc4400’ stroke-width=‘2.5’ stroke-linecap=‘round’ stroke-linejoin=‘round’%3E%3Cpolyline points=‘6 9 12 15 18 9’%3E%3C/polyline%3E%3C/svg%3E”);
 }
 
 .sem-label {
@@ -358,6 +397,7 @@ margin-bottom: 0.7rem;
 display: flex;
 align-items: center;
 gap: 8px;
+transition: color 0.4s;
 }
 
 .sem-label::after {
@@ -367,6 +407,7 @@ height: 1px;
 background: linear-gradient(90deg, var(–border), transparent);
 }
 
+/* ── SEMESTER GRID ── */
 .semester-list {
 list-style: none;
 display: grid;
@@ -393,7 +434,7 @@ text-decoration: none;
 font-size: 1.05rem;
 font-weight: 700;
 letter-spacing: 1px;
-transition: all 0.2s ease;
+transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
 height: 100%;
 }
 
@@ -405,20 +446,25 @@ transform: translateX(4px);
 box-shadow: 0 4px 20px rgba(255,107,0,0.1), inset 0 0 20px rgba(255,107,0,0.04);
 }
 
+body.light .semester-item a { background: rgba(180,70,0,0.04); }
+body.light .semester-item a:hover { background: rgba(180,70,0,0.09); }
+
 .sem-num {
 font-family: ‘Bebas Neue’, sans-serif;
 font-size: 1.4rem;
 color: var(–accent);
 line-height: 1;
 min-width: 36px;
+transition: color 0.4s;
 }
 
 .sem-info { display: flex; flex-direction: column; }
 .sem-name { font-size: 0.97rem; font-weight: 700; }
-.sem-year { font-size: 0.75rem; color: var(–dim); font-weight: 400; letter-spacing: 0.5px; }
+.sem-year { font-size: 0.75rem; color: var(–dim); font-weight: 400; letter-spacing: 0.5px; transition: color 0.4s; }
 .sem-arrow { color: var(–dim); font-size: 1rem; transition: color 0.2s, transform 0.2s; }
 .semester-item a:hover .sem-arrow { color: var(–accent); transform: translateX(3px); }
 
+/* ── COURSE PAGE ── */
 .course-header { margin-bottom: 1.2rem; }
 
 .course-code-tag {
@@ -432,7 +478,10 @@ border: 1px solid var(–border);
 border-radius: 3px;
 padding: 3px 10px;
 margin-bottom: 0.6rem;
+transition: color 0.4s, background 0.4s, border-color 0.4s;
 }
+
+body.light .course-code-tag { background: rgba(180,60,0,0.08); }
 
 .course-big-title {
 font-family: ‘Bebas Neue’, sans-serif;
@@ -441,6 +490,7 @@ letter-spacing: 5px;
 color: var(–text);
 line-height: 1;
 margin-bottom: 0.2rem;
+transition: color 0.4s;
 }
 
 .course-big-title span { color: var(–accent); }
@@ -450,6 +500,7 @@ font-size: 0.85rem;
 color: var(–dim);
 font-family: ‘IBM Plex Mono’, monospace;
 letter-spacing: 1px;
+transition: color 0.4s;
 }
 
 .course-columns { display: grid; grid-template-columns: 1fr; gap: 0 32px; }
@@ -465,6 +516,7 @@ margin: 1.2rem 0 0.6rem;
 display: flex;
 align-items: center;
 gap: 8px;
+transition: color 0.4s;
 }
 
 .sec-label::after {
@@ -489,7 +541,12 @@ text-decoration: none;
 font-size: 0.97rem;
 font-weight: 600;
 letter-spacing: 0.3px;
-transition: all 0.18s;
+transition: background 0.18s, border-color 0.18s, color 0.18s, transform 0.18s;
+}
+
+body.light .course-list li a {
+background: rgba(160,60,0,0.04);
+border-color: rgba(160,60,0,0.15);
 }
 
 .course-list li a::before {
@@ -502,13 +559,46 @@ transition: opacity 0.15s;
 flex-shrink: 0;
 }
 
-.course-list li a:hover { background: rgba(255,107,0,0.09); border-color: rgba(255,107,0,0.3); color: var(–accent2); transform: translateX(3px); }
+.course-list li a:hover {
+background: rgba(255,107,0,0.09);
+border-color: rgba(255,107,0,0.3);
+color: var(–accent);
+transform: translateX(3px);
+}
+
+body.light .course-list li a:hover {
+background: rgba(160,60,0,0.1);
+border-color: rgba(160,60,0,0.35);
+color: var(–accent);
+}
+
 .course-list li a:hover::before { opacity: 1; }
 
-.course-list li.extras a { background: rgba(255,201,74,0.04); border-color: rgba(255,201,74,0.15); }
-.course-list li.extras a::before { color: var(–accent2); }
-.course-list li.extras a:hover { background: rgba(255,201,74,0.1); border-color: rgba(255,201,74,0.35); color: var(–accent2); }
+.course-list li.extras a {
+background: rgba(255,201,74,0.04);
+border-color: rgba(255,201,74,0.15);
+}
 
+body.light .course-list li.extras a {
+background: rgba(160,100,0,0.05);
+border-color: rgba(160,100,0,0.18);
+}
+
+.course-list li.extras a::before { color: var(–accent2); }
+
+.course-list li.extras a:hover {
+background: rgba(255,201,74,0.1);
+border-color: rgba(255,201,74,0.35);
+color: var(–accent2);
+}
+
+body.light .course-list li.extras a:hover {
+background: rgba(160,100,0,0.12);
+border-color: rgba(160,100,0,0.4);
+color: var(–accent2);
+}
+
+/* ── BACK BUTTON ── */
 .back-button {
 display: flex;
 align-items: center;
@@ -525,11 +615,17 @@ font-family: ‘Bebas Neue’, sans-serif;
 font-size: 1rem;
 letter-spacing: 2px;
 text-decoration: none;
-transition: all 0.2s;
+transition: background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
 }
 
-.back-button:hover { background: rgba(255,107,0,0.08); border-color: var(–accent); color: var(–accent); box-shadow: 0 0 16px rgba(255,107,0,0.12); }
+.back-button:hover {
+background: rgba(255,107,0,0.08);
+border-color: var(–accent);
+color: var(–accent);
+box-shadow: 0 0 16px rgba(255,107,0,0.12);
+}
 
+/* ── THEME TOGGLE ── */
 .theme-row { display: flex; justify-content: center; margin-top: 1rem; }
 
 #themeToggle {
@@ -542,11 +638,16 @@ border: 1px solid var(–border);
 border-radius: 4px;
 color: var(–dim);
 cursor: pointer;
-transition: all 0.2s;
+transition: border-color 0.2s, color 0.2s, background 0.2s;
 }
 
-#themeToggle:hover { border-color: var(–accent); color: var(–accent); background: rgba(255,107,0,0.06); }
+#themeToggle:hover {
+border-color: var(–accent);
+color: var(–accent);
+background: rgba(255,107,0,0.06);
+}
 
+/* ── BOTTOM NAV ── */
 #bottom-nav {
 position: fixed;
 bottom: 0; left: 0; right: 0;
@@ -555,6 +656,7 @@ backdrop-filter: blur(14px);
 display: flex;
 border-top: 1px solid var(–border);
 z-index: 99;
+transition: background 0.4s, border-color 0.4s;
 }
 
 #bottom-nav button {
@@ -567,11 +669,16 @@ font-family: ‘Bebas Neue’, sans-serif;
 font-size: 0.88rem;
 letter-spacing: 2px;
 cursor: pointer;
-transition: all 0.2s;
+transition: color 0.2s, background 0.2s;
 }
 
-#bottom-nav button.active { color: var(–accent); background: rgba(255,107,0,0.06); border-top: 2px solid var(–accent); }
+#bottom-nav button.active {
+color: var(–accent);
+background: rgba(255,107,0,0.06);
+border-top: 2px solid var(–accent);
+}
 
+/* ── RESPONSIVE ── */
 @media (max-width: 480px) {
 main { padding: 20px 10px 88px; }
 .card, .course-container { padding: 22px 16px; }
@@ -811,6 +918,7 @@ main { padding: 40px 24px 90px; }
 </div>
 
 <script>
+  /* ── EMBERS ── */
   const emberContainer = document.getElementById('embers');
   function spawnEmber() {
     const e = document.createElement('div');
@@ -821,13 +929,18 @@ main { padding: 40px 24px 90px; }
     const dur   = Math.random() * 5 + 4;
     const delay = Math.random() * 3;
     const colors = ['#ff6b00','#ff9a00','#ffbf00','#ff4500'];
-    e.style.cssText = 'width:'+size+'px;height:'+size+'px;left:'+x+'vw;bottom:-10px;background:'+colors[Math.floor(Math.random()*colors.length)]+';box-shadow:0 0 '+(size*2)+'px #ff6b00;--drift:'+drift+'px;animation-duration:'+dur+'s;animation-delay:'+delay+'s;';
+    e.style.cssText =
+      'width:'+size+'px;height:'+size+'px;left:'+x+'vw;bottom:-10px;' +
+      'background:'+colors[Math.floor(Math.random()*colors.length)]+';' +
+      'box-shadow:0 0 '+(size*2)+'px #ff6b00;' +
+      '--drift:'+drift+'px;animation-duration:'+dur+'s;animation-delay:'+delay+'s;';
     emberContainer.appendChild(e);
     setTimeout(function(){ e.remove(); }, (dur + delay) * 1000);
   }
   setInterval(spawnEmber, 320);
   for (var i = 0; i < 12; i++) spawnEmber();
 
+  /* ── PAGE NAVIGATION ── */
   function showPage(id) {
     document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
     document.getElementById(id).classList.add('active');
@@ -845,42 +958,43 @@ main { padding: 40px 24px 90px; }
     showPage(v);
   });
 
+  /* ── SEARCH ── */
   var courses = [
-    { name: "Chem-1121",                                     link: "https://drive.google.com/drive/u/0/folders/1EXFFWysIjlYlT0yI-g4GUOuURYJEzX-R" },
-    { name: "Phy-1121",                                      link: "https://drive.google.com/drive/u/0/folders/1DBkm4pm8kmqrkH1FI8SMb01ewuDRbFeX" },
-    { name: "ME-1101",                                       link: "https://drive.google.com/drive/u/0/folders/1fIy_hDPcS6ZC7O1Cv1LJUAhq2s60m5Iy" },
-    { name: "Math-1121",                                     link: "https://drive.google.com/drive/u/0/folders/1BuU1dts7Oa8faWhhwO8K4H8ysd14Pe1s" },
-    { name: "Hum-1121",                                      link: "https://drive.google.com/drive/u/0/folders/16aOtg5N8immWRyeGhm67JM6TnTeNil70" },
-    { name: "Sessionals 1-1",                                link: "https://drive.google.com/drive/u/0/folders/15UYsH2xRipGOBLrV7m015DUYApn40JBb" },
-    { name: "Previous Year Questions 1-1",                   link: "https://drive.google.com/drive/u/0/folders/14vZG30Bw48n8eqVXws2Djekbin5Szafa" },
-    { name: "ME-1207",                                       link: "https://drive.google.com/drive/u/0/folders/1Y7OIVITtr2qIqVsxFnigCHwgVOAnPWGT" },
-    { name: "Math-1221",                                     link: "https://drive.google.com/drive/u/0/folders/1sRDXNAJ7I-hJo8Q122zKlWKYlm_YyMHn" },
-    { name: "CSE-1281",                                      link: "https://drive.google.com/drive/u/0/folders/1RkLnGeKiUj7z0mKEQZgGLPDnoRPFf7ke" },
-    { name: "EEE-1281",                                      link: "https://drive.google.com/drive/u/0/folders/1pTkBCPJbNxFzPPcK8vMT47RPouDuTfW-" },
-    { name: "Hum-1221",                                      link: "https://drive.google.com/drive/u/0/folders/1rNpdHjlDOeH5R7HbDLNXa87N0GYZsmk8" },
-    { name: "CSE Lab",                                       link: "https://drive.google.com/drive/u/0/folders/12sqUX5vp83Vp2KRe_Ehee4s4T8SVbyzz" },
-    { name: "Previous Year Questions 1-2",                   link: "https://drive.google.com/drive/u/0/folders/1Oe0ZaBEK07b1vnLa1MRry2iHT2JJDC5y" },
-    { name: "Math-2121",                                     link: "https://drive.google.com/drive/u/0/folders/1fY2_VH2XTeFO1kqgwi_WM7Mtx9fO7VCa" },
-    { name: "ME-2101 Thermodynamics",                        link: "https://drive.google.com/drive/u/0/folders/19ybGtwNS1h3vYe_Lf-j5fmHoaevOSzkS" },
-    { name: "ME-2103 Engineering Mechanics-1",               link: "https://drive.google.com/drive/u/0/folders/1tCYo6XUIPoFPhHkbAPp1xPJxyWsAN4Bz" },
-    { name: "ME-2105 Fluid Mechanics-1",                     link: "https://drive.google.com/drive/u/0/folders/1GwF77b2On_4Mv78NfFfjiQE36SS2ort9" },
-    { name: "Hum-2121",                                      link: "https://drive.google.com/drive/u/0/folders/1jsPcfRjh1OIqMl--0-QAeRGuqZBHZYAI" },
-    { name: "Sessionals 2-1",                                link: "https://drive.google.com/drive/u/0/folders/1eNhnh2a84ki-sDwdlJ_4ELbNVKVMwdso" },
-    { name: "Previous Year Questions 2-1",                   link: "https://drive.google.com/drive/u/0/folders/17U4gImjVHFsydsDzOi1Ejg8Jo0rSlZ-y" },
-    { name: "Mechanics of Solids",                           link: "https://drive.google.com/drive/u/0/folders/1PWeZy4qvsnw0MWkDxchM0rCsYRy6KJV2" },
-    { name: "Measurement Quality Control Materials Handling", link: "https://drive.google.com/drive/u/0/folders/1O5dWcLrSj8Z4NN808vGb_Nw2WIojUVdy" },
-    { name: "Engineering Mechanics-II",                      link: "https://drive.google.com/drive/u/0/folders/1SRDzgh8JshaP6qkc2CX6Cl8YVf-l2KRw" },
-    { name: "Electrical Machines and Electronics",           link: "https://drive.google.com/drive/u/0/folders/13bAVx0tTBGUQ48LTZRDWw2pOFbGr_gVN" },
-    { name: "Numerical Analysis and Statistics",             link: "https://drive.google.com/drive/u/0/folders/1RUxoNuQPGIhZn_RsO5Reic5Tmj6dVfXY" },
-    { name: "Sessionals 2-2",                                link: "https://drive.google.com/drive/u/0/folders/1gxMVlbO5-ZKiR-J0lNlmpc8PYqeXezm4" },
-    { name: "Previous Year Questions 2-2",                   link: "https://drive.google.com/drive/u/0/folders/1FUBsvkKqWkYcA2FobfscPPF6sVhqpKDk" },
-    { name: "Materials and Metallurgy",                      link: "https://drive.google.com/drive/u/1/folders/1K1V1SOb7gz5x-r7fCbuybTQtKa306LZj" },
-    { name: "Instrumentation and Control",                   link: "https://drive.google.com/drive/u/1/folders/1TX1xhlHk7Lwt2XVDgpsPERf8eN1Cggfe" },
-    { name: "Heat Transfer-1",                               link: "https://drive.google.com/drive/u/1/folders/1pCI6k07flQvZKpCg-MtBFuGbuTzmDv5Y" },
-    { name: "Fluid Mechanics-2",                             link: "https://drive.google.com/drive/u/1/folders/1PL-wtUiZvkdyLeL2l-XUMB418WZIMHTW" },
-    { name: "Design of Machine Element",                     link: "https://drive.google.com/drive/u/1/folders/1ImFh7G0YbIxTVCEWdTmYoKtPI9iMxpyR" },
-    { name: "Sessionals 3-1",                                link: "https://drive.google.com/drive/u/1/folders/18L_vQJj5sR2eMiDf3ip4-Ok0IqUGuEW8" },
-    { name: "Previous Year Questions 3-1",                   link: "https://drive.google.com/drive/u/1/folders/1uex6fjo8MvS4tOXeyCXTlKJvNxT7_xum" }
+    { name: "Chem-1121",                                      link: "https://drive.google.com/drive/u/0/folders/1EXFFWysIjlYlT0yI-g4GUOuURYJEzX-R" },
+    { name: "Phy-1121",                                       link: "https://drive.google.com/drive/u/0/folders/1DBkm4pm8kmqrkH1FI8SMb01ewuDRbFeX" },
+    { name: "ME-1101",                                        link: "https://drive.google.com/drive/u/0/folders/1fIy_hDPcS6ZC7O1Cv1LJUAhq2s60m5Iy" },
+    { name: "Math-1121",                                      link: "https://drive.google.com/drive/u/0/folders/1BuU1dts7Oa8faWhhwO8K4H8ysd14Pe1s" },
+    { name: "Hum-1121",                                       link: "https://drive.google.com/drive/u/0/folders/16aOtg5N8immWRyeGhm67JM6TnTeNil70" },
+    { name: "Sessionals 1-1",                                 link: "https://drive.google.com/drive/u/0/folders/15UYsH2xRipGOBLrV7m015DUYApn40JBb" },
+    { name: "Previous Year Questions 1-1",                    link: "https://drive.google.com/drive/u/0/folders/14vZG30Bw48n8eqVXws2Djekbin5Szafa" },
+    { name: "ME-1207",                                        link: "https://drive.google.com/drive/u/0/folders/1Y7OIVITtr2qIqVsxFnigCHwgVOAnPWGT" },
+    { name: "Math-1221",                                      link: "https://drive.google.com/drive/u/0/folders/1sRDXNAJ7I-hJo8Q122zKlWKYlm_YyMHn" },
+    { name: "CSE-1281",                                       link: "https://drive.google.com/drive/u/0/folders/1RkLnGeKiUj7z0mKEQZgGLPDnoRPFf7ke" },
+    { name: "EEE-1281",                                       link: "https://drive.google.com/drive/u/0/folders/1pTkBCPJbNxFzPPcK8vMT47RPouDuTfW-" },
+    { name: "Hum-1221",                                       link: "https://drive.google.com/drive/u/0/folders/1rNpdHjlDOeH5R7HbDLNXa87N0GYZsmk8" },
+    { name: "CSE Lab",                                        link: "https://drive.google.com/drive/u/0/folders/12sqUX5vp83Vp2KRe_Ehee4s4T8SVbyzz" },
+    { name: "Previous Year Questions 1-2",                    link: "https://drive.google.com/drive/u/0/folders/1Oe0ZaBEK07b1vnLa1MRry2iHT2JJDC5y" },
+    { name: "Math-2121",                                      link: "https://drive.google.com/drive/u/0/folders/1fY2_VH2XTeFO1kqgwi_WM7Mtx9fO7VCa" },
+    { name: "ME-2101 Thermodynamics",                         link: "https://drive.google.com/drive/u/0/folders/19ybGtwNS1h3vYe_Lf-j5fmHoaevOSzkS" },
+    { name: "ME-2103 Engineering Mechanics-1",                link: "https://drive.google.com/drive/u/0/folders/1tCYo6XUIPoFPhHkbAPp1xPJxyWsAN4Bz" },
+    { name: "ME-2105 Fluid Mechanics-1",                      link: "https://drive.google.com/drive/u/0/folders/1GwF77b2On_4Mv78NfFfjiQE36SS2ort9" },
+    { name: "Hum-2121",                                       link: "https://drive.google.com/drive/u/0/folders/1jsPcfRjh1OIqMl--0-QAeRGuqZBHZYAI" },
+    { name: "Sessionals 2-1",                                 link: "https://drive.google.com/drive/u/0/folders/1eNhnh2a84ki-sDwdlJ_4ELbNVKVMwdso" },
+    { name: "Previous Year Questions 2-1",                    link: "https://drive.google.com/drive/u/0/folders/17U4gImjVHFsydsDzOi1Ejg8Jo0rSlZ-y" },
+    { name: "Mechanics of Solids",                            link: "https://drive.google.com/drive/u/0/folders/1PWeZy4qvsnw0MWkDxchM0rCsYRy6KJV2" },
+    { name: "Measurement Quality Control Materials Handling",  link: "https://drive.google.com/drive/u/0/folders/1O5dWcLrSj8Z4NN808vGb_Nw2WIojUVdy" },
+    { name: "Engineering Mechanics-II",                       link: "https://drive.google.com/drive/u/0/folders/1SRDzgh8JshaP6qkc2CX6Cl8YVf-l2KRw" },
+    { name: "Electrical Machines and Electronics",            link: "https://drive.google.com/drive/u/0/folders/13bAVx0tTBGUQ48LTZRDWw2pOFbGr_gVN" },
+    { name: "Numerical Analysis and Statistics",              link: "https://drive.google.com/drive/u/0/folders/1RUxoNuQPGIhZn_RsO5Reic5Tmj6dVfXY" },
+    { name: "Sessionals 2-2",                                 link: "https://drive.google.com/drive/u/0/folders/1gxMVlbO5-ZKiR-J0lNlmpc8PYqeXezm4" },
+    { name: "Previous Year Questions 2-2",                    link: "https://drive.google.com/drive/u/0/folders/1FUBsvkKqWkYcA2FobfscPPF6sVhqpKDk" },
+    { name: "Materials and Metallurgy",                       link: "https://drive.google.com/drive/u/1/folders/1K1V1SOb7gz5x-r7fCbuybTQtKa306LZj" },
+    { name: "Instrumentation and Control",                    link: "https://drive.google.com/drive/u/1/folders/1TX1xhlHk7Lwt2XVDgpsPERf8eN1Cggfe" },
+    { name: "Heat Transfer-1",                                link: "https://drive.google.com/drive/u/1/folders/1pCI6k07flQvZKpCg-MtBFuGbuTzmDv5Y" },
+    { name: "Fluid Mechanics-2",                              link: "https://drive.google.com/drive/u/1/folders/1PL-wtUiZvkdyLeL2l-XUMB418WZIMHTW" },
+    { name: "Design of Machine Element",                      link: "https://drive.google.com/drive/u/1/folders/1ImFh7G0YbIxTVCEWdTmYoKtPI9iMxpyR" },
+    { name: "Sessionals 3-1",                                 link: "https://drive.google.com/drive/u/1/folders/18L_vQJj5sR2eMiDf3ip4-Ok0IqUGuEW8" },
+    { name: "Previous Year Questions 3-1",                    link: "https://drive.google.com/drive/u/1/folders/1uex6fjo8MvS4tOXeyCXTlKJvNxT7_xum" }
   ];
 
   function searchCourses(openFirst) {
@@ -931,9 +1045,11 @@ main { padding: 40px 24px 90px; }
       s.style.display = 'none';
   });
 
+  /* ── THEME TOGGLE ── */
   document.getElementById('themeToggle').onclick = function() {
-    var light = document.body.classList.toggle('light');
-    document.getElementById('themeToggle').textContent = light ? '\uD83C\uDF19 DARK MODE' : '\u2600 LIGHT MODE';
+    var isLight = document.body.classList.toggle('light');
+    this.textContent = isLight ? '\uD83C\uDF19 DARK MODE' : '\u2600 LIGHT MODE';
+    /* keep bottom-nav theme button label in sync */
   };
 </script>
 
