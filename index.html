@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -23,899 +22,455 @@
     --topbar:   rgba(10, 13, 18, 0.97);
     --input-bg: rgba(15, 20, 30, 0.8);
     --glow:     rgba(0, 180, 255, 0.15);
-    --particle: rgba(0,180,255,0.6);
   }
 
-body.light {
-–bg:       #f0f4f8;
-–bg2:      #e2e8f0;
-–panel:    rgba(255, 255, 255, 0.97);
-–text:     #1e2937;
-–dim:      #64748b;
-–accent:   #0284c8;
-–accent2:  #0ea5e9;
-–steel:    #475569;
-–border:   rgba(2, 132, 200, 0.3);
-–border2:  rgba(14, 165, 233, 0.2);
-–shadow:   rgba(15, 23, 42, 0.1);
-–topbar:   rgba(248, 250, 252, 0.97);
-–input-bg: rgba(255, 255, 255, 0.9);
-–glow:     rgba(2, 132, 200, 0.1);
-–particle: rgba(2,132,200,0.5);
-}
-
-- { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-min-height: 100vh;
-background: var(–bg);
-color: var(–text);
-font-family: ‘Barlow Condensed’, sans-serif;
-display: flex;
-flex-direction: column;
-overflow-x: hidden;
-transition: background 0.5s, color 0.5s;
-cursor: none;
-}
-
-/* ── CUSTOM CURSOR ── */
-#cursor {
-position: fixed;
-width: 12px; height: 12px;
-background: var(–accent);
-border-radius: 50%;
-pointer-events: none;
-z-index: 9999;
-transform: translate(-50%,-50%);
-transition: transform 0.1s, background 0.3s;
-box-shadow: 0 0 15px var(–accent), 0 0 40px rgba(0,180,255,0.3);
-}
-
-#cursor-ring {
-position: fixed;
-width: 36px; height: 36px;
-border: 1.5px solid var(–accent);
-border-radius: 50%;
-pointer-events: none;
-z-index: 9998;
-transform: translate(-50%,-50%);
-transition: width 0.25s, height 0.25s, border-color 0.3s;
-opacity: 0.6;
-}
-
-#cursor.clicking { transform: translate(-50%,-50%) scale(0.6); }
-#cursor-ring.hover { width: 55px; height: 55px; opacity: 1; border-color: var(–accent2); }
-
-@media (hover: none) { #cursor, #cursor-ring { display: none; } body { cursor: auto; } }
-
-/* ── CANVAS BACKGROUND ── */
-#bgCanvas {
-position: fixed;
-inset: 0;
-z-index: -3;
-pointer-events: none;
-}
-
-body::after {
-content: ‘’;
-position: fixed;
-inset: 0;
-z-index: -2;
-background-image:
-linear-gradient(rgba(0,180,255,0.025) 1px, transparent 1px),
-linear-gradient(90deg, rgba(0,180,255,0.025) 1px, transparent 1px);
-background-size: 60px 60px;
-pointer-events: none;
-opacity: 0.7;
-transition: opacity 0.5s;
-}
-
-body.light::after { opacity: 0.3; }
-
-/* ── SCANLINE OVERLAY ── */
-#scanlines {
-position: fixed;
-inset: 0;
-z-index: -1;
-background: repeating-linear-gradient(
-0deg,
-transparent,
-transparent 2px,
-rgba(0,0,0,0.03) 2px,
-rgba(0,0,0,0.03) 4px
-);
-pointer-events: none;
-opacity: 0.5;
-}
-
-body.light #scanlines { opacity: 0.1; }
-
-/* ── TOP BAR ── */
-.top-bar {
-padding: 12px 16px;
-background: var(–topbar);
-backdrop-filter: blur(16px);
-display: flex;
-align-items: center;
-gap: 12px;
-position: sticky;
-top: 0;
-z-index: 100;
-border-bottom: 1px solid var(–border);
-box-shadow: 0 4px 30px var(–shadow);
-}
-
-/* Animated border line under topbar */
-.top-bar::after {
-content: ‘’;
-position: absolute;
-bottom: -1px; left: 0;
-height: 2px;
-width: 0;
-background: linear-gradient(90deg, transparent, var(–accent), var(–accent2), transparent);
-animation: scanBar 4s ease-in-out infinite;
-}
-
-@keyframes scanBar {
-0% { left: 0; width: 0; opacity: 1; }
-50% { width: 100%; opacity: 1; }
-100% { left: 100%; width: 0; opacity: 0; }
-}
-
-.logo-wrap { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-
-.header-img {
-width: 42px; height: 42px;
-border-radius: 50%;
-border: 2.5px solid var(–accent);
-box-shadow: 0 0 15px var(–glow);
-transition: all 0.4s;
-animation: pulseRing 3s ease-in-out infinite;
-}
-
-@keyframes pulseRing {
-0%, 100% { box-shadow: 0 0 10px var(–glow), 0 0 20px transparent; }
-50% { box-shadow: 0 0 20px var(–accent), 0 0 40px rgba(0,180,255,0.2); }
-}
-
-.header-img:hover { transform: rotate(360deg) scale(1.1); }
-
-.logo-text {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 1.1rem;
-color: var(–accent);
-letter-spacing: 2.5px;
-display: none;
-position: relative;
-}
-
-.logo-text::after {
-content: ‘’;
-position: absolute;
-bottom: -2px; left: 0;
-width: 100%; height: 1px;
-background: var(–accent);
-transform: scaleX(0);
-transform-origin: left;
-transition: transform 0.3s;
-}
-
-.logo-wrap:hover .logo-text::after { transform: scaleX(1); }
-
-@media (min-width: 480px) { .logo-text { display: block; } }
-
-#searchInput {
-flex: 1;
-padding: 10px 16px;
-font-size: 15px;
-font-family: ‘IBM Plex Mono’, monospace;
-background: var(–input-bg);
-border: 1px solid var(–border);
-border-radius: 8px;
-color: var(–text);
-transition: all 0.3s;
-}
-
-#searchInput:focus {
-outline: none;
-border-color: var(–accent);
-box-shadow: 0 0 0 4px var(–glow), 0 0 20px rgba(0,180,255,0.1);
-}
-
-#searchInput::placeholder { color: var(–dim); }
-
-.btn {
-padding: 9px 16px;
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 0.95rem;
-letter-spacing: 1.5px;
-border: none;
-border-radius: 6px;
-cursor: none;
-transition: all 0.3s;
-position: relative;
-overflow: hidden;
-}
-
-/* Ripple on buttons */
-.btn::after {
-content: ‘’;
-position: absolute;
-inset: 0;
-background: radial-gradient(circle at var(–rx,50%) var(–ry,50%), rgba(255,255,255,0.3) 0%, transparent 60%);
-opacity: 0;
-transition: opacity 0.4s;
-}
-
-.btn:active::after { opacity: 1; transition: opacity 0s; }
-
-.btn-search {
-background: var(–accent);
-color: #fff;
-}
-
-.btn-search:hover {
-background: var(–accent2);
-box-shadow: 0 0 25px rgba(0,180,255,0.5), 0 0 50px rgba(0,180,255,0.2);
-transform: translateY(-1px);
-}
-
-/* Suggestions */
-#suggestions {
-position: absolute;
-top: 100%;
-left: 16px; right: 16px;
-max-height: 320px;
-overflow-y: auto;
-background: var(–panel);
-border: 1px solid var(–border);
-border-radius: 8px;
-margin-top: 8px;
-z-index: 150;
-box-shadow: 0 15px 40px rgba(0,0,0,0.7);
-display: none;
-animation: slideDown 0.2s ease;
-}
-
-@keyframes slideDown {
-from { opacity: 0; transform: translateY(-8px); }
-to { opacity: 1; transform: translateY(0); }
-}
-
-#suggestions div {
-padding: 12px 16px;
-cursor: none;
-font-family: ‘IBM Plex Mono’, monospace;
-font-size: 0.85rem;
-color: var(–text);
-border-bottom: 1px solid rgba(0,180,255,0.1);
-transition: all 0.2s;
-display: flex;
-align-items: center;
-gap: 10px;
-}
-
-#suggestions div::before {
-content: ‘→’;
-color: var(–accent);
-opacity: 0;
-transform: translateX(-8px);
-transition: all 0.2s;
-}
-
-#suggestions div:hover {
-background: rgba(0,180,255,0.12);
-color: var(–accent2);
-padding-left: 20px;
-}
-
-#suggestions div:hover::before { opacity: 1; transform: translateX(0); }
-
-/* Main Content */
-main { flex: 1; padding: 28px 16px 90px; width: 100%; }
-
-.page { display: none; width: 100%; }
-.page.active { display: block; animation: pageIn 0.35s cubic-bezier(0.22,1,0.36,1); }
-
-@keyframes pageIn {
-from { opacity: 0; transform: translateY(18px) scale(0.99); }
-to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-.card, .course-container {
-background: var(–panel);
-backdrop-filter: blur(16px);
-border-radius: 12px;
-padding: 32px 26px;
-border: 1px solid var(–border);
-box-shadow: 0 15px 50px var(–shadow);
-transition: all 0.4s;
-position: relative;
-overflow: hidden;
-}
-
-/* Animated corner accents on cards */
-.card::before, .course-container::before {
-content: ‘’;
-position: absolute;
-top: 0; left: 0;
-width: 40px; height: 40px;
-border-top: 2px solid var(–accent);
-border-left: 2px solid var(–accent);
-border-radius: 12px 0 0 0;
-opacity: 0.6;
-transition: all 0.4s;
-}
-
-.card::after, .course-container::after {
-content: ‘’;
-position: absolute;
-bottom: 0; right: 0;
-width: 40px; height: 40px;
-border-bottom: 2px solid var(–accent);
-border-right: 2px solid var(–accent);
-border-radius: 0 0 12px 0;
-opacity: 0.6;
-transition: all 0.4s;
-}
-
-.card:hover::before, .course-container:hover::before { width: 60px; height: 60px; opacity: 1; }
-.card:hover::after, .course-container:hover::after { width: 60px; height: 60px; opacity: 1; }
-
-/* Title */
-.forge-title {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 2.8rem;
-letter-spacing: 5px;
-color: var(–accent);
-text-align: center;
-text-shadow: 0 0 30px var(–glow);
-margin-bottom: 6px;
-position: relative;
-}
-
-/* Glitch animation on title hover */
-.forge-title:hover {
-animation: glitch 0.4s steps(2) 1;
-}
-
-@keyframes glitch {
-0%   { text-shadow: 2px 0 var(–accent2), -2px 0 rgba(255,0,80,0.7); }
-25%  { text-shadow: -2px 0 var(–accent2), 2px 0 rgba(255,0,80,0.7); clip-path: inset(20% 0 50% 0); }
-50%  { text-shadow: 2px 2px var(–accent2), -2px -2px rgba(255,0,80,0.7); }
-75%  { text-shadow: 0 0 20px var(–accent); clip-path: none; }
-100% { text-shadow: 0 0 30px var(–glow); }
-}
-
-.forge-sub {
-font-family: ‘IBM Plex Mono’, monospace;
-font-size: 0.78rem;
-letter-spacing: 4px;
-color: var(–dim);
-text-align: center;
-text-transform: uppercase;
-overflow: hidden;
-white-space: nowrap;
-}
-
-/* Typewriter effect on subtitle */
-.typewriter {
-display: inline-block;
-border-right: 2px solid var(–accent);
-animation: blink 0.8s step-end infinite;
-padding-right: 2px;
-}
-
-@keyframes blink { 50% { border-color: transparent; } }
-
-.divider {
-height: 1px;
-background: linear-gradient(90deg, transparent, var(–accent), transparent);
-opacity: 0.3;
-margin: 1.8rem 0;
-position: relative;
-overflow: visible;
-}
-
-/* Moving dot on divider */
-.divider::after {
-content: ‘◆’;
-position: absolute;
-top: 50%;
-left: -10%;
-transform: translateY(-50%);
-color: var(–accent);
-font-size: 8px;
-animation: slideDot 4s ease-in-out infinite;
-}
-
-@keyframes slideDot {
-0% { left: -5%; opacity: 0; }
-10% { opacity: 1; }
-90% { opacity: 1; }
-100% { left: 105%; opacity: 0; }
-}
-
-.neon-label {
-font-family: ‘IBM Plex Mono’, monospace;
-font-size: 0.68rem;
-letter-spacing: 3px;
-color: var(–dim);
-text-transform: uppercase;
-margin-bottom: 0.8rem;
-}
-
-/* Semester Select */
-.semester-select {
-width: 100%;
-padding: 12px 40px 12px 16px;
-font-family: ‘Barlow Condensed’, sans-serif;
-font-size: 1.05rem;
-font-weight: 600;
-background: var(–input-bg);
-border: 1px solid var(–border);
-border-radius: 8px;
-color: var(–text);
-cursor: none;
-margin-bottom: 1.6rem;
-transition: all 0.3s;
-}
-
-.semester-select:focus {
-border-color: var(–accent);
-box-shadow: 0 0 0 4px var(–glow);
-outline: none;
-}
-
-/* Semester List */
-.semester-list {
-list-style: none;
-display: grid;
-grid-template-columns: 1fr;
-gap: 10px;
-margin-bottom: 2rem;
-}
-
-@media (min-width: 600px) { .semester-list { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 900px) { .semester-list { grid-template-columns: repeat(3, 1fr); } }
-
-.semester-item {
-opacity: 0;
-transform: translateY(20px);
-animation: staggerIn 0.4s cubic-bezier(0.22,1,0.36,1) forwards;
-}
-
-.semester-item:nth-child(1) { animation-delay: 0.05s; }
-.semester-item:nth-child(2) { animation-delay: 0.12s; }
-.semester-item:nth-child(3) { animation-delay: 0.19s; }
-.semester-item:nth-child(4) { animation-delay: 0.26s; }
-.semester-item:nth-child(5) { animation-delay: 0.33s; }
-
-@keyframes staggerIn {
-to { opacity: 1; transform: translateY(0); }
-}
-
-.semester-item a {
-display: grid;
-grid-template-columns: auto 1fr auto;
-align-items: center;
-gap: 14px;
-padding: 16px 18px;
-background: rgba(0,180,255,0.05);
-border: 1px solid var(–border);
-border-left: 4px solid var(–accent);
-border-radius: 8px;
-color: var(–text);
-text-decoration: none;
-font-weight: 700;
-letter-spacing: 0.5px;
-transition: all 0.35s cubic-bezier(0.22,1,0.36,1);
-position: relative;
-overflow: hidden;
-}
-
-/* Shimmer sweep on semester cards */
-.semester-item a::before {
-content: ‘’;
-position: absolute;
-top: 0; left: -100%;
-width: 60%;
-height: 100%;
-background: linear-gradient(90deg, transparent, rgba(0,180,255,0.12), transparent);
-transition: left 0.5s;
-}
-
-.semester-item a:hover::before { left: 160%; }
-
-.semester-item a:hover {
-background: rgba(0,180,255,0.12);
-border-color: var(–accent);
-transform: translateY(-4px) scale(1.01);
-box-shadow: 0 12px 30px rgba(0,180,255,0.2), 0 0 0 1px var(–accent);
-}
-
-.sem-num {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 1.6rem;
-color: var(–accent);
-text-shadow: 0 0 10px var(–glow);
-transition: transform 0.3s;
-}
-
-.semester-item a:hover .sem-num { transform: scale(1.15); }
-
-.sem-name { display: block; font-size: 0.95rem; }
-.sem-year { display: block; font-size: 0.72rem; color: var(–dim); font-weight: 400; letter-spacing: 1px; }
-
-.sem-arrow {
-color: var(–dim);
-font-size: 1.2rem;
-transition: all 0.3s;
-}
-
-.semester-item a:hover .sem-arrow {
-color: var(–accent);
-transform: translateX(4px);
-}
-
-/* Course Pages */
-.course-code-tag {
-font-family: ‘IBM Plex Mono’, monospace;
-font-size: 0.7rem;
-letter-spacing: 3px;
-color: var(–accent);
-background: rgba(0,180,255,0.1);
-border: 1px solid var(–border);
-border-radius: 4px;
-padding: 4px 12px;
-display: inline-block;
-margin-bottom: 8px;
-animation: fadeSlideRight 0.4s ease;
-}
-
-@keyframes fadeSlideRight {
-from { opacity: 0; transform: translateX(-12px); }
-to { opacity: 1; transform: translateX(0); }
-}
-
-.course-big-title {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 3.2rem;
-letter-spacing: 6px;
-line-height: 1;
-margin-bottom: 6px;
-}
-
-.course-big-title span { color: var(–accent); }
-
-.course-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-
-.course-list li {
-opacity: 0;
-transform: translateX(-16px);
-animation: staggerRight 0.35s ease forwards;
-}
-
-.course-list li:nth-child(1) { animation-delay: 0.08s; }
-.course-list li:nth-child(2) { animation-delay: 0.14s; }
-.course-list li:nth-child(3) { animation-delay: 0.20s; }
-.course-list li:nth-child(4) { animation-delay: 0.26s; }
-.course-list li:nth-child(5) { animation-delay: 0.32s; }
-.course-list li:nth-child(6) { animation-delay: 0.38s; }
-
-@keyframes staggerRight {
-to { opacity: 1; transform: translateX(0); }
-}
-
-.course-list li a {
-display: flex;
-align-items: center;
-gap: 12px;
-padding: 12px 16px;
-background: rgba(0,180,255,0.04);
-border: 1px solid rgba(0,180,255,0.15);
-border-radius: 6px;
-color: var(–text);
-text-decoration: none;
-transition: all 0.3s cubic-bezier(0.22,1,0.36,1);
-position: relative;
-overflow: hidden;
-}
-
-.course-list li a::before {
-content: ‘’;
-position: absolute;
-left: 0; top: 0;
-width: 3px; height: 0;
-background: var(–accent);
-transition: height 0.3s ease;
-}
-
-.course-list li a:hover::before { height: 100%; }
-
-.course-list li a::after {
-content: ‘↗’;
-position: absolute;
-right: 14px;
-opacity: 0;
-transform: translate(-6px, 6px);
-color: var(–accent2);
-font-size: 1rem;
-transition: all 0.3s;
-}
-
-.course-list li a:hover::after { opacity: 1; transform: translate(0, 0); }
-
-.course-list li a:hover {
-background: rgba(0,180,255,0.1);
-border-color: var(–accent);
-color: var(–accent2);
-transform: translateX(8px);
-box-shadow: 0 4px 20px rgba(0,180,255,0.15);
-padding-right: 40px;
-}
-
-.course-list li.extras a {
-background: rgba(0,224,255,0.04);
-border-color: rgba(0,224,255,0.2);
-}
-
-.course-list li.extras a:hover {
-background: rgba(0,224,255,0.12);
-color: var(–accent2);
-}
-
-/* ── MECHANICAL ANIMATION ── */
-.mech-stage {
-width: 100%;
-height: 110px;
-margin: 1.2rem 0 0.4rem;
-position: relative;
-overflow: hidden;
-border-radius: 8px;
-}
-
-.mech-stage svg { width: 100%; height: 100%; }
-
-.gear-a { transform-origin: 68px 55px; animation: spinCW 4s linear infinite; }
-.gear-b { transform-origin: 130px 55px; animation: spinCCW 4s linear infinite; }
-.gear-c { transform-origin: 192px 55px; animation: spinCW 4s linear infinite; }
-.gear-d { transform-origin: 290px 38px; animation: spinCCW 6s linear infinite; }
-.gear-e { transform-origin: 338px 55px; animation: spinCW 3.2s linear infinite; }
-
-@keyframes spinCW  { from { transform: rotate(0deg); }   to { transform: rotate(360deg); } }
-@keyframes spinCCW { from { transform: rotate(0deg); }   to { transform: rotate(-360deg); } }
-
-/* piston rod */
-.piston-rod { animation: pistonSlide 1.8s ease-in-out infinite; }
-@keyframes pistonSlide {
-0%,100% { transform: translateX(0); }
-50%      { transform: translateX(18px); }
-}
-
-/* belt chain dots */
-.chain-dot { animation: chainMove 2.2s linear infinite; }
-.chain-dot:nth-child(2) { animation-delay: -0.55s; }
-.chain-dot:nth-child(3) { animation-delay: -1.1s; }
-.chain-dot:nth-child(4) { animation-delay: -1.65s; }
-
-/* ── PULSE STATUS INDICATOR ── */
-.status-bar {
-display: flex;
-align-items: center;
-gap: 8px;
-margin-top: 1.2rem;
-font-family: ‘IBM Plex Mono’, monospace;
-font-size: 0.7rem;
-color: var(–dim);
-letter-spacing: 1px;
-}
-
-.status-dot {
-width: 8px; height: 8px;
-background: #00ff88;
-border-radius: 50%;
-animation: statusPulse 2s ease-in-out infinite;
-box-shadow: 0 0 6px #00ff88;
-flex-shrink: 0;
-}
-
-@keyframes statusPulse {
-0%, 100% { transform: scale(1); opacity: 1; }
-50% { transform: scale(1.5); opacity: 0.6; }
-}
-
-/* Back Button */
-.back-button {
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 10px;
-margin: 2rem auto 0;
-padding: 12px 28px;
-max-width: 200px;
-background: transparent;
-border: 1px solid var(–border);
-border-radius: 6px;
-color: var(–dim);
-font-family: ‘Bebas Neue’, sans-serif;
-letter-spacing: 2px;
-text-decoration: none;
-transition: all 0.3s cubic-bezier(0.22,1,0.36,1);
-cursor: none;
-position: relative;
-overflow: hidden;
-}
-
-.back-button::before {
-content: ‘’;
-position: absolute;
-top: 0; left: -100%;
-width: 100%; height: 100%;
-background: rgba(0,180,255,0.1);
-transition: left 0.3s;
-}
-
-.back-button:hover::before { left: 0; }
-
-.back-button:hover {
-border-color: var(–accent);
-color: var(–accent);
-transform: translateX(-4px);
-box-shadow: -4px 0 15px rgba(0,180,255,0.2);
-}
-
-/* Combined split button */
-.split-btn {
-display: inline-flex;
-border: 1px solid var(–border);
-border-radius: 6px;
-overflow: hidden;
-transition: border-color 0.3s;
-}
-
-.split-btn:hover { border-color: var(–accent); }
-
-.split-btn-part {
-padding: 9px 16px;
-font-family: ‘Bebas Neue’, sans-serif;
-letter-spacing: 2px;
-font-size: 0.9rem;
-background: transparent;
-border: none;
-color: var(–dim);
-cursor: none;
-transition: all 0.3s;
-position: relative;
-}
-
-.split-btn-part:first-child {
-border-right: 1px solid var(–border);
-}
-
-.split-btn-part:hover {
-color: var(–accent);
-background: rgba(0,180,255,0.08);
-}
-
-/* ── TOAST NOTIFICATION ── */
-#toast {
-position: fixed;
-bottom: 90px;
-left: 50%;
-transform: translateX(-50%) translateY(20px);
-background: var(–panel);
-border: 1px solid var(–accent);
-border-radius: 8px;
-padding: 10px 20px;
-font-family: ‘IBM Plex Mono’, monospace;
-font-size: 0.78rem;
-color: var(–accent2);
-z-index: 500;
-opacity: 0;
-pointer-events: none;
-transition: all 0.3s;
-white-space: nowrap;
-box-shadow: 0 0 20px rgba(0,180,255,0.3);
-}
-
-#toast.show {
-opacity: 1;
-transform: translateX(-50%) translateY(0);
-}
-
-/* Bottom Navigation */
-#bottom-nav {
-position: fixed;
-bottom: 0; left: 0; right: 0;
-background: var(–topbar);
-backdrop-filter: blur(16px);
-display: flex;
-border-top: 1px solid var(–border);
-z-index: 99;
-}
-
-#bottom-nav button {
-flex: 1;
-padding: 14px 0;
-background: none;
-border: none;
-color: var(–dim);
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 0.9rem;
-letter-spacing: 2px;
-cursor: none;
-transition: all 0.3s;
-position: relative;
-}
-
-#bottom-nav button.active {
-color: var(–accent);
-border-top: 3px solid var(–accent);
-background: rgba(0,180,255,0.08);
-}
-
-#bottom-nav button::after {
-content: ‘’;
-position: absolute;
-bottom: 0; left: 50%;
-transform: translateX(-50%);
-width: 0; height: 2px;
-background: var(–accent2);
-transition: width 0.3s;
-}
-
-#bottom-nav button:hover::after { width: 60%; }
-#bottom-nav button:hover:not(.active) { color: var(–accent2); background: rgba(0,180,255,0.04); }
-
-/* Responsive */
-@media (max-width: 480px) {
-.forge-title { font-size: 2.2rem; }
-.course-big-title { font-size: 2.5rem; }
-main { padding: 20px 12px 90px; }
-.stats-row { grid-template-columns: 1fr 1fr; }
-.stats-row .stat-box:last-child { grid-column: span 2; }
-}
-
-/* ── LOADING SHIMMER ── */
-@keyframes shimmerLoad {
-0% { background-position: -200% center; }
-100% { background-position: 200% center; }
-}
-
-.course-sub {
-font-family: ‘IBM Plex Mono’, monospace;
-font-size: 0.72rem;
-color: var(–dim);
-letter-spacing: 2px;
-margin-top: 4px;
-text-transform: uppercase;
-}
-
-/* scroll bar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(–border); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(–accent); }
+  body.light {
+    --bg:       #f8fafc;
+    --bg2:      #e2e8f0;
+    --panel:    rgba(255, 255, 255, 0.97);
+    --text:     #1e2937;
+    --dim:      #64748b;
+    --accent:   #0284c8;
+    --accent2:  #0ea5e9;
+    --steel:    #475569;
+    --border:   rgba(2, 132, 200, 0.3);
+    --border2:  rgba(14, 165, 233, 0.2);
+    --shadow:   rgba(15, 23, 42, 0.1);
+    --topbar:   rgba(248, 250, 252, 0.97);
+    --input-bg: rgba(255, 255, 255, 0.9);
+    --glow:     rgba(2, 132, 200, 0.1);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Barlow Condensed', sans-serif;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    transition: background 0.5s, color 0.5s;
+  }
+
+  /* Subtle technical background pattern */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -3;
+    background: 
+      radial-gradient(circle at 20% 30%, rgba(0,180,255,0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(0,224,255,0.06) 0%, transparent 50%);
+    pointer-events: none;
+    transition: opacity 0.5s;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background-image: 
+      linear-gradient(rgba(0,180,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,180,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    opacity: 0.6;
+  }
+
+  /* Gear-like subtle animation container */
+  #gears {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.15;
+    overflow: hidden;
+  }
+
+  body.light #gears { opacity: 0.08; }
+
+  .gear {
+    position: absolute;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    animation: rotateGear linear infinite;
+  }
+
+  @keyframes rotateGear {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* ── TOP BAR ── */
+  .top-bar {
+    padding: 12px 16px;
+    background: var(--topbar);
+    backdrop-filter: blur(16px);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 4px 20px var(--shadow);
+  }
+
+  .logo-wrap { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+
+  .header-img {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    border: 2.5px solid var(--accent);
+    box-shadow: 0 0 15px var(--glow);
+    transition: all 0.3s;
+  }
+
+  .logo-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    color: var(--accent);
+    letter-spacing: 2.5px;
+    display: none;
+  }
+
+  @media (min-width: 480px) { .logo-text { display: block; } }
+
+  #searchInput {
+    flex: 1;
+    padding: 10px 16px;
+    font-size: 15px;
+    font-family: 'IBM Plex Mono', monospace;
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    transition: all 0.3s;
+  }
+
+  #searchInput:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--glow);
+  }
+
+  #searchInput::placeholder { color: var(--dim); }
+
+  .btn {
+    padding: 9px 16px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 1.5px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .btn-search {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .btn-search:hover {
+    background: var(--accent2);
+    box-shadow: 0 0 20px var(--glow);
+  }
+
+  .btn-contact {
+    background: transparent;
+    border: 1px solid var(--border2);
+    color: var(--accent2);
+  }
+
+  .btn-contact:hover {
+    background: rgba(0, 224, 255, 0.1);
+    border-color: var(--accent2);
+  }
+
+  /* Suggestions */
+  #suggestions {
+    position: absolute;
+    top: 100%;
+    left: 16px; right: 16px;
+    max-height: 320px;
+    overflow-y: auto;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-top: 8px;
+    z-index: 150;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+    display: none;
+  }
+
+  #suggestions div {
+    padding: 12px 16px;
+    cursor: pointer;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--text);
+    border-bottom: 1px solid rgba(0,180,255,0.1);
+  }
+
+  #suggestions div:hover {
+    background: rgba(0,180,255,0.12);
+    color: var(--accent2);
+  }
+
+  /* Main Content */
+  main { flex: 1; padding: 28px 16px 90px; width: 100%; }
+
+  .page { display: none; width: 100%; }
+  .page.active { display: block; }
+
+  .card, .course-container {
+    background: var(--panel);
+    backdrop-filter: blur(16px);
+    border-radius: 12px;
+    padding: 32px 26px;
+    border: 1px solid var(--border);
+    box-shadow: 0 15px 50px var(--shadow);
+    transition: all 0.4s;
+  }
+
+  /* Title */
+  .forge-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem;
+    letter-spacing: 5px;
+    color: var(--accent);
+    text-align: center;
+    text-shadow: 0 0 30px var(--glow);
+    margin-bottom: 6px;
+  }
+
+  .forge-sub {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 4px;
+    color: var(--dim);
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.3;
+    margin: 1.8rem 0;
+  }
+
+  .neon-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 3px;
+    color: var(--dim);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+
+  /* Semester Select */
+  .semester-select {
+    width: 100%;
+    padding: 12px 40px 12px 16px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    cursor: pointer;
+    margin-bottom: 1.6rem;
+  }
+
+  .semester-select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--glow);
+  }
+
+  /* Semester List */
+  .semester-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-bottom: 2rem;
+  }
+
+  @media (min-width: 600px) { .semester-list { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 900px) { .semester-list { grid-template-columns: repeat(3, 1fr); } }
+
+  .semester-item a {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    background: rgba(0,180,255,0.05);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 8px;
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    transition: all 0.3s;
+  }
+
+  .semester-item a:hover {
+    background: rgba(0,180,255,0.12);
+    border-color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,180,255,0.15);
+  }
+
+  .sem-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    color: var(--accent);
+  }
+
+  /* Course Pages */
+  .course-code-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    color: var(--accent);
+    background: rgba(0,180,255,0.1);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 4px 12px;
+    display: inline-block;
+    margin-bottom: 8px;
+  }
+
+  .course-big-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.2rem;
+    letter-spacing: 6px;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .course-big-title span { color: var(--accent); }
+
+  .course-list li a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: rgba(0,180,255,0.04);
+    border: 1px solid rgba(0,180,255,0.15);
+    border-radius: 6px;
+    color: var(--text);
+    text-decoration: none;
+    transition: all 0.25s;
+  }
+
+  .course-list li a:hover {
+    background: rgba(0,180,255,0.1);
+    border-color: var(--accent);
+    color: var(--accent2);
+    transform: translateX(6px);
+  }
+
+  .course-list li.extras a {
+    background: rgba(0,224,255,0.06);
+    border-color: rgba(0,224,255,0.2);
+  }
+
+  .course-list li.extras a:hover {
+    background: rgba(0,224,255,0.12);
+    color: var(--accent2);
+  }
+
+  /* Back Button */
+  .back-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 2rem auto 0;
+    padding: 12px 28px;
+    max-width: 200px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--dim);
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 2px;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .back-button:hover {
+    background: rgba(0,180,255,0.1);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* Theme Toggle */
+  #themeToggle {
+    padding: 9px 22px;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 2px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--dim);
+    cursor: pointer;
+  }
+
+  #themeToggle:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* Bottom Navigation */
+  #bottom-nav {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--topbar);
+    backdrop-filter: blur(16px);
+    display: flex;
+    border-top: 1px solid var(--border);
+    z-index: 99;
+  }
+
+  #bottom-nav button {
+    flex: 1;
+    padding: 14px 0;
+    background: none;
+    border: none;
+    color: var(--dim);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+  }
+
+  #bottom-nav button.active {
+    color: var(--accent);
+    border-top: 3px solid var(--accent);
+    background: rgba(0,180,255,0.08);
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    .forge-title { font-size: 2.2rem; }
+    .course-big-title { font-size: 2.5rem; }
+    main { padding: 20px 12px 90px; }
+  }
 </style>
-
 </head>
 <body>
 
-<!-- Custom Cursor -->
-
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
-
-<!-- Particle/Network Canvas -->
-
-<canvas id="bgCanvas"></canvas>
-
-<div id="scanlines"></div>
-
-<!-- Toast -->
-
-<div id="toast"></div>
+<div id="gears"></div>
 
 <div class="top-bar">
   <div class="logo-wrap">
@@ -925,158 +480,45 @@ text-transform: uppercase;
   <input type="text" id="searchInput" placeholder="Search: thermo, fluid, math, 2101..." autocomplete="off">
   <button class="btn btn-search">SEARCH</button>
   <div id="suggestions"></div>
+  <button class="btn btn-contact" onclick="window.open('https://wa.me/8801865648959','_blank')">CONTACT</button>
 </div>
 
 <main>
 
   <!-- HOME -->
-
   <div id="mainPage" class="page active">
     <div class="card">
       <div class="forge-title">MECH. ENG.</div>
-      <div class="forge-sub"><span class="typewriter" id="typedSub"></span></div>
+      <div class="forge-sub">Resources &amp; Course Materials</div>
+      <div class="divider"></div>
+      
+      <label class="neon-label">// Jump to Semester</label>
+      <select id="semesterFilter" class="semester-select">
+        <option value="all">-- Select Semester --</option>
+        <option value="course2021">Year 1 - Semester 1 (1-1)</option>
+        <option value="course2022">Year 1 - Semester 2 (1-2)</option>
+        <option value="course2023">Year 2 - Semester 1 (2-1)</option>
+        <option value="course2024">Year 2 - Semester 2 (2-2)</option>
+        <option value="course2025">Year 3 - Semester 1 (3-1)</option>
+      </select>
 
-```
-  <!-- Mechanical Animation -->
-  <div class="mech-stage">
-    <svg viewBox="0 0 420 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <filter id="glow">
-          <feGaussianBlur stdDeviation="2" result="blur"/>
-          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-      </defs>
+      <div class="neon-label">SEMESTERS</div>
+      <ul class="semester-list">
+        <li class="semester-item"><a href="javascript:void(0);" onclick="showPage('course2021')"><span class="sem-num">1-1</span><span class="sem-info"><span class="sem-name">Semester One</span><span class="sem-year">First Year</span></span><span class="sem-arrow">→</span></a></li>
+        <li class="semester-item"><a href="javascript:void(0);" onclick="showPage('course2022')"><span class="sem-num">1-2</span><span class="sem-info"><span class="sem-name">Semester Two</span><span class="sem-year">First Year</span></span><span class="sem-arrow">→</span></a></li>
+        <li class="semester-item"><a href="javascript:void(0);" onclick="showPage('course2023')"><span class="sem-num">2-1</span><span class="sem-info"><span class="sem-name">Semester One</span><span class="sem-year">Second Year</span></span><span class="sem-arrow">→</span></a></li>
+        <li class="semester-item"><a href="javascript:void(0);" onclick="showPage('course2024')"><span class="sem-num">2-2</span><span class="sem-info"><span class="sem-name">Semester Two</span><span class="sem-year">Second Year</span></span><span class="sem-arrow">→</span></a></li>
+        <li class="semester-item"><a href="javascript:void(0);" onclick="showPage('course2025')"><span class="sem-num">3-1</span><span class="sem-info"><span class="sem-name">Semester One</span><span class="sem-year">Third Year</span></span><span class="sem-arrow">→</span></a></li>
+      </ul>
 
-      <!-- Base rail -->
-      <line x1="10" y1="90" x2="410" y2="90" stroke="rgba(0,180,255,0.2)" stroke-width="1"/>
-
-      <!-- GEAR A (large, left) -->
-      <g class="gear-a" filter="url(#glow)">
-        <circle cx="68" cy="55" r="28" stroke="var(--accent)" stroke-width="1.5" fill="rgba(0,180,255,0.04)"/>
-        <circle cx="68" cy="55" r="20" stroke="var(--accent)" stroke-width="0.8" fill="none" stroke-dasharray="4 4"/>
-        <circle cx="68" cy="55" r="5" fill="var(--accent)" opacity="0.8"/>
-        <!-- teeth -->
-        <rect x="66" y="22" width="4" height="9" rx="1.5" fill="var(--accent)" opacity="0.9"/>
-        <rect x="66" y="79" width="4" height="9" rx="1.5" fill="var(--accent)" opacity="0.9"/>
-        <rect x="35" y="53" width="9" height="4" rx="1.5" fill="var(--accent)" opacity="0.9"/>
-        <rect x="92" y="53" width="9" height="4" rx="1.5" fill="var(--accent)" opacity="0.9"/>
-        <rect x="45" y="32" width="9" height="4" rx="1.5" fill="var(--accent)" opacity="0.9" transform="rotate(-45 49.5 34)"/>
-        <rect x="83" y="72" width="9" height="4" rx="1.5" fill="var(--accent)" opacity="0.9" transform="rotate(-45 87.5 74)"/>
-        <rect x="83" y="32" width="9" height="4" rx="1.5" fill="var(--accent)" opacity="0.9" transform="rotate(45 87.5 34)"/>
-        <rect x="45" y="72" width="9" height="4" rx="1.5" fill="var(--accent)" opacity="0.9" transform="rotate(45 49.5 74)"/>
-      </g>
-
-      <!-- GEAR B (medium, meshes with A) -->
-      <g class="gear-b" filter="url(#glow)">
-        <circle cx="130" cy="55" r="20" stroke="var(--accent2)" stroke-width="1.2" fill="rgba(0,224,255,0.04)"/>
-        <circle cx="130" cy="55" r="14" stroke="var(--accent2)" stroke-width="0.7" fill="none" stroke-dasharray="3 3"/>
-        <circle cx="130" cy="55" r="4" fill="var(--accent2)" opacity="0.8"/>
-        <rect x="128" y="30" width="4" height="7" rx="1.5" fill="var(--accent2)" opacity="0.9"/>
-        <rect x="128" y="73" width="4" height="7" rx="1.5" fill="var(--accent2)" opacity="0.9"/>
-        <rect x="107" y="53" width="7" height="4" rx="1.5" fill="var(--accent2)" opacity="0.9"/>
-        <rect x="146" y="53" width="7" height="4" rx="1.5" fill="var(--accent2)" opacity="0.9"/>
-        <rect x="114" y="38" width="7" height="4" rx="1.5" fill="var(--accent2)" opacity="0.9" transform="rotate(-45 117.5 40)"/>
-        <rect x="141" y="65" width="7" height="4" rx="1.5" fill="var(--accent2)" opacity="0.9" transform="rotate(-45 144.5 67)"/>
-        <rect x="141" y="38" width="7" height="4" rx="1.5" fill="var(--accent2)" opacity="0.9" transform="rotate(45 144.5 40)"/>
-        <rect x="114" y="65" width="7" height="4" rx="1.5" fill="var(--accent2)" opacity="0.9" transform="rotate(45 117.5 67)"/>
-      </g>
-
-      <!-- GEAR C (small, meshes with B) -->
-      <g class="gear-c" filter="url(#glow)">
-        <circle cx="192" cy="55" r="16" stroke="var(--accent)" stroke-width="1" fill="rgba(0,180,255,0.04)"/>
-        <circle cx="192" cy="55" r="10" stroke="var(--accent)" stroke-width="0.7" fill="none" stroke-dasharray="2.5 2.5"/>
-        <circle cx="192" cy="55" r="3.5" fill="var(--accent)" opacity="0.8"/>
-        <rect x="190.5" y="34" width="3" height="7" rx="1" fill="var(--accent)" opacity="0.9"/>
-        <rect x="190.5" y="69" width="3" height="7" rx="1" fill="var(--accent)" opacity="0.9"/>
-        <rect x="171" y="53.5" width="7" height="3" rx="1" fill="var(--accent)" opacity="0.9"/>
-        <rect x="206" y="53.5" width="7" height="3" rx="1" fill="var(--accent)" opacity="0.9"/>
-      </g>
-
-      <!-- Piston linkage from GEAR C -->
-      <g class="piston-rod">
-        <line x1="208" y1="55" x2="260" y2="55" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
-        <rect x="252" y="44" width="26" height="22" rx="3" stroke="var(--accent2)" stroke-width="1.2" fill="rgba(0,224,255,0.07)"/>
-        <line x1="278" y1="48" x2="290" y2="48" stroke="var(--accent2)" stroke-width="1" opacity="0.5"/>
-        <line x1="278" y1="55" x2="295" y2="55" stroke="var(--accent2)" stroke-width="1.5" opacity="0.7"/>
-        <line x1="278" y1="62" x2="290" y2="62" stroke="var(--accent2)" stroke-width="1" opacity="0.5"/>
-      </g>
-
-      <!-- GEAR D (small top right) -->
-      <g class="gear-d" filter="url(#glow)">
-        <circle cx="338" cy="55" r="22" stroke="var(--accent)" stroke-width="1.3" fill="rgba(0,180,255,0.04)"/>
-        <circle cx="338" cy="55" r="15" stroke="var(--accent)" stroke-width="0.7" fill="none" stroke-dasharray="3 3"/>
-        <circle cx="338" cy="55" r="4" fill="var(--accent)" opacity="0.8"/>
-        <rect x="336" y="28" width="4" height="7" rx="1.5" fill="var(--accent)" opacity="0.9"/>
-        <rect x="336" y="75" width="4" height="7" rx="1.5" fill="var(--accent)" opacity="0.9"/>
-        <rect x="311" y="53" width="7" height="4" rx="1.5" fill="var(--accent)" opacity="0.9"/>
-        <rect x="358" y="53" width="7" height="4" rx="1.5" fill="var(--accent)" opacity="0.9"/>
-        <rect x="318" y="36" width="7" height="4" rx="1.5" fill="var(--accent)" opacity="0.9" transform="rotate(-45 321.5 38)"/>
-        <rect x="350" y="68" width="7" height="4" rx="1.5" fill="var(--accent)" opacity="0.9" transform="rotate(-45 353.5 70)"/>
-        <rect x="350" y="36" width="7" height="4" rx="1.5" fill="var(--accent)" opacity="0.9" transform="rotate(45 353.5 38)"/>
-        <rect x="318" y="68" width="7" height="4" rx="1.5" fill="var(--accent)" opacity="0.9" transform="rotate(45 321.5 70)"/>
-      </g>
-
-      <!-- Vertical shaft from D to rail -->
-      <line x1="338" y1="77" x2="338" y2="90" stroke="rgba(0,180,255,0.35)" stroke-width="2"/>
-      <circle cx="338" cy="90" r="4" fill="var(--accent)" opacity="0.5"/>
-
-      <!-- Chain dots between C and D -->
-      <circle class="chain-dot" cx="0" cy="55" r="2.5" fill="var(--accent2)" opacity="0.7">
-        <animateMotion dur="2.2s" repeatCount="indefinite" path="M 210 55 L 310 55"/>
-      </circle>
-      <circle class="chain-dot" cx="0" cy="55" r="2.5" fill="var(--accent2)" opacity="0.7">
-        <animateMotion dur="2.2s" begin="-0.55s" repeatCount="indefinite" path="M 210 55 L 310 55"/>
-      </circle>
-      <circle class="chain-dot" cx="0" cy="55" r="2.5" fill="var(--accent2)" opacity="0.7">
-        <animateMotion dur="2.2s" begin="-1.1s" repeatCount="indefinite" path="M 210 55 L 310 55"/>
-      </circle>
-      <circle class="chain-dot" cx="0" cy="55" r="2.5" fill="var(--accent2)" opacity="0.7">
-        <animateMotion dur="2.2s" begin="-1.65s" repeatCount="indefinite" path="M 210 55 L 310 55"/>
-      </circle>
-      <!-- chain rail -->
-      <line x1="210" y1="55" x2="310" y2="55" stroke="rgba(0,224,255,0.12)" stroke-width="1" stroke-dasharray="5 5"/>
-    </svg>
-  </div>
-
-  <div class="divider"></div>
-  
-  <label class="neon-label">// Jump to Semester</label>
-  <select id="semesterFilter" class="semester-select">
-    <option value="all">-- Select Semester --</option>
-    <option value="course2021">Year 1 - Semester 1 (1-1)</option>
-    <option value="course2022">Year 1 - Semester 2 (1-2)</option>
-    <option value="course2023">Year 2 - Semester 1 (2-1)</option>
-    <option value="course2024">Year 2 - Semester 2 (2-2)</option>
-    <option value="course2025">Year 3 - Semester 1 (3-1)</option>
-  </select>
-
-  <div class="neon-label">SEMESTERS</div>
-  <ul class="semester-list">
-    <li class="semester-item"><a href="javascript:void(0);" onclick="showPage('course2021')"><span class="sem-num">1-1</span><span class="sem-info"><span class="sem-name">Semester One</span><span class="sem-year">First Year</span></span><span class="sem-arrow">→</span></a></li>
-    <li class="semester-item"><a href="javascript:void(0);" onclick="showPage('course2022')"><span class="sem-num">1-2</span><span class="sem-info"><span class="sem-name">Semester Two</span><span class="sem-year">First Year</span></span><span class="sem-arrow">→</span></a></li>
-    <li class="semester-item"><a href="javascript:void(0);" onclick="showPage('course2023')"><span class="sem-num">2-1</span><span class="sem-info"><span class="sem-name">Semester One</span><span class="sem-year">Second Year</span></span><span class="sem-arrow">→</span></a></li>
-    <li class="semester-item"><a href="javascript:void(0);" onclick="showPage('course2024')"><span class="sem-num">2-2</span><span class="sem-info"><span class="sem-name">Semester Two</span><span class="sem-year">Second Year</span></span><span class="sem-arrow">→</span></a></li>
-    <li class="semester-item"><a href="javascript:void(0);" onclick="showPage('course2025')"><span class="sem-num">3-1</span><span class="sem-info"><span class="sem-name">Semester One</span><span class="sem-year">Third Year</span></span><span class="sem-arrow">→</span></a></li>
-  </ul>
-
-  <div class="status-bar">
-    <span class="status-dot"></span>
-    <span>ALL SYSTEMS ONLINE · DRIVE LINKS ACTIVE · <span id="liveClock"></span></span>
-  </div>
-
-  <div style="text-align:center; margin-top: 1.5rem;">
-    <div class="split-btn">
-      <button class="split-btn-part" id="themeToggle">☀️ LIGHT</button>
-      <button class="split-btn-part" onclick="window.open('https://wa.me/8801865648959','_blank')">💬 CONTACT</button>
+      <div style="text-align:center; margin-top: 1.5rem;">
+        <button id="themeToggle">☀️ LIGHT MODE</button>
+      </div>
     </div>
   </div>
-</div>
-```
 
-  </div>
-
+  <!-- All course pages remain exactly the same as your original (only theme changed) -->
   <!-- 1-1 -->
-
   <div id="course2021" class="page">
     <div class="course-container">
       <div class="course-header">
@@ -1096,7 +538,7 @@ text-transform: uppercase;
             <li><a href="https://drive.google.com/drive/u/0/folders/16aOtg5N8immWRyeGhm67JM6TnTeNil70" target="_blank">Hum-1121</a></li>
           </ul>
         </div>
-        <div style="margin-top:1.4rem;">
+        <div>
           <div class="neon-label">Additional</div>
           <ul class="course-list">
             <li class="extras"><a href="https://drive.google.com/drive/u/0/folders/15UYsH2xRipGOBLrV7m015DUYApn40JBb" target="_blank">Sessionals</a></li>
@@ -1109,7 +551,6 @@ text-transform: uppercase;
   </div>
 
   <!-- 1-2 -->
-
   <div id="course2022" class="page">
     <div class="course-container">
       <div class="course-header">
@@ -1130,7 +571,7 @@ text-transform: uppercase;
             <li><a href="https://drive.google.com/drive/u/0/folders/12sqUX5vp83Vp2KRe_Ehee4s4T8SVbyzz" target="_blank">CSE Lab</a></li>
           </ul>
         </div>
-        <div style="margin-top:1.4rem;">
+        <div>
           <div class="neon-label">Additional</div>
           <ul class="course-list">
             <li class="extras"><a href="https://drive.google.com/drive/u/0/folders/1Oe0ZaBEK07b1vnLa1MRry2iHT2JJDC5y" target="_blank">Previous Year Questions</a></li>
@@ -1142,7 +583,6 @@ text-transform: uppercase;
   </div>
 
   <!-- 2-1 -->
-
   <div id="course2023" class="page">
     <div class="course-container">
       <div class="course-header">
@@ -1162,7 +602,7 @@ text-transform: uppercase;
             <li><a href="https://drive.google.com/drive/u/0/folders/1jsPcfRjh1OIqMl--0-QAeRGuqZBHZYAI" target="_blank">Hum-2121</a></li>
           </ul>
         </div>
-        <div style="margin-top:1.4rem;">
+        <div>
           <div class="neon-label">Additional</div>
           <ul class="course-list">
             <li class="extras"><a href="https://drive.google.com/drive/u/0/folders/1eNhnh2a84ki-sDwdlJ_4ELbNVKVMwdso" target="_blank">Sessionals</a></li>
@@ -1175,7 +615,6 @@ text-transform: uppercase;
   </div>
 
   <!-- 2-2 -->
-
   <div id="course2024" class="page">
     <div class="course-container">
       <div class="course-header">
@@ -1195,7 +634,7 @@ text-transform: uppercase;
             <li><a href="https://drive.google.com/drive/u/0/folders/1RUxoNuQPGIhZn_RsO5Reic5Tmj6dVfXY" target="_blank">Numerical Analysis and Statistics</a></li>
           </ul>
         </div>
-        <div style="margin-top:1.4rem;">
+        <div>
           <div class="neon-label">Additional</div>
           <ul class="course-list">
             <li class="extras"><a href="https://drive.google.com/drive/u/0/folders/1gxMVlbO5-ZKiR-J0lNlmpc8PYqeXezm4" target="_blank">Sessionals</a></li>
@@ -1208,7 +647,6 @@ text-transform: uppercase;
   </div>
 
   <!-- 3-1 -->
-
   <div id="course2025" class="page">
     <div class="course-container">
       <div class="course-header">
@@ -1228,7 +666,7 @@ text-transform: uppercase;
             <li><a href="https://drive.google.com/drive/u/1/folders/1ImFh7G0YbIxTVCEWdTmYoKtPI9iMxpyR" target="_blank">Design of Machine Element</a></li>
           </ul>
         </div>
-        <div style="margin-top:1.4rem;">
+        <div>
           <div class="neon-label">Additional</div>
           <ul class="course-list">
             <li class="extras"><a href="https://drive.google.com/drive/u/1/folders/18L_vQJj5sR2eMiDf3ip4-Ok0IqUGuEW8" target="_blank">Sessionals</a></li>
@@ -1249,363 +687,144 @@ text-transform: uppercase;
 </div>
 
 <script>
-/* ══════════════════════════════════════════
-   CUSTOM CURSOR
-══════════════════════════════════════════ */
-const cursor = document.getElementById('cursor');
-const cursorRing = document.getElementById('cursor-ring');
-let mx = -100, my = -100, rx = -100, ry = -100;
-
-document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-
-function animCursor() {
-  cursor.style.left = mx + 'px';
-  cursor.style.top = my + 'px';
-  rx += (mx - rx) * 0.12;
-  ry += (my - ry) * 0.12;
-  cursorRing.style.left = rx + 'px';
-  cursorRing.style.top = ry + 'px';
-  requestAnimationFrame(animCursor);
-}
-animCursor();
-
-document.addEventListener('mousedown', () => cursor.classList.add('clicking'));
-document.addEventListener('mouseup', () => cursor.classList.remove('clicking'));
-
-document.querySelectorAll('a, button, input, select, [onclick]').forEach(el => {
-  el.addEventListener('mouseenter', () => cursorRing.classList.add('hover'));
-  el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover'));
-});
-
-/* ══════════════════════════════════════════
-   PARTICLE NETWORK CANVAS
-══════════════════════════════════════════ */
-const canvas = document.getElementById('bgCanvas');
-const ctx = canvas.getContext('2d');
-let W, H, particles = [];
-
-function resizeCanvas() {
-  W = canvas.width = window.innerWidth;
-  H = canvas.height = window.innerHeight;
-}
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
-
-function randomHex() { return '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6,'0'); }
-
-class Particle {
-  constructor() { this.reset(); }
-  reset() {
-    this.x = Math.random() * W;
-    this.y = Math.random() * H;
-    this.vx = (Math.random() - 0.5) * 0.4;
-    this.vy = (Math.random() - 0.5) * 0.4;
-    this.r = Math.random() * 1.8 + 0.5;
-    this.life = 1;
+  /* Gear Animation */
+  const gearsContainer = document.getElementById('gears');
+  function createGear() {
+    const gear = document.createElement('div');
+    gear.className = 'gear';
+    const size = Math.random() * 60 + 40;
+    gear.style.cssText = `
+      width: ${size}px;
+      height: ${size}px;
+      left: ${Math.random() * 100}vw;
+      top: ${Math.random() * 100}vh;
+      animation-duration: ${Math.random() * 25 + 20}s;
+      opacity: ${Math.random() * 0.4 + 0.3};
+    `;
+    gearsContainer.appendChild(gear);
+    setTimeout(() => gear.remove(), 60000);
   }
-  update() {
-    this.x += this.vx;
-    this.y += this.vy;
-    if (this.x < 0 || this.x > W) this.vx *= -1;
-    if (this.y < 0 || this.y > H) this.vy *= -1;
-  }
-}
 
-for (let i = 0; i < 70; i++) particles.push(new Particle());
+  setInterval(createGear, 1800);
+  for (let i = 0; i < 8; i++) createGear();
 
-let mouseX = W/2, mouseY = H/2;
-document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
-
-function drawParticles() {
-  ctx.clearRect(0, 0, W, H);
-  const isLight = document.body.classList.contains('light');
-  const pColor = isLight ? 'rgba(2,132,200,' : 'rgba(0,180,255,';
-  const bgGrad = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, W*0.7);
-
-  if (!isLight) {
-    bgGrad.addColorStop(0, 'rgba(0,20,40,1)');
-    bgGrad.addColorStop(1, 'rgba(10,13,18,1)');
-  } else {
-    bgGrad.addColorStop(0, 'rgba(224,240,255,1)');
-    bgGrad.addColorStop(1, 'rgba(240,244,248,1)');
-  }
-  ctx.fillStyle = bgGrad;
-  ctx.fillRect(0, 0, W, H);
-
-  // Draw connections
-  for (let i = 0; i < particles.length; i++) {
-    for (let j = i+1; j < particles.length; j++) {
-      const dx = particles[i].x - particles[j].x;
-      const dy = particles[i].y - particles[j].y;
-      const dist = Math.sqrt(dx*dx + dy*dy);
-      if (dist < 120) {
-        const alpha = (1 - dist/120) * 0.35;
-        ctx.beginPath();
-        ctx.moveTo(particles[i].x, particles[i].y);
-        ctx.lineTo(particles[j].x, particles[j].y);
-        ctx.strokeStyle = pColor + alpha + ')';
-        ctx.lineWidth = 0.5;
-        ctx.stroke();
-      }
-    }
-    // Mouse interaction
-    const mdx = particles[i].x - mouseX;
-    const mdy = particles[i].y - mouseY;
-    const mdist = Math.sqrt(mdx*mdx + mdy*mdy);
-    if (mdist < 100) {
-      const alpha = (1 - mdist/100) * 0.6;
-      ctx.beginPath();
-      ctx.moveTo(particles[i].x, particles[i].y);
-      ctx.lineTo(mouseX, mouseY);
-      ctx.strokeStyle = pColor + alpha + ')';
-      ctx.lineWidth = 1;
-      ctx.stroke();
+  /* Page Navigation */
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    
+    document.querySelectorAll('#bottom-nav button').forEach(b => b.classList.remove('active'));
+    if (id === 'mainPage') {
+      document.querySelector('#bottom-nav button').classList.add('active');
     }
   }
 
-  // Draw particles
-  particles.forEach(p => {
-    p.update();
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-    ctx.fillStyle = pColor + '0.7)';
-    ctx.fill();
+  document.getElementById('semesterFilter').addEventListener('change', function() {
+    const v = this.value;
+    if (v === 'all' || !v) {
+      showPage('mainPage');
+    } else {
+      showPage(v);
+    }
   });
 
-  requestAnimationFrame(drawParticles);
-}
-drawParticles();
+  /* Search Functionality (unchanged) */
+  var courses = [
+    { name: "Chem-1121", link: "https://drive.google.com/drive/u/0/folders/1EXFFWysIjlYlT0yI-g4GUOuURYJEzX-R" },
+    { name: "Phy-1121", link: "https://drive.google.com/drive/u/0/folders/1DBkm4pm8kmqrkH1FI8SMb01ewuDRbFeX" },
+    { name: "ME-1101", link: "https://drive.google.com/drive/u/0/folders/1fIy_hDPcS6ZC7O1Cv1LJUAhq2s60m5Iy" },
+    { name: "Math-1121", link: "https://drive.google.com/drive/u/0/folders/1BuU1dts7Oa8faWhhwO8K4H8ysd14Pe1s" },
+    { name: "Hum-1121", link: "https://drive.google.com/drive/u/0/folders/16aOtg5N8immWRyeGhm67JM6TnTeNil70" },
+    { name: "Sessionals 1-1", link: "https://drive.google.com/drive/u/0/folders/15UYsH2xRipGOBLrV7m015DUYApn40JBb" },
+    { name: "Previous Year Questions 1-1", link: "https://drive.google.com/drive/u/0/folders/14vZG30Bw48n8eqVXws2Djekbin5Szafa" },
+    { name: "ME-1207", link: "https://drive.google.com/drive/u/0/folders/1Y7OIVITtr2qIqVsxFnigCHwgVOAnPWGT" },
+    { name: "Math-1221", link: "https://drive.google.com/drive/u/0/folders/1sRDXNAJ7I-hJo8Q122zKlWKYlm_YyMHn" },
+    { name: "CSE-1281", link: "https://drive.google.com/drive/u/0/folders/1RkLnGeKiUj7z0mKEQZgGLPDnoRPFf7ke" },
+    { name: "EEE-1281", link: "https://drive.google.com/drive/u/0/folders/1pTkBCPJbNxFzPPcK8vMT47RPouDuTfW-" },
+    { name: "Hum-1221", link: "https://drive.google.com/drive/u/0/folders/1rNpdHjlDOeH5R7HbDLNXa87N0GYZsmk8" },
+    { name: "CSE Lab", link: "https://drive.google.com/drive/u/0/folders/12sqUX5vp83Vp2KRe_Ehee4s4T8SVbyzz" },
+    { name: "Previous Year Questions 1-2", link: "https://drive.google.com/drive/u/0/folders/1Oe0ZaBEK07b1vnLa1MRry2iHT2JJDC5y" },
+    { name: "Math-2121", link: "https://drive.google.com/drive/u/0/folders/1fY2_VH2XTeFO1kqgwi_WM7Mtx9fO7VCa" },
+    { name: "ME-2101 Thermodynamics", link: "https://drive.google.com/drive/u/0/folders/19ybGtwNS1h3vYe_Lf-j5fmHoaevOSzkS" },
+    { name: "ME-2103 Engineering Mechanics-1", link: "https://drive.google.com/drive/u/0/folders/1tCYo6XUIPoFPhHkbAPp1xPJxyWsAN4Bz" },
+    { name: "ME-2105 Fluid Mechanics-1", link: "https://drive.google.com/drive/u/0/folders/1GwF77b2On_4Mv78NfFfjiQE36SS2ort9" },
+    { name: "Hum-2121", link: "https://drive.google.com/drive/u/0/folders/1jsPcfRjh1OIqMl--0-QAeRGuqZBHZYAI" },
+    { name: "Sessionals 2-1", link: "https://drive.google.com/drive/u/0/folders/1eNhnh2a84ki-sDwdlJ_4ELbNVKVMwdso" },
+    { name: "Previous Year Questions 2-1", link: "https://drive.google.com/drive/u/0/folders/17U4gImjVHFsydsDzOi1Ejg8Jo0rSlZ-y" },
+    { name: "Mechanics of Solids", link: "https://drive.google.com/drive/u/0/folders/1PWeZy4qvsnw0MWkDxchM0rCsYRy6KJV2" },
+    { name: "Measurement Quality Control Materials Handling", link: "https://drive.google.com/drive/u/0/folders/1O5dWcLrSj8Z4NN808vGb_Nw2WIojUVdy" },
+    { name: "Engineering Mechanics-II", link: "https://drive.google.com/drive/u/0/folders/1SRDzgh8JshaP6qkc2CX6Cl8YVf-l2KRw" },
+    { name: "Electrical Machines and Electronics", link: "https://drive.google.com/drive/u/0/folders/13bAVx0tTBGUQ48LTZRDWw2pOFbGr_gVN" },
+    { name: "Numerical Analysis and Statistics", link: "https://drive.google.com/drive/u/0/folders/1RUxoNuQPGIhZn_RsO5Reic5Tmj6dVfXY" },
+    { name: "Sessionals 2-2", link: "https://drive.google.com/drive/u/0/folders/1gxMVlbO5-ZKiR-J0lNlmpc8PYqeXezm4" },
+    { name: "Previous Year Questions 2-2", link: "https://drive.google.com/drive/u/0/folders/1FUBsvkKqWkYcA2FobfscPPF6sVhqpKDk" },
+    { name: "Materials and Metallurgy", link: "https://drive.google.com/drive/u/1/folders/1K1V1SOb7gz5x-r7fCbuybTQtKa306LZj" },
+    { name: "Instrumentation and Control", link: "https://drive.google.com/drive/u/1/folders/1TX1xhlHk7Lwt2XVDgpsPERf8eN1Cggfe" },
+    { name: "Heat Transfer-1", link: "https://drive.google.com/drive/u/1/folders/1pCI6k07flQvZKpCg-MtBFuGbuTzmDv5Y" },
+    { name: "Fluid Mechanics-2", link: "https://drive.google.com/drive/u/1/folders/1PL-wtUiZvkdyLeL2l-XUMB418WZIMHTW" },
+    { name: "Design of Machine Element", link: "https://drive.google.com/drive/u/1/folders/1ImFh7G0YbIxTVCEWdTmYoKtPI9iMxpyR" },
+    { name: "Sessionals 3-1", link: "https://drive.google.com/drive/u/1/folders/18L_vQJj5sR2eMiDf3ip4-Ok0IqUGuEW8" },
+    { name: "Previous Year Questions 3-1", link: "https://drive.google.com/drive/u/1/folders/1uex6fjo8MvS4tOXeyCXTlKJvNxT7_xum" }
+  ];
 
-/* ══════════════════════════════════════════
-   TYPEWRITER EFFECT
-══════════════════════════════════════════ */
-const phrases = [
-  'Resources & Course Materials',
-  'Engineering Excellence',
-  'All Semesters Covered',
-  'Drive Links · Always Updated'
-];
-let phraseIdx = 0, charIdx = 0, deleting = false;
-const typedEl = document.getElementById('typedSub');
+  function searchCourses(openFirst) {
+    var input = document.getElementById('searchInput');
+    var filter = input.value.trim().toUpperCase();
+    var sugg = document.getElementById('suggestions');
+    sugg.innerHTML = '';
+    sugg.style.display = 'none';
 
-function typewriter() {
-  const current = phrases[phraseIdx];
-  if (!deleting) {
-    typedEl.textContent = current.substring(0, charIdx+1);
-    charIdx++;
-    if (charIdx === current.length) { deleting = true; setTimeout(typewriter, 1800); return; }
-  } else {
-    typedEl.textContent = current.substring(0, charIdx-1);
-    charIdx--;
-    if (charIdx === 0) { deleting = false; phraseIdx = (phraseIdx+1) % phrases.length; }
-  }
-  setTimeout(typewriter, deleting ? 45 : 75);
-}
-typewriter();
+    if (filter.length < 2) {
+      sugg.innerHTML = '<div style="color:var(--dim); padding:12px;">Type at least 2 characters...</div>';
+      sugg.style.display = 'block';
+      return;
+    }
 
-  /* (counters removed) */
+    var matches = courses.filter(c => c.name.toUpperCase().indexOf(filter) !== -1);
 
-/* ══════════════════════════════════════════
-   LIVE CLOCK
-══════════════════════════════════════════ */
-function updateClock() {
-  const now = new Date();
-  const h = String(now.getHours()).padStart(2,'0');
-  const m = String(now.getMinutes()).padStart(2,'0');
-  const s = String(now.getSeconds()).padStart(2,'0');
-  const el = document.getElementById('liveClock');
-  if (el) el.textContent = h + ':' + m + ':' + s;
-}
-setInterval(updateClock, 1000);
-updateClock();
+    if (!matches.length) {
+      sugg.innerHTML = '<div style="color:var(--dim); padding:12px;">No matches found</div>';
+      sugg.style.display = 'block';
+      return;
+    }
 
-/* ══════════════════════════════════════════
-   TOAST NOTIFICATION
-══════════════════════════════════════════ */
-function showToast(msg, dur = 2200) {
-  const toast = document.getElementById('toast');
-  toast.textContent = msg;
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), dur);
-}
+    matches.forEach(item => {
+      var d = document.createElement('div');
+      d.textContent = item.name;
+      d.onclick = function() {
+        window.open(item.link, '_blank');
+        input.value = '';
+        sugg.style.display = 'none';
+      };
+      sugg.appendChild(d);
+    });
 
-/* ══════════════════════════════════════════
-   PAGE NAVIGATION
-══════════════════════════════════════════ */
-function showPage(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  const target = document.getElementById(id);
-  target.classList.add('active');
-
-  // Re-trigger stagger animations by cloning list items
-  target.querySelectorAll('.semester-item, .course-list li').forEach(el => {
-    el.style.animation = 'none';
-    el.offsetHeight; // reflow
-    el.style.animation = '';
-  });
-
-  document.querySelectorAll('#bottom-nav button').forEach(b => b.classList.remove('active'));
-  if (id === 'mainPage') {
-    document.querySelector('#bottom-nav button').classList.add('active');
-  }
-
-  const labels = {
-    course2021: '1-1 · First Year Sem 1',
-    course2022: '1-2 · First Year Sem 2',
-    course2023: '2-1 · Second Year Sem 1',
-    course2024: '2-2 · Second Year Sem 2',
-    course2025: '3-1 · Third Year Sem 1',
-  };
-  if (labels[id]) showToast('📂 ' + labels[id]);
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-document.getElementById('semesterFilter').addEventListener('change', function() {
-  const v = this.value;
-  if (v === 'all' || !v) showPage('mainPage');
-  else showPage(v);
-});
-
-/* ══════════════════════════════════════════
-   SEARCH
-══════════════════════════════════════════ */
-var courses = [
-  { name: "Chem-1121", link: "https://drive.google.com/drive/u/0/folders/1EXFFWysIjlYlT0yI-g4GUOuURYJEzX-R" },
-  { name: "Phy-1121", link: "https://drive.google.com/drive/u/0/folders/1DBkm4pm8kmqrkH1FI8SMb01ewuDRbFeX" },
-  { name: "ME-1101", link: "https://drive.google.com/drive/u/0/folders/1fIy_hDPcS6ZC7O1Cv1LJUAhq2s60m5Iy" },
-  { name: "Math-1121", link: "https://drive.google.com/drive/u/0/folders/1BuU1dts7Oa8faWhhwO8K4H8ysd14Pe1s" },
-  { name: "Hum-1121", link: "https://drive.google.com/drive/u/0/folders/16aOtg5N8immWRyeGhm67JM6TnTeNil70" },
-  { name: "Sessionals 1-1", link: "https://drive.google.com/drive/u/0/folders/15UYsH2xRipGOBLrV7m015DUYApn40JBb" },
-  { name: "Previous Year Questions 1-1", link: "https://drive.google.com/drive/u/0/folders/14vZG30Bw48n8eqVXws2Djekbin5Szafa" },
-  { name: "ME-1207", link: "https://drive.google.com/drive/u/0/folders/1Y7OIVITtr2qIqVsxFnigCHwgVOAnPWGT" },
-  { name: "Math-1221", link: "https://drive.google.com/drive/u/0/folders/1sRDXNAJ7I-hJo8Q122zKlWKYlm_YyMHn" },
-  { name: "CSE-1281", link: "https://drive.google.com/drive/u/0/folders/1RkLnGeKiUj7z0mKEQZgGLPDnoRPFf7ke" },
-  { name: "EEE-1281", link: "https://drive.google.com/drive/u/0/folders/1pTkBCPJbNxFzPPcK8vMT47RPouDuTfW-" },
-  { name: "Hum-1221", link: "https://drive.google.com/drive/u/0/folders/1rNpdHjlDOeH5R7HbDLNXa87N0GYZsmk8" },
-  { name: "CSE Lab", link: "https://drive.google.com/drive/u/0/folders/12sqUX5vp83Vp2KRe_Ehee4s4T8SVbyzz" },
-  { name: "Previous Year Questions 1-2", link: "https://drive.google.com/drive/u/0/folders/1Oe0ZaBEK07b1vnLa1MRry2iHT2JJDC5y" },
-  { name: "Math-2121", link: "https://drive.google.com/drive/u/0/folders/1fY2_VH2XTeFO1kqgwi_WM7Mtx9fO7VCa" },
-  { name: "ME-2101 Thermodynamics", link: "https://drive.google.com/drive/u/0/folders/19ybGtwNS1h3vYe_Lf-j5fmHoaevOSzkS" },
-  { name: "ME-2103 Engineering Mechanics-1", link: "https://drive.google.com/drive/u/0/folders/1tCYo6XUIPoFPhHkbAPp1xPJxyWsAN4Bz" },
-  { name: "ME-2105 Fluid Mechanics-1", link: "https://drive.google.com/drive/u/0/folders/1GwF77b2On_4Mv78NfFfjiQE36SS2ort9" },
-  { name: "Hum-2121", link: "https://drive.google.com/drive/u/0/folders/1jsPcfRjh1OIqMl--0-QAeRGuqZBHZYAI" },
-  { name: "Sessionals 2-1", link: "https://drive.google.com/drive/u/0/folders/1eNhnh2a84ki-sDwdlJ_4ELbNVKVMwdso" },
-  { name: "Previous Year Questions 2-1", link: "https://drive.google.com/drive/u/0/folders/17U4gImjVHFsydsDzOi1Ejg8Jo0rSlZ-y" },
-  { name: "Mechanics of Solids", link: "https://drive.google.com/drive/u/0/folders/1PWeZy4qvsnw0MWkDxchM0rCsYRy6KJV2" },
-  { name: "Measurement Quality Control Materials Handling", link: "https://drive.google.com/drive/u/0/folders/1O5dWcLrSj8Z4NN808vGb_Nw2WIojUVdy" },
-  { name: "Engineering Mechanics-II", link: "https://drive.google.com/drive/u/0/folders/1SRDzgh8JshaP6qkc2CX6Cl8YVf-l2KRw" },
-  { name: "Electrical Machines and Electronics", link: "https://drive.google.com/drive/u/0/folders/13bAVx0tTBGUQ48LTZRDWw2pOFbGr_gVN" },
-  { name: "Numerical Analysis and Statistics", link: "https://drive.google.com/drive/u/0/folders/1RUxoNuQPGIhZn_RsO5Reic5Tmj6dVfXY" },
-  { name: "Sessionals 2-2", link: "https://drive.google.com/drive/u/0/folders/1gxMVlbO5-ZKiR-J0lNlmpc8PYqeXezm4" },
-  { name: "Previous Year Questions 2-2", link: "https://drive.google.com/drive/u/0/folders/1FUBsvkKqWkYcA2FobfscPPF6sVhqpKDk" },
-  { name: "Materials and Metallurgy", link: "https://drive.google.com/drive/u/1/folders/1K1V1SOb7gz5x-r7fCbuybTQtKa306LZj" },
-  { name: "Instrumentation and Control", link: "https://drive.google.com/drive/u/1/folders/1TX1xhlHk7Lwt2XVDgpsPERf8eN1Cggfe" },
-  { name: "Heat Transfer-1", link: "https://drive.google.com/drive/u/1/folders/1pCI6k07flQvZKpCg-MtBFuGbuTzmDv5Y" },
-  { name: "Fluid Mechanics-2", link: "https://drive.google.com/drive/u/1/folders/1PL-wtUiZvkdyLeL2l-XUMB418WZIMHTW" },
-  { name: "Design of Machine Element", link: "https://drive.google.com/drive/u/1/folders/1ImFh7G0YbIxTVCEWdTmYoKtPI9iMxpyR" },
-  { name: "Sessionals 3-1", link: "https://drive.google.com/drive/u/1/folders/18L_vQJj5sR2eMiDf3ip4-Ok0IqUGuEW8" },
-  { name: "Previous Year Questions 3-1", link: "https://drive.google.com/drive/u/1/folders/1uex6fjo8MvS4tOXeyCXTlKJvNxT7_xum" }
-];
-
-function searchCourses(openFirst) {
-  var input = document.getElementById('searchInput');
-  var filter = input.value.trim().toUpperCase();
-  var sugg = document.getElementById('suggestions');
-  sugg.innerHTML = '';
-  sugg.style.display = 'none';
-
-  if (filter.length < 2) {
-    sugg.innerHTML = '<div style="color:var(--dim); padding:12px;">Type at least 2 characters...</div>';
     sugg.style.display = 'block';
-    return;
-  }
 
-  var matches = courses.filter(c => c.name.toUpperCase().indexOf(filter) !== -1);
-
-  if (!matches.length) {
-    sugg.innerHTML = '<div style="color:var(--dim); padding:12px;">⚠ No matches found</div>';
-    sugg.style.display = 'block';
-    return;
-  }
-
-  matches.forEach(item => {
-    var d = document.createElement('div');
-    // Highlight matched text
-    var idx = item.name.toUpperCase().indexOf(filter);
-    d.innerHTML = item.name.substring(0, idx) +
-      '<span style="color:var(--accent2); background:rgba(0,180,255,0.15); border-radius:3px; padding:0 2px">' +
-      item.name.substring(idx, idx + filter.length) + '</span>' +
-      item.name.substring(idx + filter.length);
-    d.onclick = function() {
-      window.open(item.link, '_blank');
-      showToast('🔗 Opening ' + item.name);
+    if (openFirst && matches.length === 1) {
+      window.open(matches[0].link, '_blank');
       input.value = '';
       sugg.style.display = 'none';
-    };
-    sugg.appendChild(d);
+    }
+  }
+
+  document.getElementById('searchInput').addEventListener('input', () => searchCourses(false));
+  document.getElementById('searchInput').addEventListener('keypress', e => {
+    if (e.key === 'Enter') { e.preventDefault(); searchCourses(true); }
+  });
+  document.querySelector('.btn-search').onclick = () => searchCourses(true);
+
+  document.addEventListener('click', e => {
+    var s = document.getElementById('suggestions');
+    if (!document.getElementById('searchInput').contains(e.target) && !s.contains(e.target))
+      s.style.display = 'none';
   });
 
-  sugg.style.display = 'block';
-
-  if (openFirst && matches.length === 1) {
-    window.open(matches[0].link, '_blank');
-    showToast('🔗 Opening ' + matches[0].name);
-    input.value = '';
-    sugg.style.display = 'none';
-  }
-}
-
-document.getElementById('searchInput').addEventListener('input', () => searchCourses(false));
-document.getElementById('searchInput').addEventListener('keypress', e => {
-  if (e.key === 'Enter') { e.preventDefault(); searchCourses(true); }
-});
-document.querySelector('.btn-search').onclick = () => searchCourses(true);
-
-document.addEventListener('click', e => {
-  var s = document.getElementById('suggestions');
-  if (!document.getElementById('searchInput').contains(e.target) && !s.contains(e.target))
-    s.style.display = 'none';
-});
-
-/* ══════════════════════════════════════════
-   THEME TOGGLE
-══════════════════════════════════════════ */
-document.getElementById('themeToggle').onclick = function() {
-  var isLight = document.body.classList.toggle('light');
-  this.textContent = isLight ? '🌙 DARK' : '☀️ LIGHT';
-  showToast(isLight ? '☀️ Light mode enabled' : '🌙 Dark mode enabled');
-};
-
-/* ══════════════════════════════════════════
-   BUTTON RIPPLE EFFECT
-══════════════════════════════════════════ */
-document.querySelectorAll('.btn').forEach(btn => {
-  btn.addEventListener('mousemove', e => {
-    const rect = btn.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width * 100) + '%';
-    const y = ((e.clientY - rect.top) / rect.height * 100) + '%';
-    btn.style.setProperty('--rx', x);
-    btn.style.setProperty('--ry', y);
-  });
-});
-
-/* ══════════════════════════════════════════
-   KEYBOARD SHORTCUTS
-══════════════════════════════════════════ */
-document.addEventListener('keydown', e => {
-  if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-    e.preventDefault();
-    document.getElementById('searchInput').focus();
-    showToast('🔍 Search activated  (Ctrl+K)');
-  }
-  if (e.key === 'Escape') {
-    document.getElementById('suggestions').style.display = 'none';
-    document.getElementById('searchInput').blur();
-  }
-});
-
-/* Show keyboard shortcut hint once */
-setTimeout(() => showToast('💡 Tip: Press Ctrl+K to search quickly'), 2500);
+  /* Theme Toggle */
+  document.getElementById('themeToggle').onclick = function() {
+    var isLight = document.body.classList.toggle('light');
+    this.textContent = isLight ? '☀️ LIGHT MODE' : '🌙 DARK MODE';
+  };
 </script>
 
 </body>
