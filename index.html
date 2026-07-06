@@ -24,7 +24,13 @@
     --glow:     rgba(0, 180, 255, 0.15);
   }
 
-  body.light {
+  /* ============================================================ */
+  /* THEME SYSTEM — 9 accessible themes, switched via data-theme   */
+  /* body.light stays as a lightweight marker class (used further  */
+  /* below to dim particle/grid effects on bright themes)          */
+  /* ============================================================ */
+
+  body[data-theme="light"] {
     --bg:       #f8fafc;
     --bg2:      #e2e8f0;
     --panel:    rgba(255, 255, 255, 0.97);
@@ -39,6 +45,132 @@
     --topbar:   rgba(248, 250, 252, 0.97);
     --input-bg: rgba(255, 255, 255, 0.9);
     --glow:     rgba(2, 132, 200, 0.1);
+  }
+
+  body[data-theme="dracula"] {
+    --bg:       #282a36;
+    --bg2:      #1e1f29;
+    --panel:    rgba(52, 55, 70, 0.96);
+    --text:     #f8f8f2;
+    --dim:      #b8bdf0;
+    --accent:   #bd93f9;
+    --accent2:  #ff79c6;
+    --steel:    #e2e2f5;
+    --border:   rgba(189, 147, 249, 0.3);
+    --border2:  rgba(255, 121, 198, 0.18);
+    --shadow:   rgba(0, 0, 0, 0.8);
+    --topbar:   rgba(40, 42, 54, 0.97);
+    --input-bg: rgba(30, 31, 41, 0.85);
+    --glow:     rgba(189, 147, 249, 0.18);
+    --ai-accent: #ff79c6; --ai-accent2: #ffb3e0; --ai-glow: rgba(255,121,198,0.35);
+  }
+
+  body[data-theme="nord"] {
+    --bg:       #2e3440;
+    --bg2:      #242933;
+    --panel:    rgba(59, 66, 82, 0.96);
+    --text:     #eceff4;
+    --dim:      #b6bfd6;
+    --accent:   #88c0d0;
+    --accent2:  #81a1c1;
+    --steel:    #d8dee9;
+    --border:   rgba(136, 192, 208, 0.3);
+    --border2:  rgba(129, 161, 193, 0.18);
+    --shadow:   rgba(0, 0, 0, 0.75);
+    --topbar:   rgba(46, 52, 64, 0.97);
+    --input-bg: rgba(36, 41, 51, 0.85);
+    --glow:     rgba(136, 192, 208, 0.16);
+    --ai-accent: #88c0d0; --ai-accent2: #a3d5e0; --ai-glow: rgba(136,192,208,0.32);
+  }
+
+  body[data-theme="solarized-dark"] {
+    --bg:       #002b36;
+    --bg2:      #00212a;
+    --panel:    rgba(7, 54, 66, 0.96);
+    --text:     #eee8d5;
+    --dim:      #93a6a1;
+    --accent:   #268bd2;
+    --accent2:  #2aa198;
+    --steel:    #d3cbb7;
+    --border:   rgba(38, 139, 210, 0.3);
+    --border2:  rgba(42, 161, 152, 0.2);
+    --shadow:   rgba(0, 0, 0, 0.75);
+    --topbar:   rgba(0, 43, 54, 0.97);
+    --input-bg: rgba(7, 54, 66, 0.85);
+    --glow:     rgba(38, 139, 210, 0.16);
+    --ai-accent: #2aa198; --ai-accent2: #6fd6c9; --ai-glow: rgba(42,161,152,0.32);
+  }
+
+  body[data-theme="solarized-light"] {
+    --bg:       #fdf6e3;
+    --bg2:      #eee8d5;
+    --panel:    rgba(255, 252, 240, 0.97);
+    --text:     #073642;
+    --dim:      #657b83;
+    --accent:   #268bd2;
+    --accent2:  #2aa198;
+    --steel:    #45575c;
+    --border:   rgba(38, 139, 210, 0.3);
+    --border2:  rgba(42, 161, 152, 0.2);
+    --shadow:   rgba(7, 54, 66, 0.1);
+    --topbar:   rgba(253, 246, 227, 0.97);
+    --input-bg: rgba(255, 255, 255, 0.9);
+    --glow:     rgba(38, 139, 210, 0.1);
+    --ai-accent: #2aa198; --ai-accent2: #1c7a6f; --ai-glow: rgba(42,161,152,0.22);
+  }
+
+  body[data-theme="high-contrast"] {
+    --bg:       #000000;
+    --bg2:      #000000;
+    --panel:    rgba(0, 0, 0, 0.98);
+    --text:     #ffffff;
+    --dim:      #ffff00;
+    --accent:   #ffff00;
+    --accent2:  #00ffff;
+    --steel:    #ffffff;
+    --border:   rgba(255, 255, 0, 0.7);
+    --border2:  rgba(0, 255, 255, 0.4);
+    --shadow:   rgba(0, 0, 0, 0.95);
+    --topbar:   rgba(0, 0, 0, 1);
+    --input-bg: rgba(0, 0, 0, 0.95);
+    --glow:     rgba(255, 255, 0, 0.25);
+    --ai-accent: #00ffff; --ai-accent2: #ffff00; --ai-glow: rgba(0,255,255,0.35);
+  }
+
+  body[data-theme="sepia"] {
+    --bg:       #f4ecd8;
+    --bg2:      #ece0c4;
+    --panel:    rgba(250, 244, 227, 0.97);
+    --text:     #3b2f1e;
+    --dim:      #7a6650;
+    --accent:   #a9702f;
+    --accent2:  #c98a3c;
+    --steel:    #5a4a35;
+    --border:   rgba(169, 112, 47, 0.3);
+    --border2:  rgba(201, 138, 60, 0.2);
+    --shadow:   rgba(59, 47, 30, 0.15);
+    --topbar:   rgba(244, 236, 216, 0.97);
+    --input-bg: rgba(255, 250, 238, 0.9);
+    --glow:     rgba(169, 112, 47, 0.12);
+    --ai-accent: #a9702f; --ai-accent2: #8a5a24; --ai-glow: rgba(169,112,47,0.2);
+  }
+
+  body[data-theme="forest"] {
+    --bg:       #0d1f14;
+    --bg2:      #0a1810;
+    --panel:    rgba(20, 42, 28, 0.96);
+    --text:     #d9f2df;
+    --dim:      #8fb89c;
+    --accent:   #34c76f;
+    --accent2:  #6fe08e;
+    --steel:    #bfe6c9;
+    --border:   rgba(52, 199, 111, 0.3);
+    --border2:  rgba(111, 224, 142, 0.18);
+    --shadow:   rgba(0, 0, 0, 0.8);
+    --topbar:   rgba(13, 31, 20, 0.97);
+    --input-bg: rgba(10, 24, 16, 0.85);
+    --glow:     rgba(52, 199, 111, 0.16);
+    --ai-accent: #34c76f; --ai-accent2: #6fe08e; --ai-glow: rgba(52,199,111,0.3);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -63,8 +195,16 @@
     background: 
       radial-gradient(circle at 20% 30%, rgba(0,180,255,0.08) 0%, transparent 50%),
       radial-gradient(circle at 80% 70%, rgba(0,224,255,0.06) 0%, transparent 50%);
+    background-size: 160% 160%;
     pointer-events: none;
     transition: opacity 0.5s;
+    animation: auroraDrift 22s ease-in-out infinite alternate;
+  }
+
+  @keyframes auroraDrift {
+    0%   { background-position: 0% 0%, 100% 100%; }
+    50%  { background-position: 30% 20%, 70% 80%; }
+    100% { background-position: 10% 40%, 90% 60%; }
   }
 
   body::after {
@@ -78,6 +218,12 @@
     background-size: 60px 60px;
     pointer-events: none;
     opacity: 0.6;
+    animation: gridDrift 18s linear infinite;
+  }
+
+  @keyframes gridDrift {
+    from { background-position: 0 0, 0 0; }
+    to   { background-position: 60px 60px, -60px 60px; }
   }
 
   /* Gear-like subtle animation container */
@@ -102,6 +248,37 @@
   @keyframes rotateGear {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
+  }
+
+  /* Soft floating light orbs, drifting slowly behind the content */
+  #orbs {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(30px);
+    background: radial-gradient(circle, var(--accent2), transparent 70%);
+    opacity: 0.18;
+    animation: orbFloat ease-in-out infinite;
+  }
+  body.light .orb { opacity: 0.12; }
+  @keyframes orbFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33%      { transform: translate(30px, -40px) scale(1.15); }
+    66%      { transform: translate(-25px, 25px) scale(0.9); }
+  }
+
+  /* Respect reduced-motion preference: keep the interface calm     */
+  @media (prefers-reduced-motion: reduce) {
+    body::before, body::after, .gear, .orb, .top-bar::after,
+    #aiLauncher, #aiLauncher::before, .hud-dot, .ai-cursor {
+      animation: none !important;
+    }
   }
 
   /* ── TOP BAR ── */
@@ -466,11 +643,357 @@
     .course-big-title { font-size: 2.5rem; }
     main { padding: 20px 12px 90px; }
   }
+
+  /* ============================================================ */
+  /* FUTURE SYSTEMS LAYER — HUD, kinematics readout, AI copilot    */
+  /* ============================================================ */
+  :root {
+    --ai-accent: #b46dff;
+    --ai-accent2: #d6b3ff;
+    --ai-glow: rgba(180, 109, 255, 0.35);
+    --warn: #ffb020;
+    --ok: #29ffb0;
+  }
+
+  /* Ambient node-network canvas, sits behind the drafting grid */
+  #netCanvas {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.55;
+  }
+  body.light #netCanvas { opacity: 0.28; }
+
+  /* Scanning sweep across the top bar, like an active sensor pass */
+  .top-bar { position: sticky; overflow: hidden; }
+  .top-bar::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -45%;
+    width: 45%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0,224,255,0.14), transparent);
+    animation: scanSweep 7s linear infinite;
+    pointer-events: none;
+  }
+  @keyframes scanSweep {
+    0%   { left: -45%; }
+    100% { left: 105%; }
+  }
+
+  /* HUD status strip under the title */
+  .hud-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin: 16px 0 6px;
+  }
+  .hud-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border: 1px solid var(--border2);
+    border-radius: 20px;
+    background: rgba(0,180,255,0.05);
+    color: var(--dim);
+    text-transform: uppercase;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 1.5px;
+    white-space: nowrap;
+  }
+  .hud-chip b { color: var(--accent2); font-weight: 600; letter-spacing: 1px; }
+  .hud-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--ok);
+    box-shadow: 0 0 8px var(--ok);
+    animation: pulseDot 1.6s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  @keyframes pulseDot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: 0.35; transform: scale(0.7); }
+  }
+
+  /* Kinematics readout — a live four-bar linkage mechanism */
+  .linkage-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 6px 0 4px;
+  }
+  .linkage-caption {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 2px;
+    color: var(--dim);
+    text-transform: uppercase;
+    margin-top: 2px;
+    opacity: 0.75;
+  }
+  #linkageSvg { width: 100%; max-width: 300px; height: 84px; overflow: visible; }
+
+  /* Course & semester cards get a faint circuit-trace hover accent */
+  .semester-item a { position: relative; overflow: hidden; }
+  .semester-item a::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 40%, rgba(0,224,255,0.12) 50%, transparent 60%);
+    transform: translateX(-120%);
+    transition: transform 0.6s ease;
+    pointer-events: none;
+  }
+  .semester-item a:hover::before { transform: translateX(120%); }
+
+  /* AI Copilot — floating launcher */
+  #aiLauncher {
+    position: fixed;
+    right: 18px;
+    bottom: 88px;
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 32% 28%, var(--ai-accent2), var(--ai-accent) 55%, #5c2fa8 100%);
+    border: 2px solid rgba(255,255,255,0.25);
+    box-shadow: 0 0 22px var(--ai-glow), 0 8px 18px rgba(0,0,0,0.5);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    z-index: 120;
+    animation: floatLauncher 3.4s ease-in-out infinite;
+  }
+  @keyframes floatLauncher {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-6px); }
+  }
+  #aiLauncher::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 1px solid var(--ai-accent);
+    opacity: 0.6;
+    animation: ringPulse 2.6s ease-out infinite;
+  }
+  @keyframes ringPulse {
+    0%   { transform: scale(0.85); opacity: 0.7; }
+    100% { transform: scale(1.55); opacity: 0; }
+  }
+  #aiLauncher svg { width: 26px; height: 26px; fill: #fff; }
+  #aiLauncher img {
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255,255,255,0.35);
+  }
+  #aiLauncher .ai-launcher-badge {
+    position: absolute;
+    bottom: -2px; right: -2px;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--ok);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 6px var(--ok);
+  }
+
+  /* AI Copilot — panel */
+  #aiPanel {
+    position: fixed;
+    right: 16px;
+    bottom: 154px;
+    width: min(340px, calc(100vw - 32px));
+    max-height: 62vh;
+    background: var(--panel);
+    border: 1px solid var(--ai-accent);
+    border-radius: 14px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 0 30px var(--ai-glow);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 121;
+    backdrop-filter: blur(20px);
+  }
+  #aiPanel.open { display: flex; }
+
+  .ai-head {
+    padding: 12px 16px;
+    background: linear-gradient(135deg, rgba(180,109,255,0.2), rgba(0,180,255,0.08));
+    border-bottom: 1px solid var(--border2);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .ai-head-title {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 2px;
+    color: var(--ai-accent);
+    font-size: 1rem;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .ai-head-title .hud-dot { background: var(--ai-accent); box-shadow: 0 0 8px var(--ai-accent); }
+  #aiClose {
+    background: none; border: none; color: var(--dim); cursor: pointer; font-size: 1.05rem; line-height: 1;
+  }
+  #aiClose:hover { color: var(--ai-accent); }
+
+  .ai-chips {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border2);
+  }
+  .ai-chip {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.63rem;
+    padding: 5px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border2);
+    color: var(--accent2);
+    background: rgba(0,224,255,0.05);
+    cursor: pointer;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .ai-chip:hover { background: rgba(0,224,255,0.15); }
+
+  #aiLog {
+    flex: 1;
+    min-height: 120px;
+    overflow-y: auto;
+    padding: 12px 14px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    line-height: 1.55;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .ai-msg { max-width: 92%; }
+  .ai-msg.user {
+    align-self: flex-end; color: var(--text);
+    background: rgba(0,180,255,0.1);
+    padding: 8px 10px; border-radius: 8px 8px 2px 8px;
+  }
+  .ai-msg.bot {
+    align-self: flex-start; color: var(--steel);
+    background: rgba(180,109,255,0.08);
+    padding: 8px 10px; border-radius: 8px 8px 8px 2px;
+    border-left: 2px solid var(--ai-accent);
+    white-space: pre-wrap;
+  }
+  .ai-msg .tag {
+    display: block; font-size: 0.58rem; color: var(--ai-accent);
+    letter-spacing: 2px; margin-bottom: 4px; text-transform: uppercase;
+  }
+  .ai-cursor {
+    display: inline-block; width: 6px; height: 12px;
+    background: var(--ai-accent); margin-left: 2px;
+    animation: blinkCursor 0.9s steps(1) infinite; vertical-align: middle;
+  }
+  @keyframes blinkCursor { 50% { opacity: 0; } }
+
+  .ai-input-row {
+    display: flex; gap: 8px;
+    padding: 10px 12px;
+    border-top: 1px solid var(--border2);
+  }
+  #aiInput {
+    flex: 1;
+    padding: 9px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--input-bg);
+    color: var(--text);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+  }
+  #aiInput:focus { outline: none; border-color: var(--ai-accent); box-shadow: 0 0 0 3px var(--ai-glow); }
+  #aiSend {
+    padding: 9px 14px;
+    border: none; border-radius: 8px;
+    background: var(--ai-accent);
+    color: #fff;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+  }
+  #aiSend:hover { background: var(--ai-accent2); }
+
+  .ai-compare-wrap {
+    display: flex; flex-direction: column; gap: 8px;
+    width: 100%;
+  }
+  .ai-compare-status {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 1.5px;
+    color: var(--ai-accent);
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+  .ai-compare-card {
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    padding: 8px 10px;
+    background: rgba(128,128,128,0.05);
+    transition: opacity 0.3s, border-color 0.3s;
+  }
+  .ai-compare-card.dimmed { opacity: 0.4; }
+  .ai-compare-card.chosen { border-color: var(--ok); background: rgba(41,255,176,0.06); }
+  .ai-compare-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 5px;
+  }
+  .ai-model-tag {
+    display: flex; align-items: center; gap: 6px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.64rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--steel);
+  }
+  .ai-model-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 0 5px currentColor;
+  }
+  .ai-compare-text {
+    font-size: 0.76rem;
+    line-height: 1.5;
+    color: var(--steel);
+  }
+  .ai-use-btn {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 1px;
+    font-size: 0.68rem;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--ai-accent);
+    background: transparent;
+    color: var(--ai-accent);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .ai-use-btn:hover:not(:disabled) { background: var(--ai-accent); color: #fff; }
+  .ai-use-btn:disabled { opacity: 0.4; cursor: default; }
+
+  .ai-disclaimer {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.56rem;
+    color: var(--dim);
+    padding: 6px 12px 10px;
+    text-align: center;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 480px) {
+    #aiPanel { right: 8px; left: 8px; width: auto; bottom: 146px; }
+    #aiLauncher { right: 12px; }
+  }
 </style>
 </head>
 <body>
 
 <div id="gears"></div>
+<div id="orbs"></div>
+<canvas id="netCanvas"></canvas>
 
 <div class="top-bar">
   <div class="logo-wrap">
@@ -490,6 +1013,19 @@
     <div class="card">
       <div class="forge-title">MECH. ENG.</div>
       <div class="forge-sub">Resources &amp; Course Materials</div>
+
+      <div class="hud-strip">
+        <div class="hud-chip"><span class="hud-dot"></span>SYSTEM <b>ONLINE</b></div>
+        <div class="hud-chip">UPTIME <b id="hudUptime">00:00:00</b></div>
+        <div class="hud-chip">NODES <b id="hudNodes">0</b></div>
+        <div class="hud-chip">AI CORE <b id="hudAiState">STANDBY</b></div>
+      </div>
+
+      <div class="linkage-wrap">
+        <svg id="linkageSvg" viewBox="0 0 320 100"></svg>
+        <div class="linkage-caption">// four-bar linkage · live kinematics</div>
+      </div>
+
       <div class="divider"></div>
       
       <label class="neon-label">// Jump to Semester</label>
@@ -512,7 +1048,7 @@
       </ul>
 
       <div style="text-align:center; margin-top: 1.5rem;">
-        <button id="themeToggle">☀️ LIGHT MODE</button>
+        <button id="themeToggle" aria-label="Change theme">🌙 DARK</button>
       </div>
     </div>
   </div>
@@ -680,6 +1216,33 @@
 
 </main>
 
+<!-- AI Copilot -->
+<button id="aiLauncher" title="Multi-AI Copilot" aria-label="Open Multi-AI Copilot">
+  <img src="cat.jpg" alt="AI Copilot">
+  <span class="ai-launcher-badge" aria-hidden="true"></span>
+</button>
+
+<div id="aiPanel">
+  <div class="ai-head">
+    <div class="ai-head-title"><span class="hud-dot"></span>ME-AI // MULTI-COMPARE</div>
+    <button id="aiClose" aria-label="Close">✕</button>
+  </div>
+  <div class="ai-chips">
+    <div class="ai-chip" data-q="thermo">Thermo</div>
+    <div class="ai-chip" data-q="fluid mechanics">Fluid Mech</div>
+    <div class="ai-chip" data-q="cfd">CFD Tips</div>
+    <div class="ai-chip" data-q="fea">FEA Tips</div>
+    <div class="ai-chip" data-q="materials">Materials</div>
+    <div class="ai-chip" data-q="study plan">Study Plan</div>
+  </div>
+  <div id="aiLog"></div>
+  <div class="ai-input-row">
+    <input type="text" id="aiInput" placeholder="Ask anything — compare 5 AI answers...">
+    <button id="aiSend">SEND</button>
+  </div>
+  <div class="ai-disclaimer">Offline heuristic assistant. Answers are locally generated and styled to resemble ChatGPT, Gemini, Perplexity, Claude &amp; DeepSeek for easy side-by-side comparison — no live internet or third-party API calls are made. Always cross-check with your course materials.</div>
+</div>
+
 <div id="bottom-nav">
   <button class="active" onclick="showPage('mainPage')">HOME</button>
   <button onclick="document.getElementById('searchInput').focus()">SEARCH</button>
@@ -707,6 +1270,24 @@
 
   setInterval(createGear, 1800);
   for (let i = 0; i < 8; i++) createGear();
+
+  /* Floating ambient orbs */
+  const orbsContainer = document.getElementById('orbs');
+  const ORB_COUNT = 6;
+  for (let i = 0; i < ORB_COUNT; i++) {
+    const orb = document.createElement('div');
+    orb.className = 'orb';
+    const size = Math.random() * 180 + 120;
+    orb.style.cssText = `
+      width: ${size}px;
+      height: ${size}px;
+      left: ${Math.random() * 90}vw;
+      top: ${Math.random() * 90}vh;
+      animation-duration: ${Math.random() * 14 + 14}s;
+      animation-delay: ${(Math.random() * 6).toFixed(2)}s;
+    `;
+    orbsContainer.appendChild(orb);
+  }
 
   /* Page Navigation */
   function showPage(id) {
@@ -820,12 +1401,403 @@
       s.style.display = 'none';
   });
 
-  /* Theme Toggle */
-  document.getElementById('themeToggle').onclick = function() {
-    var isLight = document.body.classList.toggle('light');
-    this.textContent = isLight ? '☀️ LIGHT MODE' : '🌙 DARK MODE';
-  };
+  /* ============================================================ */
+  /* THEME SYSTEM — cycles through 9 accessible themes on click    */
+  /* ============================================================ */
+  (function () {
+    var THEMES = [
+      { key: 'dark',            label: '🌙 DARK',        light: false },
+      { key: 'light',           label: '☀️ LIGHT',       light: true  },
+      { key: 'dracula',         label: '🧛 DRACULA',     light: false },
+      { key: 'nord',            label: '❄️ NORD',        light: false },
+      { key: 'solarized-dark',  label: '🌊 SOLAR DARK',  light: false },
+      { key: 'solarized-light', label: '📜 SOLAR LIGHT', light: true  },
+      { key: 'high-contrast',   label: '⬛ HIGH CONTRAST', light: false },
+      { key: 'sepia',           label: '📖 SEPIA',       light: true  },
+      { key: 'forest',          label: '🌲 FOREST',      light: false }
+    ];
+    var idx = 0;
+    var btn = document.getElementById('themeToggle');
+
+    function apply(i) {
+      idx = ((i % THEMES.length) + THEMES.length) % THEMES.length;
+      var t = THEMES[idx];
+      document.body.setAttribute('data-theme', t.key);
+      document.body.classList.toggle('light', t.light);
+      btn.textContent = t.label;
+      btn.setAttribute('aria-label', 'Theme: ' + t.label.replace(/^\S+\s/, '') + '. Click to switch to the next theme.');
+    }
+
+    btn.addEventListener('click', function () { apply(idx + 1); });
+    apply(0);
+  })();
+
+  /* ============================================================ */
+  /* AMBIENT NODE-NETWORK — a slow "data mesh" behind the grid     */
+  /* ============================================================ */
+  (function () {
+    var canvas = document.getElementById('netCanvas');
+    var ctx = canvas.getContext('2d');
+    var W, H, nodes = [];
+    var NODE_COUNT = 46;
+    var LINK_DIST = 130;
+
+    function resize() {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    function seedNodes() {
+      nodes = [];
+      for (var i = 0; i < NODE_COUNT; i++) {
+        nodes.push({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          vx: (Math.random() - 0.5) * 0.18,
+          vy: (Math.random() - 0.5) * 0.18,
+          r: Math.random() * 1.6 + 0.6
+        });
+      }
+    }
+    seedNodes();
+
+    function step() {
+      ctx.clearRect(0, 0, W, H);
+      for (var i = 0; i < nodes.length; i++) {
+        var n = nodes[i];
+        n.x += n.vx; n.y += n.vy;
+        if (n.x < 0 || n.x > W) n.vx *= -1;
+        if (n.y < 0 || n.y > H) n.vy *= -1;
+      }
+      for (var i = 0; i < nodes.length; i++) {
+        for (var j = i + 1; j < nodes.length; j++) {
+          var a = nodes[i], b = nodes[j];
+          var dx = a.x - b.x, dy = a.y - b.y;
+          var dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < LINK_DIST) {
+            var alpha = (1 - dist / LINK_DIST) * 0.35;
+            ctx.strokeStyle = 'rgba(0,180,255,' + alpha.toFixed(3) + ')';
+            ctx.lineWidth = 0.6;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+      }
+      for (var i = 0; i < nodes.length; i++) {
+        var n = nodes[i];
+        ctx.fillStyle = 'rgba(0,224,255,0.55)';
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  })();
+
+  /* ============================================================ */
+  /* LIVE FOUR-BAR LINKAGE — real planar mechanism kinematics      */
+  /* Grashof crank-rocker: shortest link (crank) drives a full     */
+  /* rotation while the coupler and rocker trace their motion.     */
+  /* ============================================================ */
+  (function () {
+    var svg = document.getElementById('linkageSvg');
+    if (!svg) return;
+    var NS = 'http://www.w3.org/2000/svg';
+
+    // Ground pivots and link lengths (Grashof crank-rocker: 15+50 <= 40+33)
+    var O2 = { x: 125, y: 55 };   // fixed crank pivot
+    var O4 = { x: 175, y: 55 };   // fixed rocker pivot
+    var r1 = 50, r2 = 15, r3 = 40, r4 = 33;
+    var theta2 = 0;
+    var trail = [];
+    var MAX_TRAIL = 55;
+
+    function el(tag, attrs) {
+      var e = document.createElementNS(NS, tag);
+      for (var k in attrs) e.setAttribute(k, attrs[k]);
+      return e;
+    }
+
+    var groundLine = el('line', { x1: O2.x, y1: O2.y, x2: O4.x, y2: O4.y, class: 'lk-link', 'stroke-dasharray': '4 4', opacity: 0.35 });
+    var crankLine  = el('line', { class: 'lk-link' });
+    var couplerLine = el('line', { class: 'lk-link' });
+    var rockerLine  = el('line', { class: 'lk-link' });
+    var trailPath   = el('path', { fill: 'none', stroke: 'var(--ai-accent)', 'stroke-width': 1, opacity: 0.5 });
+    var o2Dot = el('circle', { cx: O2.x, cy: O2.y, r: 3.4, class: 'lk-ground' });
+    var o4Dot = el('circle', { cx: O4.x, cy: O4.y, r: 3.4, class: 'lk-ground' });
+    var aDot  = el('circle', { r: 3, class: 'lk-joint' });
+    var bDot  = el('circle', { r: 3, class: 'lk-joint' });
+
+    [groundLine, trailPath, crankLine, couplerLine, rockerLine, o2Dot, o4Dot, aDot, bDot].forEach(function (n) {
+      svg.appendChild(n);
+    });
+
+    function frame() {
+      theta2 += 0.018;
+      var A = { x: O2.x + r2 * Math.cos(theta2), y: O2.y + r2 * Math.sin(theta2) };
+      var dx = O4.x - A.x, dy = O4.y - A.y;
+      var d = Math.sqrt(dx * dx + dy * dy) || 0.0001;
+      var a = (r3 * r3 - r4 * r4 + d * d) / (2 * d);
+      var hSq = r3 * r3 - a * a;
+      var h = hSq > 0 ? Math.sqrt(hSq) : 0;
+      var px = A.x + a * dx / d, py = A.y + a * dy / d;
+      var rx = -dy / d, ry = dx / d;
+      var B = { x: px + h * rx, y: py + h * ry };
+
+      crankLine.setAttribute('x1', O2.x); crankLine.setAttribute('y1', O2.y);
+      crankLine.setAttribute('x2', A.x);  crankLine.setAttribute('y2', A.y);
+
+      couplerLine.setAttribute('x1', A.x); couplerLine.setAttribute('y1', A.y);
+      couplerLine.setAttribute('x2', B.x); couplerLine.setAttribute('y2', B.y);
+
+      rockerLine.setAttribute('x1', O4.x); rockerLine.setAttribute('y1', O4.y);
+      rockerLine.setAttribute('x2', B.x);  rockerLine.setAttribute('y2', B.y);
+
+      aDot.setAttribute('cx', A.x); aDot.setAttribute('cy', A.y);
+      bDot.setAttribute('cx', B.x); bDot.setAttribute('cy', B.y);
+
+      trail.push({ x: B.x, y: B.y });
+      if (trail.length > MAX_TRAIL) trail.shift();
+      var d3 = trail.map(function (p, i) { return (i === 0 ? 'M ' : 'L ') + p.x.toFixed(1) + ' ' + p.y.toFixed(1); }).join(' ');
+      trailPath.setAttribute('d', d3);
+
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  })();
+
+  /* ============================================================ */
+  /* HUD COUNTERS — uptime clock + node census                     */
+  /* ============================================================ */
+  (function () {
+    var startTime = Date.now();
+    var uptimeEl = document.getElementById('hudUptime');
+    var nodesEl = document.getElementById('hudNodes');
+    if (nodesEl) nodesEl.textContent = (typeof courses !== 'undefined' ? courses.length : 0) + 5;
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+    setInterval(function () {
+      if (!uptimeEl) return;
+      var elapsed = Math.floor((Date.now() - startTime) / 1000);
+      var hh = Math.floor(elapsed / 3600);
+      var mm = Math.floor((elapsed % 3600) / 60);
+      var ss = elapsed % 60;
+      uptimeEl.textContent = pad(hh) + ':' + pad(mm) + ':' + pad(ss);
+    }, 1000);
+  })();
+
+  /* ============================================================ */
+  /* ME-AI COPILOT — offline heuristic study assistant             */
+  /* Keyword-matched, deterministic. No live network calls.        */
+  /* ============================================================ */
+  (function () {
+    var launcher = document.getElementById('aiLauncher');
+    var panel = document.getElementById('aiPanel');
+    var closeBtn = document.getElementById('aiClose');
+    var log = document.getElementById('aiLog');
+    var input = document.getElementById('aiInput');
+    var sendBtn = document.getElementById('aiSend');
+    var aiState = document.getElementById('hudAiState');
+    var chips = document.querySelectorAll('.ai-chip');
+    var greeted = false;
+
+    var KB = {
+      thermo: "Thermo checklist: define your system boundary first, then track which property is held constant across each process (isothermal, isobaric, isochoric, adiabatic). For cycles, sketch the P-v and T-s diagrams before touching an equation — most marks are lost from a wrong process assumption, not a wrong formula.",
+      "fluid mechanics": "Fluid mechanics tip: always start with control-volume selection and label inlet/outlet velocities and pressures. For pipe flow, check Reynolds number first — it decides whether you're in the laminar friction-factor regime or need a Moody chart / Colebrook iteration.",
+      cfd: "CFD workflow: geometry -> mesh -> physics setup -> solve -> post-process. Before trusting any result, run a mesh independence check (refine until key outputs change by < ~2-3%) and confirm residuals have actually converged, not just dropped once.",
+      fea: "FEA tip: apply boundary conditions that match the real constraint, not just 'fixed everywhere' — over-constraining hides stress concentrations. Always cross-check peak stress against a hand-calculated approximation before trusting the contour plot.",
+      materials: "Materials tip: when comparing material classes, anchor on specific stiffness (E/rho) and specific strength (sigma/rho) rather than raw values — that's what actually matters for weight-critical mechanical design.",
+      "study plan": "Suggested weekly rhythm: 2 focused blocks for theory derivations, 1 block for past-year questions under time pressure, and 1 block purely for simulation software (Fluent / Mechanical) so the software doesn't eat into derivation time.",
+      hello: "ME-AI online. Ask about thermodynamics, fluid mechanics, CFD, FEA, or materials — or tap a quick topic above.",
+      default: "That's outside my offline knowledge base right now. Try: thermo, fluid mechanics, CFD, FEA, materials, or study plan — or use the search bar above for your course drive folders."
+    };
+
+    function matchKB(query) {
+      var q = query.toLowerCase();
+      if (/(hi|hello|hey)\b/.test(q)) return KB.hello;
+      var keys = Object.keys(KB);
+      for (var i = 0; i < keys.length; i++) {
+        var k = keys[i];
+        if (k === 'default' || k === 'hello') continue;
+        if (q.indexOf(k) !== -1) return KB[k];
+      }
+      if (q.indexOf('heat') !== -1) return KB.thermo;
+      if (q.indexOf('flow') !== -1 || q.indexOf('drag') !== -1 || q.indexOf('lift') !== -1) return KB['fluid mechanics'];
+      if (q.indexOf('mesh') !== -1 || q.indexOf('fluent') !== -1) return KB.cfd;
+      if (q.indexOf('stress') !== -1 || q.indexOf('ansys') !== -1) return KB.fea;
+      if (q.indexOf('alloy') !== -1 || q.indexOf('composite') !== -1) return KB.materials;
+      return KB.default;
+    }
+
+    /* Five simulated "model voices" — all generated locally from   */
+    /* the same offline knowledge base above, just rephrased/tagged */
+    /* differently so answers can be visually compared and one      */
+    /* picked. No real ChatGPT / Gemini / Perplexity / DeepSeek API  */
+    /* is called — this file has no network keys or backend.        */
+    var MODELS = [
+      { name: 'ChatGPT',    color: '#10a37f' },
+      { name: 'Gemini',     color: '#4285f4' },
+      { name: 'Perplexity', color: '#20808d' },
+      { name: 'Claude',     color: '#d97757' },
+      { name: 'DeepSeek',   color: '#5865f2' }
+    ];
+
+    function voiceOf(modelName, text) {
+      switch (modelName) {
+        case 'ChatGPT':    return text + ' Want me to break any part of this down further?';
+        case 'Gemini':     return 'Quick structured summary: ' + text;
+        case 'Perplexity': return text + ' (Cross-checked against standard mechanical engineering course conventions.)';
+        case 'Claude':     return text;
+        case 'DeepSeek':   return 'Concise version — ' + text;
+        default:           return text;
+      }
+    }
+
+    function addMsg(role, text, typewriter, tagLabel) {
+      var wrap = document.createElement('div');
+      wrap.className = 'ai-msg ' + role;
+      if (role === 'bot') {
+        var tag = document.createElement('span');
+        tag.className = 'tag';
+        tag.textContent = '// ' + (tagLabel || 'ME-AI');
+        wrap.appendChild(tag);
+      }
+      var body = document.createElement('span');
+      wrap.appendChild(body);
+      log.appendChild(wrap);
+      log.scrollTop = log.scrollHeight;
+
+      if (!typewriter) {
+        body.textContent = text;
+        return;
+      }
+
+      var cursor = document.createElement('span');
+      cursor.className = 'ai-cursor';
+      wrap.appendChild(cursor);
+
+      var i = 0;
+      aiState.textContent = 'THINKING';
+      var speed = 12;
+      var timer = setInterval(function () {
+        body.textContent += text.charAt(i);
+        i++;
+        log.scrollTop = log.scrollHeight;
+        if (i >= text.length) {
+          clearInterval(timer);
+          cursor.remove();
+          aiState.textContent = 'STANDBY';
+        }
+      }, speed);
+    }
+
+    function askCompare(query) {
+      if (!query.trim()) return;
+      addMsg('user', query, false);
+      var baseAnswer = matchKB(query);
+      aiState.textContent = 'COMPARING';
+
+      var status = document.createElement('div');
+      status.className = 'ai-compare-status';
+      status.textContent = '// querying 5 models…';
+      log.appendChild(status);
+      log.scrollTop = log.scrollHeight;
+
+      setTimeout(function () {
+        status.remove();
+        var wrap = document.createElement('div');
+        wrap.className = 'ai-compare-wrap';
+        log.appendChild(wrap);
+
+        MODELS.forEach(function (m) {
+          var card = document.createElement('div');
+          card.className = 'ai-compare-card';
+
+          var head = document.createElement('div');
+          head.className = 'ai-compare-head';
+
+          var tag = document.createElement('div');
+          tag.className = 'ai-model-tag';
+          var dot = document.createElement('span');
+          dot.className = 'ai-model-dot';
+          dot.style.background = m.color;
+          dot.style.color = m.color;
+          tag.appendChild(dot);
+          tag.appendChild(document.createTextNode(m.name));
+
+          var useBtn = document.createElement('button');
+          useBtn.className = 'ai-use-btn';
+          useBtn.textContent = 'USE THIS';
+          useBtn.setAttribute('aria-label', 'Use the ' + m.name + ' style answer');
+
+          head.appendChild(tag);
+          head.appendChild(useBtn);
+
+          var bodyText = voiceOf(m.name, baseAnswer);
+          var bodyEl = document.createElement('div');
+          bodyEl.className = 'ai-compare-text';
+          bodyEl.textContent = bodyText;
+
+          card.appendChild(head);
+          card.appendChild(bodyEl);
+          wrap.appendChild(card);
+
+          useBtn.addEventListener('click', function () {
+            if (wrap.classList.contains('resolved')) return;
+            wrap.classList.add('resolved');
+            Array.prototype.forEach.call(wrap.querySelectorAll('.ai-compare-card'), function (c) {
+              if (c !== card) {
+                c.classList.add('dimmed');
+                c.querySelector('.ai-use-btn').disabled = true;
+              }
+            });
+            card.classList.add('chosen');
+            useBtn.disabled = true;
+            useBtn.textContent = 'SELECTED ✓';
+            addMsg('bot', bodyText, true, m.name);
+          });
+        });
+
+        log.scrollTop = log.scrollHeight;
+        aiState.textContent = 'STANDBY';
+      }, 450);
+    }
+
+    function openPanel() {
+      panel.classList.add('open');
+      if (!greeted) {
+        greeted = true;
+        setTimeout(function () { addMsg('bot', KB.hello, true); }, 200);
+      }
+      input.focus();
+    }
+
+    launcher.addEventListener('click', function () {
+      panel.classList.contains('open') ? panel.classList.remove('open') : openPanel();
+    });
+    closeBtn.addEventListener('click', function () { panel.classList.remove('open'); });
+
+    sendBtn.addEventListener('click', function () {
+      askCompare(input.value);
+      input.value = '';
+    });
+    input.addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') { askCompare(input.value); input.value = ''; }
+    });
+
+    chips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        if (!panel.classList.contains('open')) openPanel();
+        askCompare(chip.getAttribute('data-q'));
+      });
+    });
+  })();
 </script>
 
 </body>
-</html> 
+</html>
