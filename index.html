@@ -181,7 +181,6 @@
     transition: background 0.5s, color 0.5s;
   }
 
-  /* Subtle technical background pattern */
   body::before {
     content: '';
     position: fixed;
@@ -221,7 +220,6 @@
     to   { background-position: 60px 60px, -60px 60px; }
   }
 
-  /* Gear-like subtle animation container */
   #gears {
     position: fixed;
     inset: 0;
@@ -245,7 +243,6 @@
     to { transform: rotate(360deg); }
   }
 
-  /* Soft floating light orbs, drifting slowly behind the content */
   #orbs {
     position: fixed;
     inset: 0;
@@ -268,7 +265,6 @@
     66%      { transform: translate(-25px, 25px) scale(0.9); }
   }
 
-  /* Respect reduced-motion preference: keep the interface calm     */
   @media (prefers-reduced-motion: reduce) {
     body::before, body::after, .gear, .orb, .top-bar::after,
     #aiLauncher, #aiLauncher::before, .hud-dot, .ai-cursor {
@@ -276,7 +272,6 @@
     }
   }
 
-  /* ── TOP BAR ── */
   .top-bar {
     padding: 12px 16px;
     background: var(--topbar);
@@ -363,7 +358,6 @@
     border-color: var(--accent2);
   }
 
-  /* Suggestions */
   #suggestions {
     position: absolute;
     top: 100%;
@@ -393,7 +387,6 @@
     color: var(--accent2);
   }
 
-  /* Main Content */
   main { flex: 1; padding: 28px 16px 90px; width: 100%; }
 
   .page { display: none; width: 100%; }
@@ -409,7 +402,6 @@
     transition: all 0.4s;
   }
 
-  /* Title */
   .forge-title {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 2.8rem;
@@ -445,7 +437,6 @@
     margin-bottom: 0.8rem;
   }
 
-  /* Semester Select */
   .semester-select {
     width: 100%;
     padding: 12px 40px 12px 16px;
@@ -465,7 +456,6 @@
     box-shadow: 0 0 0 4px var(--glow);
   }
 
-  /* Semester List */
   .semester-list {
     list-style: none;
     display: grid;
@@ -507,7 +497,6 @@
     color: var(--accent);
   }
 
-  /* Course Pages */
   .course-code-tag {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.7rem;
@@ -561,7 +550,6 @@
     color: var(--accent2);
   }
 
-  /* Back Button */
   .back-button {
     display: flex;
     align-items: center;
@@ -586,7 +574,6 @@
     color: var(--accent);
   }
 
-  /* Theme Toggle */
   #themeToggle {
     padding: 9px 22px;
     font-family: 'Bebas Neue', sans-serif;
@@ -603,7 +590,6 @@
     color: var(--accent);
   }
 
-  /* Bottom Navigation */
   #bottom-nav {
     position: fixed;
     bottom: 0; left: 0; right: 0;
@@ -632,16 +618,12 @@
     background: rgba(0,180,255,0.08);
   }
 
-  /* Responsive */
   @media (max-width: 480px) {
     .forge-title { font-size: 2.2rem; }
     .course-big-title { font-size: 2.5rem; }
     main { padding: 20px 12px 90px; }
   }
 
-  /* ============================================================ */
-  /* FUTURE SYSTEMS LAYER — HUD, kinematics readout, AI copilot    */
-  /* ============================================================ */
   :root {
     --ai-accent: #b46dff;
     --ai-accent2: #d6b3ff;
@@ -650,7 +632,6 @@
     --ok: #29ffb0;
   }
 
-  /* Ambient node-network canvas, sits behind the drafting grid */
   #netCanvas {
     position: fixed;
     inset: 0;
@@ -660,7 +641,6 @@
   }
   body.light #netCanvas { opacity: 0.28; }
 
-  /* Scanning sweep across the top bar, like an active sensor pass */
   .top-bar { position: sticky; overflow: hidden; }
   .top-bar::after {
     content: '';
@@ -676,7 +656,6 @@
     100% { left: 105%; }
   }
 
-  /* HUD status strip under the title */
   .hud-strip {
     display: flex;
     flex-wrap: wrap;
@@ -713,7 +692,6 @@
     50%      { opacity: 0.35; transform: scale(0.7); }
   }
 
-  /* Kinematics readout — a live four-bar linkage mechanism */
   .linkage-wrap {
     display: flex;
     flex-direction: column;
@@ -731,7 +709,6 @@
   }
   #linkageSvg { width: 100%; max-width: 300px; height: 84px; overflow: visible; }
 
-  /* Course & semester cards get a faint circuit-trace hover accent */
   .semester-item a { position: relative; overflow: hidden; }
   .semester-item a::before {
     content: '';
@@ -744,7 +721,6 @@
   }
   .semester-item a:hover::before { transform: translateX(120%); }
 
-  /* AI Copilot — floating launcher */
   #aiLauncher {
     position: fixed;
     right: 18px;
@@ -793,7 +769,6 @@
     box-shadow: 0 0 6px var(--ok);
   }
 
-  /* AI Copilot — panel */
   #aiPanel {
     position: fixed;
     right: 16px;
@@ -1003,7 +978,6 @@
 
 <main>
 
-  <!-- HOME -->
   <div id="mainPage" class="page active">
     <div class="card">
       <div class="forge-title">MECH. ENG.</div>
@@ -1048,8 +1022,6 @@
     </div>
   </div>
 
-  <!-- All course pages remain exactly the same as your original (only theme changed) -->
-  <!-- 1-1 -->
   <div id="course2021" class="page">
     <div class="course-container">
       <div class="course-header">
@@ -1081,7 +1053,6 @@
     </div>
   </div>
 
-  <!-- 1-2 -->
   <div id="course2022" class="page">
     <div class="course-container">
       <div class="course-header">
@@ -1113,7 +1084,6 @@
     </div>
   </div>
 
-  <!-- 2-1 -->
   <div id="course2023" class="page">
     <div class="course-container">
       <div class="course-header">
@@ -1145,7 +1115,6 @@
     </div>
   </div>
 
-  <!-- 2-2 -->
   <div id="course2024" class="page">
     <div class="course-container">
       <div class="course-header">
@@ -1177,7 +1146,6 @@
     </div>
   </div>
 
-  <!-- 3-1 -->
   <div id="course2025" class="page">
     <div class="course-container">
       <div class="course-header">
@@ -1211,15 +1179,14 @@
 
 </main>
 
-<!-- AI Copilot -->
-<button id="aiLauncher" title="Multi-AI Copilot" aria-label="Open Multi-AI Copilot">
-  <img src="cat.jpg" alt="AI Copilot">
+<button id="aiLauncher" title="AI Router" aria-label="Open AI Router">
+  <img src="cat.jpg" alt="AI Router">
   <span class="ai-launcher-badge" aria-hidden="true"></span>
 </button>
 
 <div id="aiPanel">
   <div class="ai-head">
-    <div class="ai-head-title"><span class="hud-dot"></span>ME-AI // MULTI-COMPARE</div>
+    <div class="ai-head-title"><span class="hud-dot"></span>ME-AI // ROUTER</div>
     <button id="aiClose" aria-label="Close">✕</button>
   </div>
   <div class="ai-chips">
@@ -1232,10 +1199,10 @@
   </div>
   <div id="aiLog"></div>
   <div class="ai-input-row">
-    <input type="text" id="aiInput" placeholder="Ask anything — compare 5 AI answers...">
-    <button id="aiSend">SEND</button>
+    <input type="text" id="aiInput" placeholder="Type your question, then pick a real AI to send it to...">
+    <button id="aiSend">GO</button>
   </div>
-  <div class="ai-disclaimer">Offline heuristic assistant. Answers are locally generated and styled to resemble ChatGPT, Gemini, Perplexity, Claude &amp; DeepSeek for easy side-by-side comparison — no live internet or third-party API calls are made. Always cross-check with your course materials.</div>
+  <div class="ai-disclaimer">This copies your question and opens the real AI site in a new tab. This page has no ChatGPT/Gemini/Claude/Perplexity/DeepSeek API keys, so it can't fetch their answers directly — you'll land on the real site, ready to paste (or already pre-filled where supported).</div>
 </div>
 
 <div id="bottom-nav">
@@ -1245,58 +1212,53 @@
 </div>
 
 <script>
-  /* Gear Animation */
-  const gearsContainer = document.getElementById('gears');
+  var gearsContainer = document.getElementById('gears');
   function createGear() {
-    const gear = document.createElement('div');
+    var gear = document.createElement('div');
     gear.className = 'gear';
-    const size = Math.random() * 60 + 40;
-    gear.style.cssText = `
-      width: ${size}px;
-      height: ${size}px;
-      left: ${Math.random() * 100}vw;
-      top: ${Math.random() * 100}vh;
-      animation-duration: ${Math.random() * 25 + 20}s;
-      opacity: ${Math.random() * 0.4 + 0.3};
-    `;
+    var size = Math.random() * 60 + 40;
+    gear.style.cssText =
+      'width:' + size + 'px;' +
+      'height:' + size + 'px;' +
+      'left:' + (Math.random() * 100) + 'vw;' +
+      'top:' + (Math.random() * 100) + 'vh;' +
+      'animation-duration:' + (Math.random() * 25 + 20) + 's;' +
+      'opacity:' + (Math.random() * 0.4 + 0.3) + ';';
     gearsContainer.appendChild(gear);
-    setTimeout(() => gear.remove(), 60000);
+    setTimeout(function () { gear.remove(); }, 60000);
   }
 
   setInterval(createGear, 1800);
-  for (let i = 0; i < 8; i++) createGear();
+  for (var gi = 0; gi < 8; gi++) createGear();
 
-  /* Floating ambient orbs */
-  const orbsContainer = document.getElementById('orbs');
-  const ORB_COUNT = 6;
-  for (let i = 0; i < ORB_COUNT; i++) {
-    const orb = document.createElement('div');
+  var orbsContainer = document.getElementById('orbs');
+  var ORB_COUNT = 6;
+  for (var oi = 0; oi < ORB_COUNT; oi++) {
+    var orb = document.createElement('div');
     orb.className = 'orb';
-    const size = Math.random() * 180 + 120;
-    orb.style.cssText = `
-      width: ${size}px;
-      height: ${size}px;
-      left: ${Math.random() * 90}vw;
-      top: ${Math.random() * 90}vh;
-      animation-duration: ${Math.random() * 14 + 14}s;
-      animation-delay: ${(Math.random() * 6).toFixed(2)}s;
-    `;
+    var osize = Math.random() * 180 + 120;
+    orb.style.cssText =
+      'width:' + osize + 'px;' +
+      'height:' + osize + 'px;' +
+      'left:' + (Math.random() * 90) + 'vw;' +
+      'top:' + (Math.random() * 90) + 'vh;' +
+      'animation-duration:' + (Math.random() * 14 + 14) + 's;' +
+      'animation-delay:' + (Math.random() * 6).toFixed(2) + 's;';
     orbsContainer.appendChild(orb);
   }
 
-  /* Page Navigation */
   function showPage(id) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.page').forEach(function (p) { p.classList.remove('active'); });
     document.getElementById(id).classList.add('active');
-    
-    document.querySelectorAll('#bottom-nav button').forEach(b => b.classList.remove('active'));
+
+    document.querySelectorAll('#bottom-nav button').forEach(function (b) { b.classList.remove('active'); });
     if (id === 'mainPage') {
       document.querySelector('#bottom-nav button').classList.add('active');
     }
   }
 
-  document.getElementById('semesterFilter').addEventListener('change', function() {
-    const v = this.value;
+  document.getElementById('semesterFilter').addEventListener('change', function () {
+    var v = this.value;
     if (v === 'all' || !v) {
       showPage('mainPage');
     } else {
@@ -1304,7 +1266,6 @@
     }
   });
 
-  /* Search Functionality (unchanged) */
   var courses = [
     { name: "Chem-1121", link: "https://drive.google.com/drive/u/0/folders/1EXFFWysIjlYlT0yI-g4GUOuURYJEzX-R" },
     { name: "Phy-1121", link: "https://drive.google.com/drive/u/0/folders/1DBkm4pm8kmqrkH1FI8SMb01ewuDRbFeX" },
@@ -1356,7 +1317,7 @@
       return;
     }
 
-    var matches = courses.filter(c => c.name.toUpperCase().indexOf(filter) !== -1);
+    var matches = courses.filter(function (c) { return c.name.toUpperCase().indexOf(filter) !== -1; });
 
     if (!matches.length) {
       sugg.innerHTML = '<div style="color:var(--dim); padding:12px;">No matches found</div>';
@@ -1364,10 +1325,10 @@
       return;
     }
 
-    matches.forEach(item => {
+    matches.forEach(function (item) {
       var d = document.createElement('div');
       d.textContent = item.name;
-      d.onclick = function() {
+      d.onclick = function () {
         window.open(item.link, '_blank');
         input.value = '';
         sugg.style.display = 'none';
@@ -1384,21 +1345,18 @@
     }
   }
 
-  document.getElementById('searchInput').addEventListener('input', () => searchCourses(false));
-  document.getElementById('searchInput').addEventListener('keypress', e => {
+  document.getElementById('searchInput').addEventListener('input', function () { searchCourses(false); });
+  document.getElementById('searchInput').addEventListener('keypress', function (e) {
     if (e.key === 'Enter') { e.preventDefault(); searchCourses(true); }
   });
-  document.querySelector('.btn-search').onclick = () => searchCourses(true);
+  document.querySelector('.btn-search').onclick = function () { searchCourses(true); };
 
-  document.addEventListener('click', e => {
+  document.addEventListener('click', function (e) {
     var s = document.getElementById('suggestions');
     if (!document.getElementById('searchInput').contains(e.target) && !s.contains(e.target))
       s.style.display = 'none';
   });
 
-  /* ============================================================ */
-  /* THEME SYSTEM — cycles through 9 accessible themes on click    */
-  /* ============================================================ */
   (function () {
     var THEMES = [
       { key: 'dark',            label: '🌙 DARK',        light: false },
@@ -1427,9 +1385,6 @@
     apply(0);
   })();
 
-  /* ============================================================ */
-  /* AMBIENT NODE-NETWORK — a slow "data mesh" behind the grid     */
-  /* ============================================================ */
   (function () {
     var canvas = document.getElementById('netCanvas');
     var ctx = canvas.getContext('2d');
@@ -1494,19 +1449,13 @@
     requestAnimationFrame(step);
   })();
 
-  /* ============================================================ */
-  /* LIVE FOUR-BAR LINKAGE — real planar mechanism kinematics      */
-  /* Grashof crank-rocker: shortest link (crank) drives a full     */
-  /* rotation while the coupler and rocker trace their motion.     */
-  /* ============================================================ */
   (function () {
     var svg = document.getElementById('linkageSvg');
     if (!svg) return;
     var NS = 'http://www.w3.org/2000/svg';
 
-    // Ground pivots and link lengths (Grashof crank-rocker: 15+50 <= 40+33)
-    var O2 = { x: 125, y: 55 };   // fixed crank pivot
-    var O4 = { x: 175, y: 55 };   // fixed rocker pivot
+    var O2 = { x: 125, y: 55 };
+    var O4 = { x: 175, y: 55 };
     var r1 = 50, r2 = 15, r3 = 40, r4 = 33;
     var theta2 = 0;
     var trail = [];
@@ -1566,9 +1515,6 @@
     requestAnimationFrame(frame);
   })();
 
-  /* ============================================================ */
-  /* HUD COUNTERS — uptime clock + node census                     */
-  /* ============================================================ */
   (function () {
     var startTime = Date.now();
     var uptimeEl = document.getElementById('hudUptime');
@@ -1587,8 +1533,12 @@
   })();
 
   /* ============================================================ */
-  /* ME-AI COPILOT — offline heuristic study assistant             */
-  /* Keyword-matched, deterministic. No live network calls.        */
+  /* ME-AI ROUTER — real redirect to actual AI sites               */
+  /* No API keys, no fake generated answers. This copies the       */
+  /* question to the clipboard and opens the REAL site in a new    */
+  /* tab. Where a service supports a URL query parameter, the       */
+  /* question is pre-filled automatically. Where it doesn't, it's   */
+  /* already on the clipboard so the user just pastes (Ctrl+V).    */
   /* ============================================================ */
   (function () {
     var launcher = document.getElementById('aiLauncher');
@@ -1601,59 +1551,63 @@
     var chips = document.querySelectorAll('.ai-chip');
     var greeted = false;
 
-    var KB = {
-      thermo: "Thermo checklist: define your system boundary first, then track which property is held constant across each process (isothermal, isobaric, isochoric, adiabatic). For cycles, sketch the P-v and T-s diagrams before touching an equation — most marks are lost from a wrong process assumption, not a wrong formula.",
-      "fluid mechanics": "Fluid mechanics tip: always start with control-volume selection and label inlet/outlet velocities and pressures. For pipe flow, check Reynolds number first — it decides whether you're in the laminar friction-factor regime or need a Moody chart / Colebrook iteration.",
-      cfd: "CFD workflow: geometry -> mesh -> physics setup -> solve -> post-process. Before trusting any result, run a mesh independence check (refine until key outputs change by < ~2-3%) and confirm residuals have actually converged, not just dropped once.",
-      fea: "FEA tip: apply boundary conditions that match the real constraint, not just 'fixed everywhere' — over-constraining hides stress concentrations. Always cross-check peak stress against a hand-calculated approximation before trusting the contour plot.",
-      materials: "Materials tip: when comparing material classes, anchor on specific stiffness (E/rho) and specific strength (sigma/rho) rather than raw values — that's what actually matters for weight-critical mechanical design.",
-      "study plan": "Suggested weekly rhythm: 2 focused blocks for theory derivations, 1 block for past-year questions under time pressure, and 1 block purely for simulation software (Fluent / Mechanical) so the software doesn't eat into derivation time.",
-      hello: "ME-AI online. Ask about thermodynamics, fluid mechanics, CFD, FEA, or materials — or tap a quick topic above.",
-      default: "That's outside my offline knowledge base right now. Try: thermo, fluid mechanics, CFD, FEA, materials, or study plan — or use the search bar above for your course drive folders."
+    var TIPS = {
+      thermo: "Local tip while you wait: define your system boundary first, then track which property is held constant across each process (isothermal, isobaric, isochoric, adiabatic).",
+      "fluid mechanics": "Local tip: start with control-volume selection and label inlet/outlet velocities and pressures. Check Reynolds number first to know which regime you're in.",
+      cfd: "Local tip: geometry -> mesh -> physics setup -> solve -> post-process. Run a mesh independence check before trusting any result.",
+      fea: "Local tip: apply boundary conditions that match the real constraint, not just 'fixed everywhere' — over-constraining hides stress concentrations.",
+      materials: "Local tip: compare material classes using specific stiffness (E/rho) and specific strength (sigma/rho), not raw values.",
+      "study plan": "Local tip: 2 blocks for theory derivations, 1 block for past-year questions under time pressure, 1 block purely for simulation software.",
+      default: "Type your question above, then choose a real AI below to open it there."
     };
 
-    function matchKB(query) {
+    function localTip(query) {
       var q = query.toLowerCase();
-      if (/(hi|hello|hey)\b/.test(q)) return KB.hello;
-      var keys = Object.keys(KB);
+      var keys = Object.keys(TIPS);
       for (var i = 0; i < keys.length; i++) {
-        var k = keys[i];
-        if (k === 'default' || k === 'hello') continue;
-        if (q.indexOf(k) !== -1) return KB[k];
+        if (keys[i] !== 'default' && q.indexOf(keys[i]) !== -1) return TIPS[keys[i]];
       }
-      if (q.indexOf('heat') !== -1) return KB.thermo;
-      if (q.indexOf('flow') !== -1 || q.indexOf('drag') !== -1 || q.indexOf('lift') !== -1) return KB['fluid mechanics'];
-      if (q.indexOf('mesh') !== -1 || q.indexOf('fluent') !== -1) return KB.cfd;
-      if (q.indexOf('stress') !== -1 || q.indexOf('ansys') !== -1) return KB.fea;
-      if (q.indexOf('alloy') !== -1 || q.indexOf('composite') !== -1) return KB.materials;
-      return KB.default;
+      return TIPS.default;
     }
 
-    /* Five simulated "model voices" — all generated locally from   */
-    /* the same offline knowledge base above, just rephrased/tagged */
-    /* differently so answers can be visually compared and one      */
-    /* picked. No real ChatGPT / Gemini / Perplexity / DeepSeek API  */
-    /* is called — this file has no network keys or backend.        */
-    var MODELS = [
-      { name: 'ChatGPT',    color: '#10a37f' },
-      { name: 'Gemini',     color: '#4285f4' },
-      { name: 'Perplexity', color: '#20808d' },
-      { name: 'Claude',     color: '#d97757' },
-      { name: 'DeepSeek',   color: '#5865f2' }
+    /* Real destinations. Some accept a `q`/query param and will   */
+    /* pre-fill (and in some cases auto-send) the question; others  */
+    /* don't expose one publicly, so we just open the app and rely  */
+    /* on the clipboard copy so the user can paste.                 */
+    var DESTINATIONS = [
+      {
+        name: 'ChatGPT',
+        color: '#10a37f',
+        prefill: true,
+        buildUrl: function (q) { return 'https://chatgpt.com/?q=' + encodeURIComponent(q); }
+      },
+      {
+        name: 'Gemini',
+        color: '#4285f4',
+        prefill: false,
+        buildUrl: function () { return 'https://gemini.google.com/app'; }
+      },
+      {
+        name: 'Perplexity',
+        color: '#20808d',
+        prefill: true,
+        buildUrl: function (q) { return 'https://www.perplexity.ai/search?q=' + encodeURIComponent(q); }
+      },
+      {
+        name: 'Claude',
+        color: '#d97757',
+        prefill: true,
+        buildUrl: function (q) { return 'https://claude.ai/new?q=' + encodeURIComponent(q); }
+      },
+      {
+        name: 'DeepSeek',
+        color: '#5865f2',
+        prefill: false,
+        buildUrl: function () { return 'https://chat.deepseek.com/'; }
+      }
     ];
 
-    function voiceOf(modelName, text) {
-      switch (modelName) {
-        case 'ChatGPT':    return text + ' Want me to break any part of this down further?';
-        case 'Gemini':     return 'Quick structured summary: ' + text;
-        case 'Perplexity': return text + ' (Cross-checked against standard mechanical engineering course conventions.)';
-        case 'Claude':     return text;
-        case 'DeepSeek':   return 'Concise version — ' + text;
-        default:           return text;
-      }
-    }
-
-    function addMsg(role, text, typewriter, tagLabel) {
+    function addMsg(role, text, tagLabel) {
       var wrap = document.createElement('div');
       wrap.className = 'ai-msg ' + role;
       if (role === 'bot') {
@@ -1663,111 +1617,109 @@
         wrap.appendChild(tag);
       }
       var body = document.createElement('span');
+      body.textContent = text;
       wrap.appendChild(body);
       log.appendChild(wrap);
       log.scrollTop = log.scrollHeight;
-
-      if (!typewriter) {
-        body.textContent = text;
-        return;
-      }
-
-      var cursor = document.createElement('span');
-      cursor.className = 'ai-cursor';
-      wrap.appendChild(cursor);
-
-      var i = 0;
-      aiState.textContent = 'THINKING';
-      var speed = 12;
-      var timer = setInterval(function () {
-        body.textContent += text.charAt(i);
-        i++;
-        log.scrollTop = log.scrollHeight;
-        if (i >= text.length) {
-          clearInterval(timer);
-          cursor.remove();
-          aiState.textContent = 'STANDBY';
-        }
-      }, speed);
     }
 
-    function askCompare(query) {
-      if (!query.trim()) return;
-      addMsg('user', query, false);
-      var baseAnswer = matchKB(query);
-      aiState.textContent = 'COMPARING';
+    function copyToClipboard(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        return navigator.clipboard.writeText(text).catch(function () { fallbackCopy(text); });
+      }
+      fallbackCopy(text);
+      return Promise.resolve();
+    }
+
+    function fallbackCopy(text) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try { document.execCommand('copy'); } catch (e) { /* no-op */ }
+      document.body.removeChild(ta);
+    }
+
+    function openDestination(dest, query) {
+      if (!query.trim()) {
+        addMsg('bot', 'Type a question first, then pick where to send it.');
+        return;
+      }
+      copyToClipboard(query);
+      var url = dest.buildUrl(query);
+      window.open(url, '_blank');
+      aiState.textContent = 'ROUTED';
+      var note = dest.prefill
+        ? 'Opened ' + dest.name + ' with your question pre-filled.'
+        : 'Opened ' + dest.name + '. Your question is copied — press Ctrl+V (or long-press to paste) in its chat box.';
+      addMsg('bot', note, dest.name);
+      setTimeout(function () { aiState.textContent = 'STANDBY'; }, 1500);
+    }
+
+    function renderRouterRow(query) {
+      addMsg('user', query);
+      var tip = localTip(query);
+      addMsg('bot', tip);
 
       var status = document.createElement('div');
       status.className = 'ai-compare-status';
-      status.textContent = '// querying 5 models…';
+      status.textContent = '// choose where to send this question';
       log.appendChild(status);
-      log.scrollTop = log.scrollHeight;
 
-      setTimeout(function () {
-        status.remove();
-        var wrap = document.createElement('div');
-        wrap.className = 'ai-compare-wrap';
-        log.appendChild(wrap);
+      var wrap = document.createElement('div');
+      wrap.className = 'ai-compare-wrap';
 
-        MODELS.forEach(function (m) {
-          var card = document.createElement('div');
-          card.className = 'ai-compare-card';
+      DESTINATIONS.forEach(function (dest) {
+        var card = document.createElement('div');
+        card.className = 'ai-compare-card';
 
-          var head = document.createElement('div');
-          head.className = 'ai-compare-head';
+        var head = document.createElement('div');
+        head.className = 'ai-compare-head';
 
-          var tag = document.createElement('div');
-          tag.className = 'ai-model-tag';
-          var dot = document.createElement('span');
-          dot.className = 'ai-model-dot';
-          dot.style.background = m.color;
-          dot.style.color = m.color;
-          tag.appendChild(dot);
-          tag.appendChild(document.createTextNode(m.name));
+        var tag = document.createElement('div');
+        tag.className = 'ai-model-tag';
+        var dot = document.createElement('span');
+        dot.className = 'ai-model-dot';
+        dot.style.background = dest.color;
+        dot.style.color = dest.color;
+        tag.appendChild(dot);
+        tag.appendChild(document.createTextNode(dest.name));
 
-          var useBtn = document.createElement('button');
-          useBtn.className = 'ai-use-btn';
-          useBtn.textContent = 'USE THIS';
-          useBtn.setAttribute('aria-label', 'Use the ' + m.name + ' style answer');
+        var openBtn = document.createElement('button');
+        openBtn.className = 'ai-use-btn';
+        openBtn.textContent = 'OPEN →';
+        openBtn.setAttribute('aria-label', 'Open ' + dest.name + ' with this question');
 
-          head.appendChild(tag);
-          head.appendChild(useBtn);
+        head.appendChild(tag);
+        head.appendChild(openBtn);
 
-          var bodyText = voiceOf(m.name, baseAnswer);
-          var bodyEl = document.createElement('div');
-          bodyEl.className = 'ai-compare-text';
-          bodyEl.textContent = bodyText;
+        var bodyEl = document.createElement('div');
+        bodyEl.className = 'ai-compare-text';
+        bodyEl.textContent = dest.prefill
+          ? 'Opens ' + dest.name + ' with your question already filled in.'
+          : 'Opens ' + dest.name + ' and copies your question — paste it in with Ctrl+V.';
 
-          card.appendChild(head);
-          card.appendChild(bodyEl);
-          wrap.appendChild(card);
+        card.appendChild(head);
+        card.appendChild(bodyEl);
+        wrap.appendChild(card);
 
-          useBtn.addEventListener('click', function () {
-            if (wrap.classList.contains('resolved')) return;
-            wrap.classList.add('resolved');
-            Array.prototype.forEach.call(wrap.querySelectorAll('.ai-compare-card'), function (c) {
-              if (c !== card) {
-                c.classList.add('dimmed');
-                c.querySelector('.ai-use-btn').disabled = true;
-              }
-            });
-            card.classList.add('chosen');
-            useBtn.disabled = true;
-            useBtn.textContent = 'SELECTED ✓';
-            addMsg('bot', bodyText, true, m.name);
-          });
+        openBtn.addEventListener('click', function () {
+          openDestination(dest, query);
         });
+      });
 
-        log.scrollTop = log.scrollHeight;
-        aiState.textContent = 'STANDBY';
-      }, 450);
+      log.appendChild(wrap);
+      log.scrollTop = log.scrollHeight;
     }
 
     function openPanel() {
       panel.classList.add('open');
       if (!greeted) {
         greeted = true;
-        setTimeout(function () { addMsg('bot', KB.hello, true); }, 200);
+        addMsg('bot', 'Type a question, or tap a topic above. Then pick ChatGPT, Gemini, Perplexity, Claude, or DeepSeek to actually send it there.');
       }
       input.focus();
     }
@@ -1778,17 +1730,22 @@
     closeBtn.addEventListener('click', function () { panel.classList.remove('open'); });
 
     sendBtn.addEventListener('click', function () {
-      askCompare(input.value);
-      input.value = '';
+      if (input.value.trim()) {
+        renderRouterRow(input.value.trim());
+        input.value = '';
+      }
     });
     input.addEventListener('keypress', function (e) {
-      if (e.key === 'Enter') { askCompare(input.value); input.value = ''; }
+      if (e.key === 'Enter' && input.value.trim()) {
+        renderRouterRow(input.value.trim());
+        input.value = '';
+      }
     });
 
     chips.forEach(function (chip) {
       chip.addEventListener('click', function () {
         if (!panel.classList.contains('open')) openPanel();
-        askCompare(chip.getAttribute('data-q'));
+        renderRouterRow(chip.getAttribute('data-q'));
       });
     });
   })();
